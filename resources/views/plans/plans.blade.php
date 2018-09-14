@@ -1,0 +1,98 @@
+@extends('layouts.app')
+@section('content')
+		<div class="col-md-9">
+		   <div class="card">
+			<div class="card-header">Plan Management
+			  <div class="pull-right" >
+				<a href="{{url('plans/create')}}" class="btn btn-success">Add Plan</a>
+			   </div>
+			  </div>
+
+                <div class="col-lg-12">
+	            @if(Session::has('flash_message'))
+		        <div class="alert {{ Session::get('alert-class', 'alert-info') }}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                 {{ Session::get('flash_message') }} 
+                </div>
+		       @endif 
+               <table id="example" class="display table table-hover table-condensed" >
+                <thead>
+                    <tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Price($)</th>
+						<th>Action</th>
+				     </tr>
+			    </thead>
+           <tbody>
+    
+		<?php 
+				$i = (Request::input('page')) ?  (Request::input('page') -1) * $plans->perPage() + 1 : 1; 
+				?>
+				@if(count($plans))
+					@foreach($plans as $key => $value)
+						<tr>
+						<td>{{ $i }}</td>
+						<td>{{$value->name}}</td>
+						<td>{{$value->description}}</td>
+					    <td>{{$value->price}}</td>
+					   
+						
+						
+						<td>
+				     <form method="POST" action="{{URL::to('plans')}}/{{$value->id}}" id="delete_{{ $value->id}}" accept-charset="UTF-8">
+						
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="hidden" name="_method" value="DELETE">
+						<a  class="btn btn-primary" href="{{URL('plans')}}/{{$value->id}}/edit" role="button" title="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+
+						<a class="btn my-btn btn-delete btn-danger" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+					</form>
+			      </td>
+						</tr>
+						<?php $i++; ?>
+					@endforeach
+					
+				@else
+					<tr>
+						<td colspan="4">No User yet</td>
+					</tr>
+				@endif
+				</tbody>	
+			 </table> 
+			 <div align="center" style="margin-left: 293px;" >{{$plans->links()}}</div>	
+         </div>
+       </div>	
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                <h4 class="modal-title" id="myModalLabel">Delete Plan</h4>
+            </div>
+            <div class="modal-body"> Are you sure want to delete <span class='delete-item'></span>? </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a href="#" class="btn btn-danger" id="danger">Delete</a> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+	$(document).ready(function() {
+	$('#confirm-delete').on('show.bs.modal', function (e) { 
+            var form = $(e.relatedTarget).data('href');
+			var data = $(e.relatedTarget).data('delete');
+			$('.delete-item').text(data);
+            $('#danger').click(function () { 
+			 //alert(data);
+			    $('#delete_' + form).submit();
+            });
+        });
+	});
+</script>		 
+
+@endsection

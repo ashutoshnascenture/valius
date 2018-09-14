@@ -1,0 +1,10 @@
+body {background-color: #e5eaef;}
+i{margin-right:5px;}
+.sidebar{background-color:#fff; padding:0px; min-height: 85vh; }	
+.user-profile{padding: 20px; }
+.user-profile img{ width: 100px; margin-bottom: 15px;}
+.user-profile h4{margin-bottom:15px; font-weight:bold;}
+.dropdown-menu{margin-top: 8px;}
+.card-header{font-size: 20px !important;}
+.table.dataTable{width:100% !important;}
+

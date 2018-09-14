@@ -1,0 +1,11 @@
+[08-Sep-2018 12:40:30 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/nascentu/public_html/valiusplan.nascenture.com/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 242
+[08-Sep-2018 12:40:45 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/nascentu/public_html/valiusplan.nascenture.com/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 242
+[08-Sep-2018 12:41:40 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/nascentu/public_html/valiusplan.nascenture.com/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 242
+[08-Sep-2018 12:41:41 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/nascentu/public_html/valiusplan.nascenture.com/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 242
+[08-Sep-2018 12:41:45 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/nascentu/public_html/valiusplan.nascenture.com/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 242
+[08-Sep-2018 12:41:45 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/nascentu/public_html/valiusplan.nascenture.com/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 242
+[08-Sep-2018 12:41:45 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/nascentu/public_html/valiusplan.nascenture.com/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 242
+[08-Sep-2018 12:41:47 UTC] PHP Parse error:  syntax error, unexpected '?' in /home/nascentu/public_html/valiusplan.nascenture.com/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php on line 242
+[11-Sep-2018 07:38:36 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\UserController::update() in /home/nascentu/public_html/valiusplan.nascenture.com/app/Http/Controllers/UserController.php on line 133
+[12-Sep-2018 05:03:33 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\PlanController::edit() in /home/nascentu/public_html/valiusplan.nascenture.com/app/Http/Controllers/PlanController.php on line 183
+[12-Sep-2018 05:06:39 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\PlanController::edit() in /home/nascentu/public_html/valiusplan.nascenture.com/app/Http/Controllers/PlanController.php on line 183
