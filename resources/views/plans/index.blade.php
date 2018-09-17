@@ -11,35 +11,39 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <div class="container">
+          
                 @if( !empty($plans) ) @if($is_subscribed)
                 <p class="lead">You can always change your plan.</p>
                 @else
                 <p class="lead">Please choose any of given plan to activate your hosting.</p>
                 @endif
-                <div class="card-deck mb-3 text-center">
-
+                <div class="col-md-12 text-center">
+                <div class="row">
+                
                     @foreach($plans as $plan)
   
                     <?php //echo '<pre>'; print_r($plan); ?>
-                        <div class="card mb-4 shadow-sm plan">
+                        <div class="mb-4 col-md-4 pl-0">
+                        <div class="card shadow-sm plan">
                             <div class="card-header">
                                 <h4 class="my-0 font-weight-normal">{{ $plan->nickname }}</h4>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title pricing-card-title">${{ $plan->amount / 100 }} / @if ($plan->interval==1) month  @endif</small></h4>
+                                <h4 class="card-title pricing-card-title">${{ $plan->amount / 100 }} / @if ($plan->interval==1) month  @endif</h4>
                                 <ul class="list-unstyled mt-3 mb-4">
                                     <li>10 GB of storage</li>
                                     <li>Priority email support</li>
                                 </ul>
-                                @if( $is_subscribed && ( $subscription->stripe_plan == $plan->id ) )
+                                @if( $is_subscribed && ( $subscription->stripe_plan == $plan->plan_id ) )
                                 <button class="btn btn-default btn-block">Current Plan</button>
 							@else
                                 <button plan_name="{{ $plan->nickname }}" plan_id="{{ $plan->id }}" plan_amount="{{ $plan->amount / 100 }}" class="btn btn-primary btn-choose btn-block">Choose</button> @endif
 
                             </div>
+                            </div>
                         </div>
                         @endforeach
+                        </div>
 
                 </div>
                 @else
@@ -86,7 +90,7 @@
 							</div>
 					</form>
 					</div>
-				</div>
+			
             </div>
         </div>
     </div>
