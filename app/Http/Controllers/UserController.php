@@ -133,7 +133,7 @@ class UserController extends Controller
     {	
 
 		$input = $request->all();
-		$rules = User::$rules;
+		$rules = User::recordUpdate();
 		$rules['email'] .= ',email,'.$id.',id';
 		//$rules['username'] .= ',username,'.$id.',id';
 		$validator = Validator::make($input,$rules);

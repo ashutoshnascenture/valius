@@ -44,4 +44,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function recordUpdate()
+    {
+        return array(
+            'first_name'                   => 'required',
+            'last_name'                    => 'required',
+            'email'                        => 'required|email|unique:users'
+        );
+    }
 }

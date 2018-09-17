@@ -41,7 +41,7 @@ Route::get('/plans', 'PlanController@index')->name('plans');
 Route::put('plans/planUpdate/{id}/', 'PlanController@planUpdate');
 Route::get('plans/get-plans', 'PlanController@getPlans');
 Route::resource('plans','PlanController');
-
+Route::resource('sites','SitesController');
 Route::group(['prefix' => 'subscribe'], function(){
 
 	Route::post('/', 'PlanController@subscribe')->name('subscribe');

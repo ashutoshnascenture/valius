@@ -37,17 +37,21 @@
 						<td>{{$value->name}}</td>
 						<td>{{$value->description}}</td>
 					    <td>{{$value->price}}</td>
-					   
-						
-						
 						<td>
 				     <form method="POST" action="{{URL::to('plans')}}/{{$value->id}}" id="delete_{{ $value->id}}" accept-charset="UTF-8">
 						
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" name="_method" value="DELETE">
+						
 						<a  class="btn btn-primary" href="{{URL('plans')}}/{{$value->id}}/edit" role="button" title="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-						<a class="btn my-btn btn-delete btn-danger" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        @if ($value->is_delete == 1)
+						<input type="hidden" name="is_delete" value="0">
+						<a class="btn my-btn btn-warning"   data-delete="{{$value->name}}" data-active="{{$value->is_delete}}" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Delete"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
+						@else
+						<input type="hidden" name="is_delete" value="1">
+						<a class="btn my-btn btn-warning"   data-delete="{{$value->name}}" data-active="{{$value->is_delete}}" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Delete"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>
+						@endif
+						
 					</form>
 			      </td>
 						</tr>
@@ -71,7 +75,7 @@
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
                 <h4 class="modal-title" id="myModalLabel">Delete Plan</h4>
             </div>
-            <div class="modal-body"> Are you sure want to delete <span class='delete-item'></span>? </div>
+            <div class="modal-body"> Are you sure want to  <span class='delete-item'></span>? </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <a href="#" class="btn btn-danger" id="danger">Delete</a> 
@@ -86,6 +90,16 @@
 	$('#confirm-delete').on('show.bs.modal', function (e) { 
             var form = $(e.relatedTarget).data('href');
 			var data = $(e.relatedTarget).data('delete');
+			var active = $(e.relatedTarget).data('active');
+			if (active==0) {
+              $("#danger").text('Active');
+              $("#myModalLabel").text("Active Plan");
+              data = "Active"+data;
+			} else {
+			   data = "Deactive"+data;
+			   $("#myModalLabel").text("Deactive Plan");
+               $("#danger").text('Deactive');
+			}
 			$('.delete-item').text(data);
             $('#danger').click(function () { 
 			 //alert(data);

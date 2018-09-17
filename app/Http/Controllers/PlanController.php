@@ -33,8 +33,7 @@ class PlanController extends Controller
     public function index()
     {
         // Get all plans from stripe api
-       $plans = DB::table('plans')->get();
-		
+        $plans = DB::table('plans')->where('is_delete','=',1)->get();
         // Check is subscribed
         $is_subscribed = Auth::user()->subscribed('main');
 
@@ -211,19 +210,19 @@ class PlanController extends Controller
 		return redirect('plans/get-plans');
 	}
 	
-	public function destroy($id)
+	public function destroy(Request $request,$id)
     {  
       if($id)
 		{
-		 $palnDetail =  DB::table('plans')->find($id);
+		 /*$palnDetail =  DB::table('plans')->find($id);
 		 $stripKey = config('services.stripe.secret');
          \Stripe\Stripe::setApiKey($stripKey);
 		 $plan = \Stripe\Plan::retrieve($palnDetail->plan_id);
-         $plan->delete();
-		 DB::table('plans')->where('id', $id)->delete(); 
-		Session::flash('flash_message', 'Data successfully deleted!');
+         $plan->delete();*/
+		DB::table('plans')->where('id', $id)->update(['is_delete' => $request->get('is_delete')]);  
+		Session::flash('flash_message', 'Plan  status successfully update!');
 		Session::flash('alert-class', 'alert-success');
-         return redirect('plans/get-plans'); 		
+        return redirect('plans/get-plans'); 		
 		}
 	
 		 

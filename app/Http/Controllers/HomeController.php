@@ -35,7 +35,7 @@ class HomeController extends Controller
     {
         // $plans = Plan::getStripePlans();
         //echo "<pre>"; print_r($plans); die;
-        $plans = DB::table('plans')->get();
+        $plans = DB::table('plans')->where('is_delete','=',1)->get();
         return view('home')->with(compact('plans')); 
     }
 
@@ -71,7 +71,6 @@ class HomeController extends Controller
 
     public function subscribePlan(Request $request) 
     {
-     
         $this->validate( $request, [ 'stripeToken' => 'required', 'plan' => 'required'] );
         $pickedPlan = $request->get('plan');
 		$pickedPlanName = $request->get('plan_name');
@@ -86,17 +85,13 @@ class HomeController extends Controller
 		    'email' => $request->get('email'), 
 			'password' => $request->get('password')
 		]);
-		
 		if ( $checkUser ) {
 			$user = Auth::user(); 
           try {
-			// check already subscribed and if already subscribed with picked plan
 			if( $user->subscribed('main') && ! $user->subscribedToPlan($pickedPlan, 'main') ) {
 				$user->subscription('main')->swap($pickedPlan);
 				
 			} else {
-				// Its new subscription
-				// if user has a coupon, create new subscription with coupon applied
 				if( $coupon = $request->get('coupon') ) {
 					$user->newSubscription( 'main', $pickedPlan)
 						->withCoupon($coupon)
@@ -105,23 +100,25 @@ class HomeController extends Controller
 						]);
 						
 				} else {
-					// Create subscription
-					
 					$user->newSubscription( 'main', $pickedPlan)->create($request->get('stripeToken'), [
 						'email' => $user->email,
 						'description' => $user->name
 					]);
-
 				}
 
 			}
 		} catch (\Exception $e) {
-
 			 return redirect('/plan-select/'.base64_encode($request->get('planlocalid')))->withErrors(['status' => $e->getMessage()]);
-			
 		}
+         $mailArray = array();
+         $mailArray['name'] = $user->first_name."".$user->last_name;
+         $mailArray['email'] = $user->email;
+         $mailArray['planName'] ='You are now subscribed to ' . $pickedPlanName . ' plan.';
+          \Mail::send('emails.send-mail', $mailArray, function($message) use($mailArray)  {
+            $message->to($mailArray['email']);
+            $message->subject('Confirmation Email');
+        });
 		return redirect('/plans')->with('status', 'You are now subscribed to ' . $pickedPlanName . ' plan.');
-
 		} else {
              
 			return redirect('/plan-select/'.base64_encode($request->get('planlocalid')))->withErrors(['status' => 'somthing went wrong please try again']);;
