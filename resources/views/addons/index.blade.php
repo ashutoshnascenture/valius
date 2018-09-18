@@ -48,10 +48,10 @@
 						<a  class="btn btn-primary" href="{{URL('addons')}}/{{$value->id}}/edit" role="button" title="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                         @if ($value->is_delete == 1)
 						<input type="hidden" name="is_delete" value="0">
-						<a class="btn my-btn btn-warning"   data-delete="{{$value->name}}" data-active="{{$value->is_delete}}" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Delete"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
+						<a class="btn my-btn btn-warning"   data-delete="{{$value->name}}" data-active="{{$value->is_delete}}" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Deactive"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>
 						@else
 						<input type="hidden" name="is_delete" value="1">
-						<a class="btn my-btn btn-warning"   data-delete="{{$value->name}}" data-active="{{$value->is_delete}}" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Delete"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>
+						<a class="btn my-btn btn-warning"   data-delete="{{$value->name}}" data-active="{{$value->is_delete}}" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Active"><i class="fa fa-toggle-off" aria-hidden="true"></i></a>
 						@endif
 						
 					</form>
