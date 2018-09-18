@@ -69,7 +69,7 @@
 								<input id="userEmail" type="hidden" name="email" value="{{$userDetail['email']}}">
 								<input id="userFirstname" type="hidden" name="first_name" value="{{$userDetail['first_name']}}">
 								<input id="userLastname" type="hidden" name="last_name" value="{{$userDetail['last_name']}}">
-								<input id="userPassword" type="hidden" name="plan_name" value="{{$userDetail['password']}}">
+								<input id="userPassword" type="hidden" name="password" value="{{$userDetail['password']}}">
 								<input type="submit" class="submit btn btn-success btn-lg btn-block" value="Make Payment">
 							</div>
 					  </div>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Auth;
@@ -33,15 +32,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $plans = Plan::getStripePlans();
-        //echo "<pre>"; print_r($plans); die;
         $plans = DB::table('plans')->where('is_delete','=',1)->get();
         return view('home')->with(compact('plans')); 
     }
 
     public function planDetail($planID='')
     {
-    	
          $planID = base64_decode($planID);
          $plan = DB::table('plans')->find($planID);
          if ($plan) {
@@ -71,6 +67,7 @@ class HomeController extends Controller
 
     public function subscribePlan(Request $request) 
     {
+
         $this->validate( $request, [ 'stripeToken' => 'required', 'plan' => 'required'] );
         $pickedPlan = $request->get('plan');
 		$pickedPlanName = $request->get('plan_name');
@@ -85,6 +82,7 @@ class HomeController extends Controller
 		    'email' => $request->get('email'), 
 			'password' => $request->get('password')
 		]);
+
 		if ( $checkUser ) {
 			$user = Auth::user(); 
           try {
@@ -110,6 +108,7 @@ class HomeController extends Controller
 		} catch (\Exception $e) {
 			 return redirect('/plan-select/'.base64_encode($request->get('planlocalid')))->withErrors(['status' => $e->getMessage()]);
 		}
+
          $mailArray = array();
          $mailArray['name'] = $user->first_name."".$user->last_name;
          $mailArray['email'] = $user->email;
@@ -123,7 +122,5 @@ class HomeController extends Controller
              
 			return redirect('/plan-select/'.base64_encode($request->get('planlocalid')))->withErrors(['status' => 'somthing went wrong please try again']);;
 		}
-		
-
     }
 }

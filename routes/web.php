@@ -24,26 +24,21 @@ Route::get('/plan-select/{planID}', 'HomeController@planDetail')->name('plan-sel
 Route::post('/plan-payment', 'HomeController@planPayment')->name('plan-payment');
 Route::post('/subscribe-plan', 'HomeController@subscribePlan')->name('subscribe-plan');
 Route::get('/dashboard', 'DashboardController@index');
- 
 Route::get('users/change-password/', 'UserController@changePassword');
 Route::post('users/reset-password/', 'UserController@resetPassword');
-
 Route::get('users/account-details/', 'UserController@accountDetails');
 Route::put('users/userUpdate/{id}/', 'UserController@userUpdate');
 Route::get('users/get-users/', 'UserController@getUsers');
 Route::delete('users/destroy/{id}', 'UserController@destroy');
 Route::resource('users','UserController');
-
-
 Route::resource('ticket','TicketController');
 Route::get('/plans', 'PlanController@index')->name('plans');
-
 Route::put('plans/planUpdate/{id}/', 'PlanController@planUpdate');
 Route::get('plans/get-plans', 'PlanController@getPlans');
+Route::put('addons/addonUpdate/{id}/', 'AddonsController@addonUpdate');
+Route::resource('addons','AddonsController');
 Route::resource('plans','PlanController');
 Route::resource('sites','SitesController');
 Route::group(['prefix' => 'subscribe'], function(){
-
 	Route::post('/', 'PlanController@subscribe')->name('subscribe');
-	
 });

@@ -12,6 +12,7 @@ use Validator;
 use Session;
 use DB;
 use Carbon\Carbon;
+use Config;
 
 class PlanController extends Controller
 {
@@ -33,7 +34,8 @@ class PlanController extends Controller
     public function index()
     {
         // Get all plans from stripe api
-        $plans = DB::table('plans')->where('is_delete','=',1)->get();
+
+        $plans = DB::table('plans')->where('is_delete','=',1);
         // Check is subscribed
         $is_subscribed = Auth::user()->subscribed('main');
 
@@ -112,10 +114,11 @@ class PlanController extends Controller
 	
 	public function getPlans()
 	{    
+		$paginationNo =  Config::get('constants.paginate');
 		$plans = DB::table('plans')
                 ->where('status', 1)
                 ->orderBy('id','DESC')
-                ->paginate(10);
+                ->paginate($paginationNo);
 	     
 		return view('plans/plans')->with(compact('plans'));
 
