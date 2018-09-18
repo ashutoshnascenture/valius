@@ -11,7 +11,7 @@ use Session;
 use Auth;
 use DataTables ;
 use Hash;
-use Config;
+use Config; 
 
 class UserController extends Controller
 {
