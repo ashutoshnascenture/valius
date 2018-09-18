@@ -102,7 +102,7 @@
 							<a href="{{url('users/get-users')}}" class="list-group-item list-group-item-action">
 							User Management</a>
 							<a href="{{url('plans/get-plans')}}" class="list-group-item list-group-item-action">
-							Plan Managementjhjghjghjg </a>
+							Plan Management fgffhfgh</a>
                             <a href="{{url('addons')}}" class="list-group-item list-group-item-action">
                             Addon Management</a>
 							@else  
