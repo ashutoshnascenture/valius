@@ -12,7 +12,7 @@ use Validator;
 use Session;
 use DB;
 use Carbon\Carbon;
-use Config;
+
 
 class PlanController extends Controller
 {
@@ -114,7 +114,7 @@ class PlanController extends Controller
 	
 	public function getPlans()
 	{    
-		$paginationNo =  Config::get('constants.paginate');
+		$paginationNo = $_ENV['PAGINATE_NOUMBER'];
 		$plans = DB::table('plans')
                 ->where('status', 1)
                 ->orderBy('id','DESC')

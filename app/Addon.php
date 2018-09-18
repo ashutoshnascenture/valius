@@ -22,7 +22,7 @@ class Addon extends Model
     );
     public static $message = array(
         'name.required'                    => 'Addon Name is required',
-        'description.required'             => 'description is required',
-         'price'                           => 'required'      
+        'description.required'             => 'Description is required',
+         'price.required'                  => 'Price is required'      
     );
 }

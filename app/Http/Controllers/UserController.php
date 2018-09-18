@@ -11,7 +11,7 @@ use Session;
 use Auth;
 use DataTables ;
 use Hash;
-use Config; 
+
 
 class UserController extends Controller
 {
@@ -46,7 +46,7 @@ class UserController extends Controller
 	
 	public function getUsers()
     {   
-    	$paginationNo =  Config::get('constants.paginate');
+    	 $paginationNo = $_ENV['PAGINATE_NOUMBER'];
 	    $users= User::paginate($paginationNo);
 	    
 		return view('users/index')->with(compact('users'));

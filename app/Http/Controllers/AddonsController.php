@@ -13,7 +13,7 @@ use Validator;
 use Session;
 use DB;
 use Carbon\Carbon;
-use Config;
+
 
 
 
@@ -27,7 +27,7 @@ class AddonsController extends Controller
 
     public function index()
     { 
-    	$paginationNo =  Config::get('constants.paginate');
+    	$paginationNo = $_ENV['PAGINATE_NOUMBER'];
         $addons = DB::table('addons')->paginate($paginationNo);
         return view('addons/index')->with(compact('addons'));
     }
