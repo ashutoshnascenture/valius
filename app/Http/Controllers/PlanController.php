@@ -33,11 +33,8 @@ class PlanController extends Controller
      */
     public function index()
     {
-        // Get all plans from stripe api
-
+        
         $plans = DB::table('plans')->where('is_delete','=',1)->get();
-       // echo "<pre>"; print_r($plans); die;
-        // Check is subscribed
         $is_subscribed = Auth::user()->subscribed('main');
 
         // If subscribed get the subscription
