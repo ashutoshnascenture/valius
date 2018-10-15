@@ -53,7 +53,7 @@
 		</div>
 		</div>
 		<div class="card">
-		<div class="card-header">Sftp DetailOptional)</div>
+		<div class="card-header">Sftp Detail(Optional)</div>
 		<div class="card-body">
 			
 				<div class="form-group col-6">
@@ -72,7 +72,7 @@
 		</div>
 		</div>
 		<div class="card">
-		<div class="card-header">Cpanel DetailOptional)</div>
+		<div class="card-header">Cpanel Detail(Optional)</div>
 		<div class="card-body">
 			
 				<div class="form-group col-6">
@@ -88,7 +88,7 @@
 					<input type="password" name="cpanel_password" class="form-control" value="{{ old('cpanel_password')}}">
 				</div>
 				 <div class="col-md-9">
-						<a href="#" class="btn btn-danger"> Cancel </a>
+						<a href="{{url('sites')}}" class="btn btn-danger"> Cancel </a>
 						<button type="submit" class="btn btn-primary">
 						Submit
 						</button> 
