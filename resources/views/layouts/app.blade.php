@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'VALIUS') }}</title>
+    <title>{{ config('app.name', 'Varo') }}</title>
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -111,9 +111,9 @@
 							@else  
 							<a href="{{url('/')}}" class="list-group-item list-group-item-action">Dashboard</a>
                             <a href="{{url('sites')}}" class="list-group-item list-group-item-action active">Sites</a>
-                            <a href="#" class="list-group-item list-group-item-action disabled">DNS</a>
+                           <!--  <a href="#" class="list-group-item list-group-item-action disabled">DNS</a> -->
 							<a href="#" class="list-group-item list-group-item-action disabled">Migrations</a>
-							<a href="#" class="list-group-item list-group-item-action disabled">Analytics</a>
+							<!-- <a href="#" class="list-group-item list-group-item-action disabled">Analytics</a> -->
 <!-- 							<a href="#" class="list-group-item list-group-item-action disabled">Billing</a>
  -->						    <a href="{{url('plans')}}" class="list-group-item list-group-item-action">Billing</a>	
 							<a href="{{url('users/account-details/')}}" class="list-group-item list-group-item-action disabled">Account Details</a>
