@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
 
-	<div class="col-md-9">
+	<div class="container">
+    <div class="row">
+	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">Add Plans</div>
 
@@ -44,7 +46,7 @@
 					</div>
 					
 					<div class="col-md-9">
-						<a href="#" class="btn btn-danger"> Cancel </a>
+						<a href="{{url('plans/get-plans')}}" class="btn btn-danger"> Cancel </a>
 						<button type="submit" class="btn btn-primary">
 						Submit
 						</button> 
@@ -54,4 +56,6 @@
 			</div>
 		</div>
 	</div>
+  </div>
+  </div>
 @endsection

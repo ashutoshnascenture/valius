@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('content')
-
-	<div class="col-md-9">
+<div class="container">
+<div class="row">
+	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">Add Users</div>
 
@@ -46,7 +47,7 @@
 					 </div>
 					<div class="form-group col-md-8">
 						<label >Phone</label>
-						<input  type="text"  class="form-control"  name="phone" placeholder="Phone" value="{{ old('password') }}">
+						<input  type="text"  class="form-control"  name="phone" placeholder="Phone" value="{{ old('phone') }}">
 					</div>
 					
 					 <input  type="hidden"   name="role_id"  value="2">
@@ -56,10 +57,11 @@
 						Submit
 						</button> 
 					</div>
-				</div>
 				</form>
 			</div>
 		</div>
+	</div>
+	</div>
 	</div>
 	
 @endsection

@@ -27,18 +27,19 @@ class User extends Authenticatable
      * @var array
      */
 	 public static $rules = array(
-        'first_name'                   => 'required',
-        'last_name'                    => 'required',
-        'email'                        => 'required|email|unique:users',
-        'password'                     => 'required', 
-        'confirm_pass'                   => 'required|same:password',    
+        'name'                    => 'required',
+        'email'                   => 'required|email|unique:users',
+        'password'                => 'required', 
+        'confirm_password'            => 'required|same:password',
+        'phone'                   => 'required',
     );
     public static $message = array(
-        'first_name.required'                    => 'First  Name is required',
-        'last_name.required'                     => 'Last  Name is required',
+        'first_name.required'                    => 'Name is required',
         'email.required'                         => 'Email is required',
         'password.required'                      => 'Password is required',
-        'confirm_pass.required'                    => 'Confirm Password is required',         
+        'confirm_password.required'              => 'Confirm Password is required', 
+        'confirm_password.same'                  => 'Confirm Password should match password', 
+        'phone.required'                         =>'Phone no is required',
     );
 	 
     protected $hidden = [
@@ -49,8 +50,39 @@ class User extends Authenticatable
     {
         return array(
             'first_name'                   => 'required',
-            'last_name'                    => 'required',
             'email'                        => 'required|email|unique:users'
         );
     }
+     public function roles()
+   {
+     return $this->belongsToMany(Role::class);
+   }
+   public function hasAnyRole($roles)
+   {
+    if(is_array($roles)){
+
+        foreach ($roles as $role) {
+
+            if ($this->hasRole($role)) {
+                return true;
+            }
+        }
+    }
+    else{
+
+        if ($this->hasRole($roles)) {
+
+            return true;
+        }
+    }
+    return false;
+}
+   public function hasRole($role)
+   {
+     if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+
+        return false;
+  }
 }

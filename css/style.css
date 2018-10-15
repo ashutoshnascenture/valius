@@ -1,4 +1,4 @@
-body {background-color: #e5eaef;}
+body {background-color: #f7f7fc;}
 i{margin-right:5px;}
 .sidebar{background-color:#fff; padding:0px; min-height: 85vh; }	
 .user-profile{padding: 20px; }
@@ -7,4 +7,15 @@ i{margin-right:5px;}
 .dropdown-menu{margin-top: 8px;}
 .card-header{font-size: 20px !important;}
 .table.dataTable{width:100% !important;}
+.top-nav{background-color: #724ce8; }
+.top-nav ul li a{color: #fff !important;}
+.login-form{  }
+.login-form h2{font-size: 25px; font-weight: bold; margin-bottom: 80px;}
+.login-box{box-shadow: 0px 0px 30px 0px #0000000d; padding: 30px; border-radius: 2px; background-color: #fff; position: relative; padding-top:60px; }
+.login-box .form-group{ margin-bottom: 25px; }
+.login-logo{ position: absolute; top: -50px; width: 90px; left: 0; right: 0; margin: 0 auto;}
+.btn-submit{ background-color: #6078fe; color: #fff;}
+.btn-submit:hover{ background-color: #5168e4; }
+.alert-pink{ background-color: #e84c85; color: #fff; }
+.top-nav .navbar-brand img{ width: 50px; }
 

@@ -27,16 +27,14 @@
 	
 	<script  src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <!--Start of Zendesk Chat Script-->
 
-<!--End of Zendesk Chat Script-->
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'VALIUS') }}
+                    {{ config('app.name', 'Varo') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -48,9 +46,9 @@
 
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
+                   
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
+                       
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -60,7 +58,7 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
-							@if(empty(\Auth::user()->id == 1))
+							@if(!\Auth::user()->hasRole('admin'))
 							<li class="nav-item">
                                 <a class="btn btn-success" href="{{ url('ticket') }}">{{ __('Submit a Request') }}</a>
                             </li>
@@ -71,15 +69,34 @@
                                 </a>
 								
 								<ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                 <li> <a href="{{url('/')}}" class="dropdown-item">Dashboard</a></li>
+                                @if(\Auth::user()->hasRole('admin'))
+
+                                            <li><a href="{{url('users/get-users')}}" class="dropdown-item">
+                                    User Management</a></li>
+                                    <li><a href="{{url('plans/get-plans')}}" class="dropdown-item">
+                                    Plan Management</a></li>
+                                    <li><a href="{{url('addons')}}" class="dropdown-item">
+                                    Addon Management</a></li>
+                            @else     
+                            <li><a href="{{url('sites')}}" class="dropdown-item">Sites</a></li>
+                           <!--  <a href="#" class="list-group-item list-group-item-action disabled">DNS</a> -->
+                            <li><a href="#" class="dropdown-item">Migrations</a></li>
+                            <!-- <a href="#" class="list-group-item list-group-item-action disabled">Analytics</a> -->
+<!--                            <a href="#" class="list-group-item list-group-item-action disabled">Billing</a>
+ -->                           <li> <a href="{{url('plans')}}" class="dropdown-item">Billing</a></li>   
+                           <li> <a href="{{url('users/account-details/')}}" class="dropdown-item">Account Details</a></li>
+                            <li> <a href="#" class="dropdown-item">Conversations</a></li>   
+                            @endif
 
                                     <li><a class="dropdown-item" href="{{ url('users/change-password') }}"><i class="fa fa-btn fa-key"></i>Change Password</a></li>
                                     <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="fa fa-btn fa-sign-out"></i>{{ __('Logout') }}
                                     </a></li>
                                 </ul>
-								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-									@csrf
-								</form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                                 
                             </li>
                         @endguest
@@ -91,36 +108,9 @@
         <main class="py-4"> 
 		<div class="container">
 			<div class="row">
-			    <div class="col-md-3 sidebar">
-					<div class="sidenav">
-					<div class="user-profile text-center">
-						<img src="{{url('/images/user.png')}}" alt="" title="" />
-						<h4>@if(Auth::user() ) {{ Auth::user()->name }} @endif </h4>
-					</div>
+			    
 						
-						<div class="list-group">
-							@if(Auth::user() )
-							@if(\Auth::user()->id == 1)
-							
-							<a href="{{url('users/get-users')}}" class="list-group-item list-group-item-action">
-							User Management</a>
-							<a href="{{url('plans/get-plans')}}" class="list-group-item list-group-item-action">
-							Plan Management</a>
-                            <a href="{{url('addons')}}" class="list-group-item list-group-item-action">
-                            Addon Management</a>
-							@else  
-							<a href="{{url('/')}}" class="list-group-item list-group-item-action">Dashboard</a>
-                            <a href="{{url('sites')}}" class="list-group-item list-group-item-action active">Sites</a>
-                           <!--  <a href="#" class="list-group-item list-group-item-action disabled">DNS</a> -->
-							<a href="#" class="list-group-item list-group-item-action disabled">Migrations</a>
-							<!-- <a href="#" class="list-group-item list-group-item-action disabled">Analytics</a> -->
-<!-- 							<a href="#" class="list-group-item list-group-item-action disabled">Billing</a>
- -->						    <a href="{{url('plans')}}" class="list-group-item list-group-item-action">Billing</a>	
-							<a href="{{url('users/account-details/')}}" class="list-group-item list-group-item-action disabled">Account Details</a>
-							<a href="#" class="list-group-item list-group-item-action">Conversations</a>
-							@endif
-							@endif
-						</div>
+					   
 						
 					</div>
 				</div>

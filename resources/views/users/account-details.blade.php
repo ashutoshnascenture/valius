@@ -3,7 +3,9 @@
 
     
 	
-	<div class="col-md-9">
+	<div class="container">
+    <div class="row">
+	<div class="col-md-12">
 		<div class="card">
 			<div class="card-header">Account Details</div>
 
@@ -37,10 +39,10 @@
 
 					<input type="hidden" name="_method" value="PUT">			
 					
-					<div class="form-group col-md-8">
+					<!-- <div class="form-group col-md-8">
 						<label>User Name<span style="color:red;">*</span></label>
 						<input type="text" name="name" value="{{ $user->name}}" class="form-control"  placeholder="User Name">
-					</div>
+					</div> -->
 					
 					<div class="form-group col-md-8">
 						<label>Email<span style="color:red;">*</span></label>
@@ -48,13 +50,13 @@
 					</div>
 					 
 					<div class="form-group col-md-8">
-						<label>First Name</label>
+						<label>Name</label>
 						<input type="text" name="first_name" value="{{ $user->first_name}}" class="form-control"  placeholder="First Name">
 					</div>
-					<div class="form-group col-md-8">
+					<!-- <div class="form-group col-md-8">
 						<label>Last Name</label>
 						<input type="text" name="last_name" value="{{ $user->last_name}}" class="form-control"  placeholder="Last Name">
-					</div>
+					</div> -->
 
 					<div class="form-group col-md-8">
 						<label>Mobile Phone</label>
@@ -63,7 +65,7 @@
 
 					
 					<div class="col-md-8">
-						<a href="{{url('users/')}}" class="btn btn-danger">
+						<a href="{{url('dashboard/')}}" class="btn btn-danger">
 						Cancel</a>
 						<button type="submit" class="btn btn-success">Update User</button>
 						
@@ -72,5 +74,7 @@
 				</form>
 			</div>
 		</div>
+	</div>
+	</div>
 	</div>
 @endsection
