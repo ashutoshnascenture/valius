@@ -45,7 +45,7 @@
 <script type="text/javascript">
 	
 	var siteURl = '<?php  echo url('/'); ?>';
-	alert(siteURl);
+	
 </script>
 <script src="{{ asset('js/site.js') }}" defer></script>
 @endsection
