@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app',['title'=> $title])
 @section('content')
  <div class="container">
     <div class="row">
@@ -45,7 +45,7 @@
 <script type="text/javascript">
 	
 	var siteURl = '<?php  echo url('/'); ?>';
-	
+
 </script>
 <script src="{{ asset('js/site.js') }}" defer></script>
 @endsection

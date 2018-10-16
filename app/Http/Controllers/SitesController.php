@@ -27,6 +27,7 @@ class SitesController extends Controller
     public function index(Request $request)
     {  
         $userId = Auth::user()->id;
+        $title = "Site Listing";
         $totalSite = Site::where('user_id','=',$userId)->count();
         if (isset($request->site_search)) {
         $searchKeyword = $request->site_search;
@@ -38,7 +39,7 @@ class SitesController extends Controller
         if ($request->ajax()) {
             return view('sites.load', ['all_sites' => $all_sites,'totalSite'=>$totalSite])->render();  
         }
-    	return view('sites/index')->with(compact('all_sites','totalSite'));
+    	return view('sites/index')->with(compact('all_sites','totalSite','title'));
     	
     }
 

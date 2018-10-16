@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Varo') }}</title>
+    <title>{{ config('app.name') }}|{{ $title }}</title>
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -79,8 +79,8 @@
                                     <li><a href="{{url('addons')}}" class="dropdown-item">
                                     Addon Management</a></li>
                             @else     
-                            <li><a href="{{url('sites')}}" class="dropdown-item">Sites</a></li>
-                           <!--  <a href="#" class="list-group-item list-group-item-action disabled">DNS</a> -->
+<!--                             <li><a href="{{url('sites')}}" class="dropdown-item">Sites</a></li>
+ -->                           <!--  <a href="#" class="list-group-item list-group-item-action disabled">DNS</a> -->
                             <li><a href="#" class="dropdown-item">Migrations</a></li>
                             <!-- <a href="#" class="list-group-item list-group-item-action disabled">Analytics</a> -->
 <!--                            <a href="#" class="list-group-item list-group-item-action disabled">Billing</a>
