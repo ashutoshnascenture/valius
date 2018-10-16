@@ -50,7 +50,7 @@
                         </div>
                     </form>
                 </div>
-            <p class="text-center mt-4"> Click here to <a href=""> Create account </a></p>
+            <p class="text-center mt-4"> Click here to <a href="{{ route('register') }}"> Create account </a></p>
         </div>
     </div>
 </div>

@@ -27,11 +27,11 @@
 			@endif
 				<div class="form-group col-6">
 					<label>Site Url</label>
-					<input type="text" name="name" class="form-control" value="{{ old('name') }}">
+					<input type="text" name="url" class="form-control" value="{{ old('url') }}">
 				</div>
 				<div class="form-group col-6">
 					<label>Site name</label>
-					<input type="text" name="url" class="form-control" value="{{ old('url') }}">
+					<input type="text" name="name" class="form-control" value="{{ old('name') }}">
 				</div>
 		</div>
 		</div>
