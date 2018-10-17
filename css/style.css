@@ -4,12 +4,12 @@ i{margin-right:5px;}
 .user-profile{padding: 20px; }
 .user-profile img{ width: 100px; margin-bottom: 15px;}
 .user-profile h4{margin-bottom:15px; font-weight:bold;}
-.dropdown-menu{margin-top: 8px;}
+.dropdown-menu{margin-top: 0px;}
 .card-header{font-size: 20px !important;}
 .table.dataTable{width:100% !important;}
 .top-nav{background-color: #724ce8; }
-.nav-link{color: #fff !important;}
-.login-form{  }
+.top-nav .nav-link{color: #fff !important;}
+.login-form{}
 .login-form h2{font-size: 25px; font-weight: bold; margin-bottom: 80px;}
 .login-box{box-shadow: 0px 0px 30px 0px #0000000d; padding: 30px; border-radius: 2px; background-color: #fff; position: relative; padding-top:60px; }
 .login-box .form-group{ margin-bottom: 25px; }
@@ -18,4 +18,59 @@ i{margin-right:5px;}
 .btn-submit:hover{ background-color: #5168e4; }
 .alert-pink{ background-color: #e84c85; color: #fff; }
 .top-nav .navbar-brand img{ width: 50px; }
+.main-nav .navbar-brand img{ width: 50px; }
+.top-nav li a{ font-size: 16px; }
+.main-nav li a{font-size: 14px; font-weight: 700; text-transform: uppercase; }
+.main-nav .nav-item{margin:0 10px;}
+.main-nav .btn-contact{background-color: #724ce8; color: #fff !important; font-size: 13px; text-transform: uppercase; padding: 6px 15px 4px 15px!important; font-weight: bold; border-radius: 50px; vertical-align: middle; }
+.main-nav .name-box{display: inline-block; width: 30px; height: 30px; text-align: center; background-color: #efefef; border-radius: 50px; font-size: 14px; text-transform: uppercase; color: #000; vertical-align: middle; padding: 5px;}
+.drop{padding: 0px;}
+.dropdown-menu{border:1px solid rgba(0, 0, 0, 0.03); box-shadow: 0px 0px 10px 0px #00000014;}
+.dropdown-menu li a{color: #724ce8; font-size: 13px;}
+.dropdown-menu li a:hover{ background-color: transparent; }
+.dropdown-menu li a i{width: 20px; display: inline-block;}
+.user-drop{border-left: 1px solid #ececec; margin-top: -20px !important; margin-bottom: -20px !important; padding: 22px 5px 0 10px;}
+.container-box{border: 1px solid #efefef; border-radius: 5px; background-color: white; padding: 15px; margin-bottom: 5px;}
+.site-list {}
+.site-list .img-box{width: 13%; padding: 0 15px;}
+.site-list .img-box img{width: 100%;}
+.site-list .name-box{}
+.site-list .name-box h3{margin: 0px 0 5px 0; font-size: 25px; font-weight: bold; color: #484848; }
+.site-list .name-box a{ font-size: 17px; color: #03A9F4; }
+.site-list .price-box {}
+.site-list .price-box h4{font-size: 20px; color: #38c172; font-weight: bold;}
+.site-list .price-box h4 span{display: block; font-size: 15px; color: #c5c5c5; font-weight: normal; margin-top: 7px; }
+.site-list .action-box{ border-left:1px solid #e8e8e8; text-align: center;} 
+.site-list .action-box i{font-size: 20px; color: #d0d0d0; padding: 22px 0;}
+.main-nav{ border-bottom:1px solid #ececec; box-shadow: none !important;}
+/*-- Deshborad css --*/
+.top-section{}
+.dashboard-home{background-color: #fff; padding: 20px 0 0;     margin-bottom: 30px;}
+.dashboard-home .d-img-box{ }
+.dashboard-home .d-img-box img{width: 100% }
+.dashboard-home .detail-box h4{font-size: 25px; font-weight: bold; color: #5f5f5f;    margin: 0; }
+.dashboard-home .detail-box a{font-size: 18px; color: #724ce8; }
+.dashboard-home .detail-box{    padding-left: 0; }
+.dash-nav{}
+.dash-nav ul{margin:0; padding: 0px; list-style: none; display: inline-block; float: left; }
+.dash-nav ul li{display: inline-block; margin-right: 25px; float: left;}
+.dash-nav ul li a{font-size: 13px; color: #8c8c8c; font-weight: bold; text-transform: uppercase; border-bottom: 2px solid #fff; padding: 0 0px 5px 0;}
+.dash-nav a{ float: right; }
+.dash-nav ul li a:hover{ border-bottom: 2px solid #724ce8; text-decoration: none; color: #000;}
+.dash-nav .btn-login{ border-radius: 50px; border: 2px solid #eaeaea; color: #a7a7a7; text-transform: uppercase; padding: 4px 15px 2px 15px; font-size: 10px; font-weight: bold; line-height: initial;}
+.dash-nav{ margin-top: 30px;}
+.dash-nav .btn-login:hover{ background-color: #724ce8; border: 2px solid #724ce8; color: #fff; }
+.box-container{background-color: #fff; border:1px solid #ebedf2; border-radius: 2px;}
+.box-header{border-bottom: 1px solid #ebedf2; padding:15px; margin-bottom: 15px;}
+.head-caption{}
+.head-caption h2{margin: 0; font-size: 20px; font-weight: bold; }
+.box-container .box-body{}
+.dash-detail p{margin: 0px 0 5px 0;}
+
+
+
+
+
+
+
 
