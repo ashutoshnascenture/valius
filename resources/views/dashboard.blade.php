@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 d-img-box">
-				<img src="http://localhost/varo/public/upload/sites/153966775611908938125bc5772c3fc71.jpg" />
+				 <img src="{{ asset('images/default.jpg') }}" alt="" title="" />
 			</div>
 			<div class="col-md-9 detail-box">
 				<h4> VaroLocal </h4>
@@ -35,38 +35,57 @@
 				</div>
 				
 				<div class="box-body"> 
-					<div class="col-md-12">
-							<div class="row">
+					<div class="col-md-12 services-box">
+						<div class="row">
 							<div class="dash-detail col-md-10">
-								<p><b> Hosting </b> Auto Reviews </p>	
-								<p>Demo Contant </p>
+								<h4>SCO <span>Auto Reviews</span></h4>	
+								<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
 							</div>
-							<div class="col-md-2">
-								<h5> $10.00</h5>
+							<div class="col-md-2 amount-box">
+								<h5><b>$10.00</b></h5>
 							</div>
 						</div>
 					</div>
-					<hr />
-					<div class="col-md-12">
-							<div class="row">
+					<div class="col-md-12 services-box">
+						<div class="row">
 							<div class="dash-detail col-md-10">
-								<p><b> Hosting </b> Auto Reviews </p>	
-								<p>Demo Contant </p>
+								<h4>Maintenance <span>Auto Reviews</span></h4>	
+								<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
 							</div>
-							<div class="col-md-2">
-								<h5> $10.00</h5>
+							<div class="col-md-2 amount-box">
+								<h5><b>$10.00</b></h5>
 							</div>
 						</div>
 					</div>
-					<hr />
-					<div class="col-md-12">
-							<div class="row">
+					<div class="col-md-12 services-box">
+						<div class="row">
 							<div class="dash-detail col-md-10">
-								<p><b> Hosting </b> Auto Reviews </p>	
-								<p>Demo Contant </p>
+								<h4>Hosting <span>Auto Reviews</span></h4>	
+								<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
 							</div>
-							<div class="col-md-2">
-								<h5> $10.00</h5>
+							<div class="col-md-2 amount-box">
+								<h5><b>$10.00</b></h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 services-box">
+						<div class="row">
+							<div class="dash-detail col-md-10">
+								<h4>Design <span>Auto Reviews</span></h4>	
+								<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>
+							</div>
+							<div class="col-md-2 amount-box">
+								<h5><b>$10.00</b></h5>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 total-box">
+						<div class="row">
+							<div class="dash-detail col-md-10">
+								<h4>Total</h4>	
+							</div>
+							<div class="col-md-2 full-total">
+								<h5><b>$40.00</b></h5>
 							</div>
 						</div>
 					</div>
@@ -89,12 +108,12 @@
 		</div>
 			<div class="col-md-3">
 				<div class="box-container">
-					<div class="box-header">
+					<div class="box-header mb-3">
 					<div class="head-caption">
 						<h2>Contact</h2>
 					</div>
 				</div>
-				<div class="box-body"> 
+				<div class="box-body "> 
 					<div class="col-md-12">
 						<b>Email</b>
 						<p>demo@gmail.com</p>

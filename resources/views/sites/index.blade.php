@@ -4,31 +4,12 @@
 	<div class="container-box">
 		<div class="site-list">
 			<div class="row"> 
-				<div class="img-box">
-					<img src="http://localhost/varo/public/upload/sites/153966775611908938125bc5772c3fc71.jpg" />
+				<div class="img-box col-md-1">
+					<img src="{{ asset('images/default.jpg') }}" alt="" title="" />
 				</div>
-				<div class="col-md-7 name-box">
-					<h3>Stophair loss</h3>
-					<a href="#">http://stopthinninghairloss.com</a>
-				</div>
-				<div class="col-md-2 price-box">
-					<h4>$1864.12/mo <span>4 Serveices</span></h4>
-				</div>
-				<div class="col-md-1 action-box">
-					<i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container-box">
-		<div class="site-list">
-			<div class="row"> 
-				<div class="img-box">
-					<img src="http://localhost/varo/public/upload/sites/153966775611908938125bc5772c3fc71.jpg" />
-				</div>
-				<div class="col-md-7 name-box">
-					<h3>Stophair loss</h3>
-					<a href="#">http://stopthinninghairloss.com</a>
+				<div class="col-md-8 name-box">
+					<h3>Lorem lipsome</h3>
+					<a href="#">http://demolink.com</a>
 				</div>
 				<div class="col-md-2 price-box">
 					<h4>$1864.12/mo <span>4 Serveices</span></h4>
@@ -42,12 +23,31 @@
 	<div class="container-box">
 		<div class="site-list">
 			<div class="row"> 
-				<div class="img-box">
-					<img src="http://localhost/varo/public/upload/sites/153966775611908938125bc5772c3fc71.jpg" />
+				<div class="img-box col-md-1">
+					<img src="{{ asset('images/default.jpg') }}" alt="" title="" />
 				</div>
-				<div class="col-md-7 name-box">
-					<h3>Stophair loss</h3>
-					<a href="#">http://stopthinninghairloss.com</a>
+				<div class="col-md-8 name-box">
+					<h3>Lorem lipsome</h3>
+					<a href="#">http://demolink.com</a>
+				</div>
+				<div class="col-md-2 price-box">
+					<h4>$1864.12/mo <span>4 Serveices</span></h4>
+				</div>
+				<div class="col-md-1 action-box">
+					<i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-box">
+		<div class="site-list">
+			<div class="row"> 
+				<div class="img-box col-md-1">
+					<img src="{{ asset('images/default.jpg') }}" alt="" title="" />
+				</div>
+				<div class="col-md-8 name-box">
+					<h3>Lorem lipsome</h3>
+					<a href="#">http://demolink.com</a>
 				</div>
 				<div class="col-md-2 price-box">
 					<h4>$1864.12/mo <span>4 Serveices</span></h4>

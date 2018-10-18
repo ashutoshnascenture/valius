@@ -1,13 +1,14 @@
 @extends('layouts.app')
 @section('content')
-
-    
-	
-	<div class="col-md-9">
-		<div class="card">
-			<div class="card-header">Change Password</div>
-
-			<div class="card-body">
+<div class="container">
+	<div class="box-container">
+		<div class="box-header">
+			<div class="head-caption">
+				<h2>Change Password</h2>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="col-md-8">
 				@if(Session::has('flash_message'))
 					<div class="alert {{ Session::get('alert-class') }}">
 						<a href="#" class="close" data-dismiss="alert">&times;</a> 
@@ -34,30 +35,29 @@
 
 				<form method="POST" action="{{ url('users/reset-password') }}">
 					{{ csrf_field() }}
-					<div class="row">
-					<div class="form-group col-md-8">
+					<div class="form-group">
 						<label for="password">Current Password <span style="color:red;">*</span></label>
 						<input id="password" type="password" class="form-control" name="current_password" placeholder="Current Password">
 					</div>
 
-				   <div class="form-group col-md-8">
+				   <div class="form-group">
 						<label for="password">New Password <span style="color:red;">*</span></label>
 						<input id="password" type="password" class="form-control" name="password" placeholder="New Password">
 					</div>
 
-					<div class="form-group col-md-8">
+					<div class="form-group">
 						<label for="password-confirm">Confirm Password <span style="color:red;">*</span></label>
 						<input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
 					</div>
-					<div class="col-md-9">
+					<div class="form-group">
 						<a href="#" class="btn btn-danger"> Cancel </a>
-						<button type="submit" class="btn btn-primary">
-						Change Password
-						</button> 
+						<button type="submit" class="btn btn-primary">Change Password</button> 
 					</div>
-				</div>
+
 				</form>
 			</div>
 		</div>
 	</div>
+</div>
+    
 @endsection

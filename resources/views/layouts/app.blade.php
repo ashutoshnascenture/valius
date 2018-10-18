@@ -79,7 +79,7 @@
                                 @if(\Auth::user()->hasRole('admin'))
                                     <li>
                                         <a href="{{url('users/get-users')}}" class="dropdown-item">
-                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>User Management</a></li>
+                                        <i class="fa fa-user" aria-hidden="true"></i> User Management</a></li>
                                         <div class="dropdown-divider"></div>
                                     <li>
                                         <a href="{{url('plans/get-plans')}}" class="dropdown-item">

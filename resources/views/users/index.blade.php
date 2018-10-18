@@ -1,23 +1,24 @@
 @extends('layouts.app')
 @section('content')
-      <div class="container">
-      <div class="row">
-		<div class="col-md-12">
-		   <div class="card">
-			<div class="card-header">User Management
-			  <div class="pull-right" >
-				<a href="{{url('users/create')}}" class="btn btn-success">Add User</a>
-			   </div>
-			  </div>
-
-                <div class="col-lg-12">
+<div class="container">
+	<div class="box-container clearfix">
+		<div class="box-header clearfix mb-3">
+			<div class="head-caption float-left">
+				<h2>User Management</h2>
+			</div>
+			<div class="float-right">
+				<a href="{{url('users/create')}}" class="btn btn-primary btn-sm"> <i class="fa fa-plus" aria-hidden="true"></i> Add User</a>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="col-md-12">
 	            @if(Session::has('flash_message'))
 		        <div class="alert {{ Session::get('alert-class', 'alert-info') }}">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
                  {{ Session::get('flash_message') }} 
                 </div>
 		       @endif 
-               <table id="example" class="display table table-hover table-condensed" >
+               <table id="example" class="display table table-bordered" >
                 <thead>
                     <tr>
 						<th>Id</th>
@@ -28,8 +29,7 @@
 				     </tr>
 			    </thead>
            <tbody>
-    
-		<?php 
+    		<?php 
 				$i = (Request::input('page')) ?  (Request::input('page') -1) * $users->perPage() + 1 : 1; 
 				?>
 				@if(count($users))
@@ -39,18 +39,16 @@
 						<td>{{$value->name}}</td>
 					    <td>{{$value->email}}</td>
 					    <td>{{$value->phone }}</td>
-						
-						
 						<td>
-				     <form method="POST" action="{{URL::to('users')}}/{{$value->id}}" id="delete_{{ $value->id}}" accept-charset="UTF-8">
-						
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<input type="hidden" name="_method" value="DELETE">
-						<a  class="btn btn-primary" href="{{URL('users')}}/{{$value->id}}/edit" role="button" title="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+						     <form method="POST" action="{{URL::to('users')}}/{{$value->id}}" id="delete_{{ $value->id}}" accept-charset="UTF-8">
+								
+		                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+								<input type="hidden" name="_method" value="DELETE">
+								<a  class="btn btn-primary btn-sm" href="{{URL('users')}}/{{$value->id}}/edit" role="button" title="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 
-						<a class="btn my-btn btn-delete btn-danger" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
-					</form>
-			      </td>
+								<a class="btn my-btn btn-delete btn-danger btn-sm" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+							</form>
+			      		</td>
 						</tr>
 						<?php $i++; ?>
 					@endforeach
@@ -62,9 +60,14 @@
 				@endif
 				</tbody>	
 			 </table> 
-			 <div align="center" style="margin-left: 293px;" >{{$users->links()}}</div>	
-         </div>
-       </div>	
+			 <div class="col-md-12 text-center pagination-box">{{$users->links()}}</div>	
+			</div>
+		</div>
+	</div>
+</div>
+
+
+	
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -80,8 +83,7 @@
         </div>
     </div>
 </div>
-</div>
-</div>
+
 <script>
 
 	$(document).ready(function() {
