@@ -48,13 +48,13 @@ class HomeController extends Controller
  
     public function  planPayment(Request $request)
     {
-        /*  //$rules = User::$rules;
-        // $messages = User::$message;
+         $rules = User::$rules;
+         $messages = User::$message;
          $input = $request->all();
          $validator = Validator::make($input, $rules, $messages);
          if ($validator->fails()) {
             return redirect()->back()->withInput($input)->withErrors($validator->errors());   
-          }*/
+          }
           $input = $request->all();
           $plan = DB::table('plans')->find($input['palnID']);
           if ($plan) { 

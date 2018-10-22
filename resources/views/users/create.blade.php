@@ -11,7 +11,7 @@
 		<div class="col-md-9">
 			<div class="box-container">
 				<div class="col-md-10 offset-1">
-				<h2 class="profile-info mt-5 mb-5"> Your Information </h2>
+				<h2 class="profile-info mt-5 mb-5"> Information </h2>
 					@if (count($errors) > 0)
 					<div class="alert alert-danger">
 						<a href="#" class="close" data-dismiss="alert">&times;</a> 
@@ -29,7 +29,7 @@
 						 {{ session()->get('error') }}
 					</div>
 					@endif
-					<form method="POST" action="{{ url('users') }}" enctype="multipart/form-data">
+					<form method="POST" action="{{ url('users') }}" enctype="multipart/form-data" id="userform">
 						{{ csrf_field() }}
 						<input type="hidden" name="_token" value="{{csrf_token()}}"/>
 						<!-- <div class="row">
@@ -63,30 +63,30 @@
 					</div> -->
 					<div class="form-group">
 						<label> Email </label>
-						<input type="text" class="form-control" />
+						<input type="text" class="form-control" name="email" value="{{ old('email') }}" />
 					</div>
 					<div class="row">
 						<div class="form-group  col-md-6">
 							<label> First Name </label>
-							<input type="text" class="form-control" />
+							<input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ old('first_name') }}">
 						</div>	
 						<div class="form-group  col-md-6">
 							<label> Last Name </label>
-							<input type="text" class="form-control" />
+							<input type="text" class="form-control" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}">
 						</div>
 					</div>	
 					<div class="form-group">
 						<label> Company Name </label>
-						<input type="text" class="form-control" />
+						<input type="text" class="form-control" name="company_name" />
 					</div>	
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label> Password </label>
-							<input type="password" class="form-control" />
+							<input type="password" class="form-control" id="password"  name="password"/>
 						</div>	
 						<div class="form-group col-md-6">
 							<label> Confirm Password </label>
-							<input type="password" class="form-control" />
+							<input type="password" class="form-control"  name="confirm_pass"/>
 						</div>	
 					</div>
 					<div class="form-group mb-5">
@@ -100,6 +100,49 @@
 	</div>
 </div>
 
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script type="text/javascript">
+	    $(document).ready(function () {
+	    $('#userform').validate({ // initialize the plugin
+	        rules: {
+	            email: {
+	                required: true,
+	                email:true   
+	            },
+	            first_name: {
+	                required: true
+	            }
+	            ,
+	            last_name: {
+	                required: true
+	            }
+	            ,
+	            password: {
+	                required: true 
+	            }
+	            ,
+	            confirm_pass: {
+	                required: true,
+	                equalTo : "#password"
+	            }
+	            ,
+	            accept: {
+	                required: true,
+	            }
+	        },
+	        messages:
+	            {
+	            email: "<font color='red'>Please Enter email<font>",
+	            first_name: "<font color='red'>Please Enter  first name<font>",
+	            last_name: {required:"<font color='red'>Please Enter last name<font>"},
+	            password: {required:"<font color='red'>Please Enter password<font>"},
+	            confirm_pass: {required:"<font color='red'>Please Enter password<font>",equalTo:"<font color='red'>repeat password  same as  password<font>"},
+	            accept: {required:"<font color='red'>Please  accept term and conditions<font>"}
+	            }
+	    });
 
+	});
+
+</script>
 	
 @endsection

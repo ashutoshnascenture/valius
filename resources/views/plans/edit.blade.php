@@ -32,6 +32,14 @@
 						
 					<div class="row">
 					<div class="form-group col-md-8">
+					 <label for="name">Select Plan Type <span style="color:red;">*</span></label>
+						<select class="form-control" name="plan_type">
+						  <option value="1" @if(1== $plans->plan_type) selected @endif>Hosting</option>
+						  <option value="2" @if(2 == $plans->plan_type) selected @endif>Care</option>
+						  <option value="3" @if(3 == $plans->plan_type) selected @endif>Care+Hosting</option>
+						</select>
+					</div>
+					<div class="form-group col-md-8">
 						<label for="name">Name <span style="color:red;">*</span></label>
 						<input id="name" type="text" class="form-control" name="name" placeholder="Name" value="{{ $plans->name }}">
 					</div>

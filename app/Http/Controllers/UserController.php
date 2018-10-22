@@ -56,27 +56,13 @@ class UserController extends Controller
 	{  
         $input = $request->all();
 		$rules = User::$rules;
-		
 		$validator = Validator::make($input,$rules);
-	
 		if ($validator->fails()){
 			return redirect()->back()->withInput($input)->withErrors($validator->errors()); 
 		}
 		$password= $request->password;
-	    $passwo = bcrypt($password);
-	
-		$data = [
-		        'name' => $request->input('name'),
-				'phone' => $request->input('phone'),
-				'email' => $request->input('email'),
-			    'password' => $passwo,
-				'role_id' => $request->role_id,
-				'status' => '1',
-				'remember_token' => $request->input('_token'),
-	             ];
-		//echo"<pre>";print_r($data);die;
-		User::create($data);
-		
+	    $input['password'] = bcrypt($password);
+		User::create($input);
 		Session::flash('flash_message', 'users submit successfully');
 		Session::flash('alert-class', 'alert-success');
 		return redirect('users/get-users');
@@ -135,7 +121,6 @@ class UserController extends Controller
     {	
 
 		$input = $request->all();
-		
 		$rules = User::recordUpdate();
 		$rules['email'] .= ',email,'.$id.',id';
 		//$rules['username'] .= ',username,'.$id.',id';
@@ -144,10 +129,10 @@ class UserController extends Controller
 		{
 			return redirect()->back()->withInput($input)->withErrors($validator->errors()); 
 		}
-		
+		$password = bcrypt($input['password']);
+		$input['password'] = $password;
         $user = User::find($id);
 		$user->update($input);
-
 		Session::flash('flash_message', 'User updated successfully');
 		Session::flash('alert-class', 'alert-success');
 		return redirect()->back();
@@ -164,6 +149,7 @@ class UserController extends Controller
 	
 	public function userUpdate(Request $request, $id)
     {	
+
 		$input = $request->all();
 		
 		$rules = User::$rules;

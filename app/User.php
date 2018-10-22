@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'last_name','name', 'email', 'password','first_name','last_name','phone','status','remember_token','role_id'
+        'last_name','name', 'email', 'password','first_name','last_name','phone','status','remember_token','role_id','company_name'
     ];
 
     /**
@@ -27,19 +27,21 @@ class User extends Authenticatable
      * @var array
      */
 	 public static $rules = array(
-        'name'                    => 'required',
+        'last_name'               => 'required',
+        'first_name'              => 'required',
         'email'                   => 'required|email|unique:users',
         'password'                => 'required', 
-        'confirm_password'            => 'required|same:password',
-        'phone'                   => 'required',
+        'confirm_pass'            => 'required|same:password',
+       
     );
     public static $message = array(
-        'first_name.required'                    => 'Name is required',
+        'first_name.required'                    => 'First Name is required',
+        'last_name.required'                     => ' Last Name is required',
         'email.required'                         => 'Email is required',
         'password.required'                      => 'Password is required',
-        'confirm_password.required'              => 'Confirm Password is required', 
-        'confirm_password.same'                  => 'Confirm Password should match password', 
-        'phone.required'                         =>'Phone no is required',
+        'confirm_pass.required'              => 'Confirm Password is required', 
+        'confirm_pass.same'                  => 'Confirm Password should match password', 
+        
     );
 	 
     protected $hidden = [
@@ -49,8 +51,11 @@ class User extends Authenticatable
     public static function recordUpdate()
     {
         return array(
-            'first_name'                   => 'required',
-            'email'                        => 'required|email|unique:users'
+             'last_name'               => 'required',
+             'first_name'              => 'required',
+             'email'                   => 'required|email|unique:users',
+             'password'                => 'required', 
+             'confirm_pass'            => 'required|same:password',
         );
     }
      public function roles()

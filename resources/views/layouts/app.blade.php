@@ -34,7 +34,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-ligh navbar-laravel main-nav">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                   <img src="{{ asset('images/varo.png') }}" alt="" title="" />
+                   <img src="{{ asset('images/ON_WHITE.svg') }}" alt="" title="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -58,11 +58,10 @@
                             </li>
                         @else
 							@if(!\Auth::user()->hasRole('admin'))
-							<!-- <li class="nav-item">
-                                <a class="btn btn-success" href="{{ url('ticket') }}">{{ __('Submit a Request') }}</a>
-                            </li> -->
-							@endif
-                            <li class="nav-item"><a href="#" class="nav-link">Dashboard</a></li>
+                             <li class="nav-item"><a  href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a></li>
+							@else
+                            <li class="nav-item"><a  href="{{ url('/admin-dashboard') }}" class="nav-link">Dashboard</a></li>
+                            @endif
                             <li class="nav-item"><a href="#" class="nav-link btn btn-contact">Contact Support</a></li>
                             <li class="nav-item dropdown user-drop">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle drop" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

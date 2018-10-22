@@ -136,7 +136,8 @@ class PlanController extends Controller
 		$validator = Validator::make($request->all(), [
 		    'name'  => 'required',
 			'description'  => 'required',
-			'price'  => 'required'
+			'price'  => 'required',
+			'plan_type' =>'required'
         ]);
 		if ($validator->fails()){
 			return redirect()->back()->withInput($input)->withErrors($validator->errors()); 
@@ -171,7 +172,8 @@ class PlanController extends Controller
 	            'amount'      => $srtipArray['amount'],
 				'price'       => $request->input('price'),
 				'created_at'  => $time,
-				'updated_at'  => $time
+				'updated_at'  => $time,
+				'plan_type'   =>$request->input('plan_type'),
 	        ];
 		   DB::table('plans')->insert($data);
 		   Session::flash('flash_message', 'Plan submit successfully');
@@ -183,24 +185,30 @@ class PlanController extends Controller
 	public function planUpdate(Request $request, $id)
     {	
 		$input = $request->all();
-		
-        //echo "<pre>"; print_r($input); die();
 		$validator = Validator::make($request->all(), [
 		    'name'  => 'required',
 			'description'  => 'required',
 			'price'  => 'required'
 			
         ]);
-	
 		if ($validator->fails()){
 			return redirect()->back()->withInput($input)->withErrors($validator->errors()); 
-		}
-		
-		DB::table('plans')
+		}	
+		    $palnDetail = DB::table('plans')->select('plan_id')
+						             ->where('id', $id)
+						             ->first(); 
+             $stripKey = config('services.stripe.secret');
+            \Stripe\Stripe::setApiKey($stripKey);
+			$StripePlan = \Stripe\Plan::retrieve($palnDetail->plan_id);
+			$StripePlan->amount = $request->input('price');
+			$StripePlan->nickname = $request->input('name');
+			$StripePlan->save();
+		    DB::table('plans')
             ->where('id', $id)
             ->update(['name' => $request->input('name'),
 			          'description' => $request->input('description'),
 					  'price' => $request->input('price'),
+					  'plan_type'   =>$request->input('plan_type'),
 			    	]);
 	    // $user = Plan::find($id);
 		// $user->update($input);

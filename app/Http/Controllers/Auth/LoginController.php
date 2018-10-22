@@ -36,6 +36,9 @@ class LoginController extends Controller
     {   
            if(\Auth::user()->hasRole('admin')){
             
+            return redirect('/admin-dashboard');
+           } else {
+
             return redirect('/dashboard');
            }
             

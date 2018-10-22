@@ -12,10 +12,12 @@
 */
 
 Route::get('/', function () { 
-	if (Auth::check()) {
+	if (Auth::check() && !\Auth::user()->hasRole('admin')) {
+		
        return redirect('/dashboard');
 	} else {
-	  return view('welcome');	
+		
+	  return redirect('/admin-dashboard');
 	} 
 });
 Auth::routes();
@@ -24,6 +26,7 @@ Route::get('/plan-select/{planID}', 'HomeController@planDetail')->name('plan-sel
 Route::post('/plan-payment', 'HomeController@planPayment')->name('plan-payment');
 Route::post('/subscribe-plan', 'HomeController@subscribePlan')->name('subscribe-plan');
 Route::get('/dashboard', 'DashboardController@index');
+Route::get('/admin-dashboard', 'DashboardController@adminDashboard');
 Route::get('users/change-password/', 'UserController@changePassword');
 Route::post('users/reset-password/', 'UserController@resetPassword');
 Route::get('users/account-details/', 'UserController@accountDetails');

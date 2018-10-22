@@ -30,6 +30,14 @@
 					{{ csrf_field() }}
 					<div class="row">
 					<div class="form-group col-md-8">
+					 <label for="name">Select Plan Type <span style="color:red;">*</span></label>
+						<select class="form-control" name="plan_type">
+						  <option value="1" @if(old('plan_type') == 1) selected @endif>Hosting</option>
+						  <option value="2" @if(old('plan_type') == 2) selected @endif>Care</option>
+						  <option value="3" @if(old('plan_type') == 3) selected @endif>Care+Hosting</option>
+						</select>
+					</div>
+					<div class="form-group col-md-8">
 						<label for="name">Name <span style="color:red;">*</span></label>
 						<input id="name" type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}" >
 					</div>

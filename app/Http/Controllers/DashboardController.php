@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use DB;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use Validator;
+use Session;
+use Auth;
+use DataTables ;
+use Hash;
 
 class DashboardController extends Controller
 {
@@ -25,7 +33,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if (Auth::check() && !\Auth::user()->hasRole('admin')) {  
+           return view('dashboard');
+        } else {
+           return redirect('/admin-dashboard');
+        } 
         
-        return view('dashboard');
+    }
+    public function  adminDashboard()
+    {
+           if (Auth::check() && \Auth::user()->hasRole('admin')) {
+           return view('admindashboard');
+           } else {
+            
+            return redirect('/dashboard');
+           } 
     }
 }
