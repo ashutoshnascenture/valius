@@ -203,7 +203,7 @@ class PlanController extends Controller
 			$StripePlan->amount = $request->input('price');
 			$StripePlan->nickname = $request->input('name');
 			$StripePlan->save();
-		    DB::table('plans')
+		    DB::table('plans') 
             ->where('id', $id)
             ->update(['name' => $request->input('name'),
 			          'description' => $request->input('description'),
