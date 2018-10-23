@@ -12,13 +12,19 @@
 */
 
 Route::get('/', function () { 
-	if (Auth::check() && !\Auth::user()->hasRole('admin')) {
+	if (Auth::check()){
+      if (Auth::check() && !\Auth::user()->hasRole('admin')) {
 		
        return redirect('/dashboard');
 	} else {
 		
 	  return redirect('/admin-dashboard');
 	} 
+	} else {
+      return view('welcome');
+
+	}
+	
 });
 Auth::routes();
 Route::get('/plan-list', 'HomeController@index')->name('plan-list');

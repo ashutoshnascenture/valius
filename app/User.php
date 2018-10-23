@@ -54,8 +54,7 @@ class User extends Authenticatable
              'last_name'               => 'required',
              'first_name'              => 'required',
              'email'                   => 'required|email|unique:users',
-             'password'                => 'required', 
-             'confirm_pass'            => 'required|same:password',
+             'company_name'            =>  'required'
         );
     }
      public function roles()

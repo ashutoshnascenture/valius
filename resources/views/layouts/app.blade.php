@@ -70,10 +70,12 @@
                                 </a>
 								
 								<ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                 <li> 
-                                    <a href="{{url('/')}}" class="dropdown-item"> 
-                                    <i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a>
-                                </li>
+                                 
+                                @if(!\Auth::user()->hasRole('admin'))
+                             <li><a  href="{{ url('/dashboard') }}" class="dropdown-item"><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a></li>
+                            @else
+                            <li ><a  href="{{ url('/admin-dashboard') }}" class="dropdown-item"><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a></li>
+                            @endif
                                 <div class="dropdown-divider"></div>
                                 @if(\Auth::user()->hasRole('admin'))
                                     <li>
@@ -89,6 +91,8 @@
                                         <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
                                     Addon Management</a></li>
                                     <div class="dropdown-divider"></div>
+                                    <li><a class="dropdown-item" href="{{ url('users/change-password') }}"><i class="fa fa-btn fa-key"></i>Change Password</a></li>
+                                  
                             @else  
                             <li>
                                 <a href="{{url('sites')}}" class="dropdown-item">
@@ -102,16 +106,15 @@
                             <!-- <a href="#" class="list-group-item list-group-item-action disabled">Analytics</a> -->
 <!--                            <a href="#" class="list-group-item list-group-item-action disabled">Billing</a>
  -->                           <li> <a href="{{url('plans')}}" class="dropdown-item">
-    <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Billing</a></li> 
-    <div class="dropdown-divider"></div>  
+                            <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Billing</a></li> 
+                            <div class="dropdown-divider"></div>  
                            <li> <a href="{{url('users/account-details/')}}" class="dropdown-item">
                             <i class="fa fa-user" aria-hidden="true"></i>Account Details</a></li>
                             <div class="dropdown-divider"></div>
                             <li> <a href="#" class="dropdown-item"> <i class="fa fa-comments-o" aria-hidden="true"></i> Conversations</a></li>   
                             @endif
                                 <div class="dropdown-divider"></div>
-                                    <li><a class="dropdown-item" href="{{ url('users/change-password') }}"><i class="fa fa-btn fa-key"></i>Change Password</a></li>
-<div class="dropdown-divider"></div>
+                                    
                                     <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="fa fa-btn fa-sign-out"></i>{{ __('Logout') }}
                                     </a></li>

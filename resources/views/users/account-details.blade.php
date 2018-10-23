@@ -3,8 +3,8 @@
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-8 text-center pt-4 pb-4 plan-heading">
-			<h3> Update {{ $user->first_name}} {{ $user->last_name}} </h3> 
-			<p> If you would like to change your profile,simply change 	the information below  and click the update button to update.</p>
+			<h3> Update your profile</h3> 
+			<p> If you would like to change your profile, simply change 	the information below  and click the update button to update.</p>
 		</div>
 	</div>
 	<div class="row justify-content-center">
@@ -12,7 +12,7 @@
 			<div class="box-container">
 				
 			<div class="col-md-10 offset-1">
-				<h2 class="profile-info mt-5 mb-5"> {{ $user->first_name}} {{ $user->last_name}} Information </h2>
+				<h2 class="profile-info mt-5 mb-5"> Your  Information </h2>
 				@if (count($errors) > 0)
 				<div class="alert alert-danger">
 					<a href="#" class="close" data-dismiss="alert">&times;</a> 
@@ -57,7 +57,7 @@
 					<div class="row">
 						<div class="form-group col-md-6">
 							<label> Password </label>
-							<input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password" id="password">
+							<input type="password" class="form-control" name="password" value="{{ old('password') }}"  id="password">
 						</div>	
 						<div class="form-group col-md-6">
 							<label> Confirm Password </label>
@@ -163,7 +163,7 @@
 	            last_name: {
 	                required: true
 	            }
-	            ,
+	            /*,
 	            password: {
 	                required: true 
 	            }
@@ -171,7 +171,7 @@
 	            confirm_pass: {
 	                required: true,
 	                equalTo : "#password"
-	            }
+	            }*/
 	           
 	        },
 	        messages:
@@ -179,9 +179,9 @@
 	            email: "<font color='red'>Please Enter email<font>",
 	            first_name: "<font color='red'>Please Enter  first name<font>",
 	            last_name: {required:"<font color='red'>Please Enter last name<font>"},
-	            password: {required:"<font color='red'>Please Enter password<font>"},
+	            password: {required:"<font color='red'>Please Enter password<font>"}/*,
 	            confirm_pass: {required:"<font color='red'>Please Enter password<font>",equalTo:"<font color='red'>repeat password  same as  password<font>"}
-	            }
+	            }*/
 	    });
 
 	});

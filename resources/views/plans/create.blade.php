@@ -34,7 +34,6 @@
 						<select class="form-control" name="plan_type">
 						  <option value="1" @if(old('plan_type') == 1) selected @endif>Hosting</option>
 						  <option value="2" @if(old('plan_type') == 2) selected @endif>Care</option>
-						  <option value="3" @if(old('plan_type') == 3) selected @endif>Care+Hosting</option>
 						</select>
 					</div>
 					<div class="form-group col-md-8">

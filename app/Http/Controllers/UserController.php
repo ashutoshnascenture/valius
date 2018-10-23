@@ -123,22 +123,23 @@ class UserController extends Controller
 		$input = $request->all();
 		$rules = User::recordUpdate();
 		$rules['email'] .= ',email,'.$id.',id';
-		//$rules['username'] .= ',username,'.$id.',id';
 		$validator = Validator::make($input,$rules);
 		if ($validator->fails()) 
 		{
 			return redirect()->back()->withInput($input)->withErrors($validator->errors()); 
 		}
-		$password = bcrypt($input['password']);
-		$input['password'] = $password;
+		if (isset($input['password']) && !empty($input['password'])) {
+          $password = bcrypt($input['password']);
+          $input['password'] = $password;
+		} else {
+	     unset($input['password']);
+		}
         $user = User::find($id);
 		$user->update($input);
 		Session::flash('flash_message', 'User updated successfully');
 		Session::flash('alert-class', 'alert-success');
 		return redirect()->back();
     	
-		
-	 	
     }
 	public function edit($id)
     {  
