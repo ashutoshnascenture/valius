@@ -1,5 +1,208 @@
 @extends('layouts.app-plan')
 @section('content')
+<section class="plan-deatil-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-9 step-box">
+				<div class="connecting-line"></div>
+				<div class="row">
+					<div class="col-md-4 text-center step-text active">
+						<a href="#" class="">
+							<span></span>
+							Choose A Plan
+						</a>
+					</div>
+					<div class="col-md-4 text-center step-text">
+						<a href="#" class="">
+							<span></span>
+							Account Information
+						</a>
+					</div>
+					<div class="col-md-4 text-center step-text">
+						<a href="#" class="">
+							<span></span>
+							Payment
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="plan-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 plan-box">
+				<div class="row">
+					<div class="col-md-5 plan">
+						<h2> Business care plan </h2>
+						<span> $130 / Month</span>
+						<div class="change-btn-box mt-4">
+							<a href="#" class="btn plan-btn"> Change Plan </a>
+						</div>
+					</div>
+					<div class="col-md-7 plan-detail">
+						<div class="row">
+							<div class="col-md-6 detail-list">
+								<ul>
+									<li>Unlimited Content edits</li>
+									<li>4 development Points/mo</li>
+									<li>Weekly wordpress speed optimization</li>
+								</ul>
+							</div>
+							<div class="col-md-6 detail-list">
+								<ul>
+									<li>Unlimited Content edits</li>
+									<li>4 development Points/mo</li>
+									<li>Weekly wordpress speed optimization</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="account-info-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 info-box">
+				<h2> Add Your Account Infromation </h2>
+				<p> Please fill out all the fields to continue </p>
+				<div class="row ">
+					<div class="col-md-12 account-form mt-5">
+					<form>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label> Email </label>
+								<input type="email" name="" class="form-control" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label> First Name </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+							<div class="form-group col-md-6">
+								<label> Last Name </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+						
+							<div class="form-group col-md-6">
+								<label> Password </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+							<div class="form-group col-md-6">
+								<label> Repeat Password </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+							<div class="form-group col-md-12">
+								<h5> Password must contain a min. of 6 characters, at last one lowercase and capital letter, and a number.</h5>
+							</div>
+							<div class="form-group">
+								<div class="checkbox">
+									<input id="checkbox5" type="checkbox">
+									<label for="checkbox5">I agree to the terms and Confitions and Privacy Policy</label>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<button class="btn btn-cont"> Continue </button>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="account-info-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 info-box">
+				<h2> Billing Information </h2>
+				<div class="row">
+					<div class="col-md-12 account-form mt-5">
+					<form>
+						<div class="row">
+							<div class="form-group col-md-12">
+								<div class="row">
+									<div class="radio radio-primary col-md-2">
+										<input type="radio" name="radio1" id="radio5" value="option1">
+										<label for="radio5"> Company </label>
+									</div>
+									<div class="radio radio-primary col-md-2">
+										<input type="radio" name="radio1" id="radio6" value="option2">
+										<label for="radio6">Individual</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label> Country </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+							<div class="form-group col-md-6">
+								<label> STATE </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+						
+							<div class="form-group col-md-6">
+								<label> CITY </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+							<div class="form-group col-md-6">
+								<label> ZIP CODE </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+							<div class="form-group col-md-12">
+								<label> Address </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+							<div class="form-group col-md-6">
+								<label> COMPANY </label>
+								<input type="text" name="" class="form-control" />
+							</div>
+							
+						</div>
+					</form>
+					</div>
+				</div>
+				<h2 class="mt-5 mb-5">Credit card details</h2>
+				<div class="row">
+					<div class="col-md-6 pr-5">
+						<div class="form-group">
+							<label>CARD HOLDER NAME</label>
+							<input type="text" name="" class="form-control" />
+						</div>	
+						<div class="form-group">
+							<label>CARD DETAILS</label>
+							<input type="text" name="" class="form-control" />
+						</div>
+					</div>
+					<div class="col-md-6 payment-summery pl-5">
+						<div class="form-group">
+							<label> PAYMENT SUMMARY </label>
+						</div>
+						<div class="form-group">
+							<label> BUSINESS CARE PLAN <span class="float-right">$130</span></label><br />
+							<label> TOTAL <span class="float-right">$130</span></label>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<button class="btn btn-cont"> Check out </button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
 <div class="container">
     <div class="row justify-content-center">
        <div class="col-md-12">

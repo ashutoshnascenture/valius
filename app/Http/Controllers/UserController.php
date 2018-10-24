@@ -11,7 +11,7 @@ use Session;
 use Auth;
 use DataTables ;
 use Hash;
-
+use App\Site;
 
 class UserController extends Controller
 {
@@ -199,4 +199,21 @@ class UserController extends Controller
 		 
 	}
 	
+	 public function adminSitelisting(Request $request)
+	{
+		$userId = Auth::user()->id;
+        $title = "Site Listing";
+        $totalSite = Site::where('user_id','=',$userId)->count();
+        if (isset($request->site_search)) {
+        $searchKeyword = $request->site_search;
+        $all_sites = Site::where('user_id','=',$userId)->where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
+        $totalSite = Site::where('user_id','=',$userId)->where('name', 'like','%' .$searchKeyword.'%')->count();
+        } else {
+        $all_sites = Site::where('user_id','=',$userId)->paginate(2);
+        }
+        if ($request->ajax()) {
+            return view('sites.load', ['all_sites' => $all_sites,'totalSite'=>$totalSite])->render();  
+        }
+    	return view('users/adminsitelist')->with(compact('all_sites','totalSite','title'));
+	}
 }

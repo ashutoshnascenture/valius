@@ -32,6 +32,7 @@ Route::get('/plan-select/{planID}', 'HomeController@planDetail')->name('plan-sel
 Route::post('/plan-payment', 'HomeController@planPayment')->name('plan-payment');
 Route::post('/subscribe-plan', 'HomeController@subscribePlan')->name('subscribe-plan');
 Route::get('/dashboard', 'DashboardController@index');
+Route::get('/admin-sitelisting', 'UserController@adminSitelisting');
 Route::get('/admin-dashboard', 'DashboardController@adminDashboard');
 Route::get('users/change-password/', 'UserController@changePassword');
 Route::post('users/reset-password/', 'UserController@resetPassword');
