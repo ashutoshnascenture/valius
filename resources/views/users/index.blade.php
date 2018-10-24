@@ -24,8 +24,7 @@
 						<th>Id</th>
                    	 	<th>Name</th>
                    	    <th>Email</th>
-						
-						<!-- <th>Action</th> -->
+						<th>Action</th>
 				     </tr>
 			    </thead>
            <tbody>
@@ -39,7 +38,7 @@
 						<td>{{$value->first_name}}{{$value->last_name}}</td>
 					    <td>{{$value->email}}</td>
 					   
-						<!-- <td>
+						 <td>
 						     <form method="POST" action="{{URL::to('users')}}/{{$value->id}}" id="delete_{{ $value->id}}" accept-charset="UTF-8">
 								
 		                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -48,7 +47,7 @@
 
 								<a class="btn my-btn btn-delete btn-danger btn-sm" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
 							</form>
-			      		</td> -->
+			      		</td> 
 						</tr>
 						<?php $i++; ?>
 					@endforeach

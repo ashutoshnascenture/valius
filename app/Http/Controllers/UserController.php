@@ -11,7 +11,7 @@ use Session;
 use Auth;
 use DataTables ;
 use Hash;
-
+use App\Site;
 
 class UserController extends Controller
 {
@@ -141,13 +141,14 @@ class UserController extends Controller
 		return redirect()->back();
     	
     }
+    
 	public function edit($id)
     {  
 		$user = User::find($id);
 		
 		return view('users/edit')->with(compact('user'));
 	}
-	
+
 	public function userUpdate(Request $request, $id)
     {	
 
@@ -181,7 +182,7 @@ class UserController extends Controller
 		Session::flash('alert-class', 'alert-success');
 		return redirect('users/get-users');
 	}
-	
+
 	public function destroy(Request $request,$id)
     {  
         if($id)
@@ -189,8 +190,6 @@ class UserController extends Controller
 			 	
 			$user = User::find($id);
 			$user->delete();
-			 
-			 	
 	        Session::flash('flash_message', 'Data successfully deleted!');
 			Session::flash('alert-class', 'alert-success');
 			return redirect('users/get-users'); 			
@@ -198,5 +197,23 @@ class UserController extends Controller
 	
 		 
 	}
+   public function adminSitelist(Request $request)
+   {     $userId = Auth::user()->id;
+        $title = "Site Listing";
+        $totalSite = Site::where('user_id','=',$userId)->count();
+        if (isset($request->site_search)) {
+        $searchKeyword = $request->site_search;
+        $all_sites = Site::where('user_id','=',$userId)->where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
+        $totalSite = Site::where('user_id','=',$userId)->where('name', 'like','%' .$searchKeyword.'%')->count();
+        } else {
+        $all_sites = Site::where('user_id','=',$userId)->paginate(2);
+        }
+        if ($request->ajax()) {
+            return view('sites.load', ['all_sites' => $all_sites,'totalSite'=>$totalSite])->render();  
+        }
+    	return  view('users/adminsitelist')->with(compact('all_sites','totalSite','title'));
+        
+
+   }
 	
 }

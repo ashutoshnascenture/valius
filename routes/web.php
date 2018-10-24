@@ -14,17 +14,13 @@
 Route::get('/', function () { 
 	if (Auth::check()){
       if (Auth::check() && !\Auth::user()->hasRole('admin')) {
-		
        return redirect('/dashboard');
 	} else {
-		
 	  return redirect('/admin-dashboard');
 	} 
 	} else {
       return view('welcome');
-
 	}
-	
 });
 Auth::routes();
 Route::get('/plan-list', 'HomeController@index')->name('plan-list');
@@ -33,6 +29,7 @@ Route::post('/plan-payment', 'HomeController@planPayment')->name('plan-payment')
 Route::post('/subscribe-plan', 'HomeController@subscribePlan')->name('subscribe-plan');
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/admin-dashboard', 'DashboardController@adminDashboard');
+Route::get('/admin-sitelist', 'UserController@adminSitelist');
 Route::get('users/change-password/', 'UserController@changePassword');
 Route::post('users/reset-password/', 'UserController@resetPassword');
 Route::get('users/account-details/', 'UserController@accountDetails');
