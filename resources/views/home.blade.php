@@ -14,10 +14,11 @@
                             </div>
                             <div class="card-body">
                                 <h4 class="card-title pricing-card-title">${{ $plan->amount / 100 }} / @if ($plan->interval==1) month  @endif</small></h4>
+                                @php $planDescriptions = explode(',',$plan->description); @endphp 
                                 <ul class="list-unstyled mt-3 mb-4">
-                                    <li>10 GB of storage</li>
-                                    <li>Priority email support</li>
-                                    <li>support</li>
+                                   @foreach($planDescriptions as $planDescription)
+                                    <li>{{ $planDescription }}</li>
+                                    @endforeach
                                 </ul>
                                 <a href="{{ url('/plan-select')}}/{{base64_encode($plan->id)}}" plan_name="{{ $plan->nickname }}" plan_id="{{ $plan->id }}" plan_amount="{{ $plan->amount / 100 }}" class="btn btn-primary btn-choose btn-block">Choose</a> 
 

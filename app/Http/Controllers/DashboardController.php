@@ -42,11 +42,8 @@ class DashboardController extends Controller
     }
     public function  adminDashboard()
     {
-           if (Auth::check() && \Auth::user()->hasRole('admin')) {
+         
            return view('admindashboard');
-           } else {
-            
-            return redirect('/dashboard');
-           } 
+          
     }
 }

@@ -34,6 +34,7 @@ class PlanController extends Controller
     public function index()
     {
         
+        
         $plans = DB::table('plans')->where('is_delete','=',1)->get();
         $is_subscribed = Auth::user()->subscribed('main');
 
@@ -112,6 +113,12 @@ class PlanController extends Controller
 	
 	public function getPlans()
 	{    
+		$stripKey = config('services.stripe.secret');
+        \Stripe\Stripe::setApiKey($stripKey);
+		$stripeData =  \Stripe\Plan::all(['limit'=>3]);
+        $stripJson  = str_replace('Stripe\Collection JSON:', '', $stripeData);
+        $srtipArray = json_decode($stripJson,true); 
+        echo "<pre>"; print_r($srtipArray); die; 
 		$paginationNo = $_ENV['PAGINATE_NOUMBER'];
 		$plans = DB::table('plans')
                 ->where('status', 1)
@@ -197,12 +204,12 @@ class PlanController extends Controller
 		    $palnDetail = DB::table('plans')->select('plan_id')
 						             ->where('id', $id)
 						             ->first(); 
-             $stripKey = config('services.stripe.secret');
+             /*$stripKey = config('services.stripe.secret');
             \Stripe\Stripe::setApiKey($stripKey);
 			$StripePlan = \Stripe\Plan::retrieve($palnDetail->plan_id);
 			$StripePlan->amount = $request->input('price');
 			$StripePlan->nickname = $request->input('name');
-			$StripePlan->save();
+			$StripePlan->save();*/
 		    DB::table('plans') 
             ->where('id', $id)
             ->update(['name' => $request->input('name'),

@@ -28,13 +28,15 @@ Route::get('/plan-select/{planID}', 'HomeController@planDetail')->name('plan-sel
 Route::post('/plan-payment', 'HomeController@planPayment')->name('plan-payment');
 Route::post('/subscribe-plan', 'HomeController@subscribePlan')->name('subscribe-plan');
 Route::get('/dashboard', 'DashboardController@index');
-Route::get('/admin-dashboard', 'DashboardController@adminDashboard');
+Route::get('/admin-sitelisting', 'UserController@adminSitelisting');
+Route::get('/get-states/{country_id}', 'HomeController@getStates');
+Route::get('/admin-dashboard', 'DashboardController@adminDashboard')->middleware('admin');;
 Route::get('/admin-sitelist', 'UserController@adminSitelist');
 Route::get('users/change-password/', 'UserController@changePassword');
 Route::post('users/reset-password/', 'UserController@resetPassword');
 Route::get('users/account-details/', 'UserController@accountDetails');
 Route::put('users/userUpdate/{id}/', 'UserController@userUpdate');
-Route::get('users/get-users/', 'UserController@getUsers');
+Route::get('users/get-users/', 'UserController@getUsers')->middleware('admin');
 Route::delete('users/destroy/{id}', 'UserController@destroy');
 Route::resource('users','UserController');
 Route::resource('ticket','TicketController');

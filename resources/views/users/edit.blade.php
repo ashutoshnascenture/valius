@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-md-8 text-center pt-4 pb-4 plan-heading">
-			<h3> Update your profile</h3> 
+			<h3> Update  {{$user->first_name}} {{$user->last_name}} profile</h3> 
 			<p> If you would like to change your profile, simply change the information below  and click the update button to update.</p>
 		</div>
 	</div>
@@ -12,7 +12,7 @@
 			<div class="box-container">
 				
 			<div class="col-md-10 offset-1">
-				<h2 class="profile-info mt-5 mb-5"> Your  Information </h2>
+				<h2 class="profile-info mt-5 mb-5"> {{$user->first_name}} {{$user->last_name}}  Information </h2>
 				@if (count($errors) > 0)
 				<div class="alert alert-danger">
 					<a href="#" class="close" data-dismiss="alert">&times;</a> 
@@ -65,7 +65,7 @@
 						</div>	
 					</div>	
 					<div class="form-group mb-5">
-						<a href="{{ url('/dashboard') }}" class="btn btn-link btn-cancel"> Cancel </a>
+						<a href="{{ url('users/get-users') }}" class="btn btn-link btn-cancel"> Cancel </a>
 						<button type="submit" class="btn btn-update float-right"> Update Profile </button> 
 					</div>
 				</form>
@@ -91,15 +91,11 @@
 	            last_name: {
 	                required: true
 	            }
-	            /*,
-	            password: {
-	                required: true 
-	            }
 	            ,
 	            confirm_pass: {
-	                required: true,
+	                
 	                equalTo : "#password"
-	            }*/
+	            }
 	           
 	        },
 	        messages:
@@ -107,9 +103,8 @@
 	            email: "<font color='red'>Please Enter email<font>",
 	            first_name: "<font color='red'>Please Enter  first name<font>",
 	            last_name: {required:"<font color='red'>Please Enter last name<font>"},
-	            password: {required:"<font color='red'>Please Enter password<font>"}/*,
-	            confirm_pass: {required:"<font color='red'>Please Enter password<font>",equalTo:"<font color='red'>repeat password  same as  password<font>"}
-	            }*/
+	            confirm_pass: {equalTo:"<font color='red'>Confirm password  same as  password<font>"}
+	            }
 	    });
 
 	});

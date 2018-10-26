@@ -47,15 +47,15 @@ class UserController extends Controller
 	public function getUsers()
     {   
     	 $paginationNo = $_ENV['PAGINATE_NOUMBER'];
-	    $users= User::paginate($paginationNo);
-	    
-		return view('users/index')->with(compact('users'));
+	     $users= User::where('id','!=',1)->paginate($paginationNo);
+		 return view('users/index')->with(compact('users'));
     }
 	
 	public function store(Request $request)
 	{  
+
         $input = $request->all();
-		$rules = User::$rules;
+		$rules = User::recordUpdate();
 		$validator = Validator::make($input,$rules);
 		if ($validator->fails()){
 			return redirect()->back()->withInput($input)->withErrors($validator->errors()); 
@@ -90,7 +90,6 @@ class UserController extends Controller
 		}
 
 		$user = User::find(Auth::user()->id);
-
 		if (\Hash::check($input['current_password'], $user->password))
 		{
 			$password = bcrypt($input['password']);
@@ -98,10 +97,8 @@ class UserController extends Controller
 			$user->save();
 			Session::flash('flash_message', 'Password changed successfully');
 			Session::flash('alert-class', 'alert-success');
-			return redirect()->back();
-		    
+			return redirect()->back();   
 		}
-		
 		Session::flash('flash_message', 'Current password is not correct');
 		Session::flash('alert-class', 'alert-danger');
 		return redirect()->back();
@@ -111,8 +108,6 @@ class UserController extends Controller
 	public function accountDetails(){
 		 
 		$user = User::find(Auth::user()->id);
-		
-		//echo '<pre>'; print_r($user); die;
 		
     	return view('users/account-details')->with(compact('user'));
     }
@@ -136,16 +131,24 @@ class UserController extends Controller
 		}
         $user = User::find($id);
 		$user->update($input);
-		Session::flash('flash_message', 'User updated successfully');
+		if (\Auth::user()->hasRole('admin')) {
+            Session::flash('flash_message', 'User updated successfully');
 		Session::flash('alert-class', 'alert-success');
-		return redirect()->back();
+		return redirect('users/get-users');
+		} else {
+         Session::flash('flash_message', 'Your profile updated successfully');
+		Session::flash('alert-class', 'alert-success');
+		return redirect('users/account-details');
+		}
+		
     	
     }
     
 	public function edit($id)
     {  
+		//echo $id; die;
 		$user = User::find($id);
-		
+	
 		return view('users/edit')->with(compact('user'));
 	}
 
@@ -216,4 +219,21 @@ class UserController extends Controller
 
    }
 	
+	 public function adminSitelisting(Request $request)
+	{
+		$userId = Auth::user()->id;
+        $title = "Site Listing";
+        $totalSite = Site::where('user_id','=',$userId)->count();
+        if (isset($request->site_search)) {
+        $searchKeyword = $request->site_search;
+        $all_sites = Site::where('user_id','=',$userId)->where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
+        $totalSite = Site::where('user_id','=',$userId)->where('name', 'like','%' .$searchKeyword.'%')->count();
+        } else {
+        $all_sites = Site::where('user_id','=',$userId)->paginate(2);
+        }
+        if ($request->ajax()) {
+            return view('sites.load', ['all_sites' => $all_sites,'totalSite'=>$totalSite])->render();  
+        }
+    	return view('users/adminsitelist')->with(compact('all_sites','totalSite','title'));
+	}
 }

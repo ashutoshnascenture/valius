@@ -1,6 +1,5 @@
 @extends('layouts.app-plan')
 @section('content')
-
 <section class="plan-deatil-section">
 	<div class="container">
 		<div class="row justify-content-center">
@@ -30,7 +29,7 @@
 		</div>
 	</div>
 </section>
-<script type="text/javascript" src="http://js.stripe.com/v3/"></script>
+
 <section class="plan-section">
 	<div class="container">
 		<div class="row">
@@ -143,30 +142,20 @@
 							<label>CARD HOLDER NAME</label>
 							<input data-stripe="name" size='20' type='text'  class="form-control cardname" required />
 						</div>
-
-					
 						
-						
-						    <label for="card-element">
-						      Credit or debit card
-						    </label>
-						    <div id="card-element" class="card-cvc-detail">
-						      <!-- A Stripe Element will be inserted here. -->
-						    </div>
-
-						    <!-- Used to display form errors. -->
-						    <div id="card-errors" role="alert"></div>
-						  </div>
-							<!-- <input autocomplete='off'  data-stripe="number" size='20' type='text'   class="card-no card-number" placeholder="Card Number " />
+					<div class="form-group">
+						<label>CARD DETAILS</label>
+						 <div class="card-cvc-detail">
+							<input autocomplete='off'  data-stripe="number" size='20' type='text'   class="card-no card-number" placeholder="Card Number " />
 							<input data-stripe="exp" size='2' type='text'   class="date-year"  placeholder="MM/YY"  />
-							<input type="text"  autocomplete='off' class="cvc-no card-cvc" placeholder="CVC"  data-stripe="cvc" size='4' type='text'  /> -->
-						
-
-				
-					    <input id="planlocalid" type="hidden" name="planlocalid" value="{{$plan->id}}">
-						<input id="planId" type="hidden" name="plan" value="{{$plan->plan_id}}">
-						<input id="planName" type="hidden" name="plan_name" value="{{$plan->nickname}}">
-						<input id="planAmout" type="hidden" name="plan_amount" value="{{$plan->amount}}">
+							<input type="text"  autocomplete='off' class="cvc-no card-cvc" placeholder="CVC"  data-stripe="cvc" size='4' type='text'  />
+						</div>
+					</div>
+					</div>
+					            <input id="planlocalid" type="hidden" name="planlocalid" value="{{$plan->id}}">
+								<input id="planId" type="hidden" name="plan" value="{{$plan->plan_id}}">
+								<input id="planName" type="hidden" name="plan_name" value="{{$plan->nickname}}">
+								<input id="planAmout" type="hidden" name="plan_amount" value="{{$plan->amount}}">
 					<div class="col-md-6 payment-summery pl-5">
 						<div class="form-group">
 							<label> PAYMENT SUMMARY </label>
@@ -187,11 +176,11 @@
 </section>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-   <!-- <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script> -->
+   <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
  
 <script type="text/javascript">
 	    $(document).ready(function () {
-	    	//$(".date-year").inputmask({"mask": "99/99"});
+	    	$(".date-year").inputmask({"mask": "99/99"});
             $('.countrySelect').change(function(){
             	var countryID = $(this).val();
             	getState(countryID);
@@ -211,49 +200,11 @@
 	   
 
 	});
+
 </script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
-   var stripe = Stripe("{{ config('services.stripe.key') }}");
-   var elements = stripe.elements();
-	var style = {
-	  base: {
-	    color: '#32325d',
-	    lineHeight: '18px',
-	    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-	    fontSmoothing: 'antialiased',
-	    fontSize: '16px',
-	    '::placeholder': {
-	      color: '#aab7c4'
-	    }
-	  },
-	  invalid: {
-	    color: '#fa755a',
-	    iconColor: '#fa755a'
-	  }
-	};
-var card = elements.create('card', {style: style});
-card.mount('#card-element');
-card.addEventListener('change', function(event) {
-  var displayError = document.getElementById('card-errors');
-	  if (event.error) {
-	    displayError.textContent = event.error.message;
-	  } else {
-	    displayError.textContent = '';
-	  }
-	 });
-/*var form = document.getElementById('payment-form');
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
-  stripe.createToken(card).then(function(result) {
-    if (result.error) {
-      var errorElement = document.getElementById('card-errors');
-      errorElement.textContent = result.error.message;
-    } else {
-      stripeTokenHandler(result.token);
-    }
-  });
-});*/
-    
+    Stripe.setPublishableKey("{{ config('services.stripe.key') }}");
      $(document).ready(function () {
     $('#payment-form').validate({ // initialize the plugin 
 	        rules: {
@@ -297,16 +248,10 @@ form.addEventListener('submit', function(event) {
 	            company_name: {required:"<font color='red'>Please enter company name<font>"}
 	            },
                 submitHandler: function(form) {
-                	stripe.createToken(card).then(function(result) {
-					    if (result.error) {
-					      var errorElement = document.getElementById('card-errors');
-					      errorElement.textContent = result.error.message;
-					    } else {
-					      stripeTokenHandler(result.token);
-					    }
-					  });
-                	return false;
-                     // submit from callback
+                	var $form = $('#payment-form');
+                     var timearray= $('.date-year').val().split('/');
+                    Stripe.createToken($form, stripeResponseHandler);
+                    return false; // submit from callback
 
                 }
 	    });
@@ -325,26 +270,27 @@ form.addEventListener('submit', function(event) {
 			return false;
 		});
 	});*/
-	function stripeTokenHandler(token) {
-  // Insert the token ID into the form so it gets submitted to the server
-	  var form = document.getElementById('payment-form');
-	  var hiddenInput = document.createElement('input');
-	  hiddenInput.setAttribute('type', 'hidden');
-	  hiddenInput.setAttribute('name', 'stripeToken');
-	  hiddenInput.setAttribute('value', token.id);
-	  form.appendChild(hiddenInput);
-      form.submit();
-     }
-	/*function stripeResponseHandler(status, response) {
+	function stripeResponseHandler(status, response) {
+		// Grab the form:
 		var $form = $('#payment-form');
-		if (response.error) { 
+
+		if (response.error) { // Problem!
+
+			// Show the errors on the form:
 			$form.find('.payment-errors').text(response.error.message);
 			$form.find('.submit').prop('disabled', false); // Re-enable submission
-		} else { 
+
+		} else { // Token was created!
+
+			// Get the token ID:
 			var token = response.id;
+             console.log(token);
+			// Insert the token ID into the form so it gets submitted to the server:
 			$form.append($('<input type="hidden" name="stripeToken">').val(token));
+
+			// Submit the form:
 			$form.get(0).submit();
 		}
-	}*/
+	}
 </script>
 @endsection

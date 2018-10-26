@@ -1,5 +1,53 @@
 @extends('layouts.app')
 @section('content')
+<<<<<<< HEAD
+=======
+<div class="top-step" >
+	<div class="container">
+		<nav class="navbar nav step-nav">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active"> <a class="nav-link" href="#">All Sites</a> </li>
+		      <li class="nav-item"> <a class="nav-link" href="#">Added Sites</a> </li>
+		      <li class="nav-item"> <a class="nav-link" href="#">My Settings</a> </li>
+		    </ul>
+		    <div class="my-2 my-lg-0 ">
+			    <ul class="navbar-nav mr-auto setting-user">
+				    <li class="nav-item dropdown setting-drop">
+	                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre="">
+	                    <div class="name-box">M</div> Mike <span class="caret"></span></a>
+	                </li>
+
+	                <li class="nav-item setting-list"> <a class="nav-link" href="#"><i class="fa fa-cog" aria-hidden="true"></i></a> </li>
+			    </ul>
+		    </div>
+		</nav>
+	</div>
+</div>
+
+
+<!-- <div class="dashboard-home">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2 d-img-box">
+				 <img src="{{ asset('images/default.jpg') }}" alt="" title="" />
+			</div>
+			<div class="col-md-9 detail-box">
+				<h4> VaroLocal </h4>
+				<a href="#" class="">varolocal.com</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 dash-nav">
+				<ul class="mr-auto list-inline">
+					<li> <a href="#"> Overview </a></li>
+					<li> <a href="#"> Billing </a></li>
+				</ul>
+				<a href="#" class="ml-auto btn btn-sm btn-login">Wp admin </a>
+			</div>
+		</div>
+	</div>
+</div> -->
+>>>>>>> 82116943057316c2224a359db3f45b693026c8b4
 <div class="container">
 	<div class="container-box">
 		<div class="site-list">
@@ -103,10 +151,19 @@
    </div>
 </div>
 </div> -->
+<<<<<<< HEAD
 <!-- <script type="text/javascript">
 	
 	var siteURl = '<?php // echo url('/'); ?>';
 
 </script>
 <script src="{{ asset('js/site.js') }}" defer></script> -->
+=======
+<script type="text/javascript">
+	
+	var siteURl = '<?php  echo url('/'); ?>';
+
+</script>
+<script src="{{ asset('js/site.js') }}" defer></script>
+>>>>>>> 82116943057316c2224a359db3f45b693026c8b4
 @endsection

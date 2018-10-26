@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'last_name','name', 'email', 'password','first_name','last_name','phone','status','remember_token','role_id','company_name'
+        'last_name','name', 'email', 'password','first_name','last_name','phone','status','remember_token','role_id','company_name','zipcode','address','city','state_id','user_type','country_id'
     ];
 
     /**
@@ -30,7 +30,7 @@ class User extends Authenticatable
         'last_name'               => 'required',
         'first_name'              => 'required',
         'email'                   => 'required|email|unique:users',
-        'password'                => 'required', 
+        'password'                => 'required|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}$/', 
         'confirm_pass'            => 'required|same:password',
        
     );
@@ -39,8 +39,9 @@ class User extends Authenticatable
         'last_name.required'                     => ' Last Name is required',
         'email.required'                         => 'Email is required',
         'password.required'                      => 'Password is required',
-        'confirm_pass.required'              => 'Confirm Password is required', 
-        'confirm_pass.same'                  => 'Confirm Password should match password', 
+        'confirm_pass.required'                  => 'Confirm Password is required', 
+        'confirm_pass.same'                      => 'Confirm Password should match password', 
+        'password.regex'                         => 'Password must contain a min. of 6 characters, at last one lowercase and capital letter, and a number', 
         
     );
 	 
@@ -54,7 +55,7 @@ class User extends Authenticatable
              'last_name'               => 'required',
              'first_name'              => 'required',
              'email'                   => 'required|email|unique:users',
-             'company_name'            =>  'required'
+             'company_name'            => 'required'
         );
     }
      public function roles()

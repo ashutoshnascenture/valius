@@ -1,29 +1,74 @@
 @extends('layouts.app-plan')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-       <div class="col-md-12">
-        <div class="card">
-			  <div class="card-header">
-			    Plan Detail
-			  </div>
-			  <div class="card-body">
-			    <div class="card mb-4 shadow-sm plan">
-                            <div class="card-header">
-                                <h4 class="my-0 font-weight-normal">{{ $plan->nickname }}</h4>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-title pricing-card-title">${{ $plan->amount / 100 }} / @if ($plan->interval==1) month  @endif</h4>
-                                <ul class="list-unstyled mt-3 mb-4">
-                                    <li>10 GB of storage</li>
-                                    <li>Priority email support</li>
-                                    <li>support</li>
-                                </ul>
-                            </div>
-                        </div>
-			  </div>
+<section class="plan-deatil-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-9 step-box">
+				<div class="connecting-line"></div>
+				<div class="row">
+					<div class="col-md-4 text-center step-text active">
+						<a href="#" class="">
+							<span></span>
+							Choose A Plan
+						</a>
+					</div>
+					<div class="col-md-4 text-center step-text">
+						<a href="#" class="">
+							<span></span>
+							Account Information
+						</a>
+					</div>
+					<div class="col-md-4 text-center step-text">
+						<a href="#" class="">
+							<span></span>
+							Payment
+						</a>
+					</div>
+				</div>
 			</div>
-			@if (session('status'))
+		</div>
+	</div>
+</section>
+
+<section class="plan-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 plan-box">
+				<div class="row">
+					<div class="col-md-5 plan">
+						<h2> {{ $plan->nickname }}</h2>
+						<span> ${{ $plan->amount  }} / @if ($plan->interval==1) month  @endif</span>
+						<div class="change-btn-box mt-4">
+							<a href="https://getvaro.com/" class="btn plan-btn"> Change Plan </a>
+						</div>
+					</div>
+					<div class="col-md-7 plan-detail">
+						<div class="row">
+							<div class="col-md-12 detail-list">
+							    @php $planDescriptions = explode(',',$plan->description); @endphp 
+								<ul>
+									 @foreach($planDescriptions as $planDescription)
+                                    <li>{{ $planDescription }}</li>
+                                    @endforeach
+								</ul>
+							</div>
+							<!-- <div class="col-md-6 detail-list">
+								<ul>
+									<li>Unlimited Content edits</li>
+									<li>4 development Points/mo</li>
+									<li>Weekly wordpress speed optimization</li>
+								</ul>
+							</div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="account-info-section">
+	<div class="container">
+	  @if (session('status'))
                 <div class="alert alert-info">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     {{ session('status') }}
@@ -40,71 +85,65 @@
 					</ul>
 				</div>
 			@endif
-			<div class="card mt-4">
-				<div class="card-header">
-					<h3>Add your account information</h3>
-					<small>Please fill out all fields to continue </small>
-				</div>
-				<form method="post" action="{{ url('/plan-payment')}}" id="userform">
-				 {{ csrf_field() }}
-				<div class="card-body">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
+		<div class="row">
+			<div class="col-md-12 info-box">
+				<h2> Add Your Account Information </h2>
+				<p> Please fill out all the fields to continue </p>
+				<div class="row ">
+					<div class="col-md-12 account-form mt-5">
+					<form method="post" action="{{ url('/plan-payment')}}" id="userform">
+					   {{ csrf_field() }}
+						<div class="row">
+							<div class="form-group col-md-6">
 								<label> Email </label>
 								<input type="text"  class="form-control"  name="email"  value="{{old('email')}}" />
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label> First name </label>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label> First Name </label>
 								<input type="text"   class="form-control" name="first_name"  value="{{old('first_name')}}"/>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label> Last name </label>
+							<div class="form-group col-md-6">
+								<label> Last Name </label>
 								<input type="text"   class="form-control" name="last_name"  value="{{old('last_name')}}" />
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
+						
+							<div class="form-group col-md-6">
 								<label> Password </label>
 								<input type="password"   class="form-control" name="password" id="password" value="{{old('last_name')}}"/>
-								<!-- <small>Password must contain a min. of 6 characters, at least one lowercase and capital letter, and a number</small> -->
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label> Repeat password </label>
+							<div class="form-group col-md-6">
+								<label> Repeat Password </label>
 								<input type="password"   class="form-control"  name="confirm_pass"  value="{{old('confirm_pass')}}" />
 							</div>
-						</div>
-						<input type="hidden" name="palnID" value="{{ $plan->id}}">
-						<div class="col-md-12 form-group">
-							<div class="checkbox">
-								<label class="checkbox-inline"> <input type="checkbox" name="accept"> I agree to the Terms and Conditions and Privacy Policy</label>
+							<input type="hidden" name="palnID" value="{{ $plan->id}}">
+							<div class="form-group col-md-12">
+								<h5> Password must contain a min. of 6 characters, at last one lowercase and capital letter, and a number.</h5>
+							</div>
+							<div class="form-group">
+								<div class="checkbox">
+								    <input id="checkbox5" type="checkbox" name="accept">
+								    <label for="checkbox5">I agree to the terms and Conditions and Privacy Policy</label>
+								    
+								</div>
+								<span class="trmerror" style="display: none; color:red;">please accept terms and conditions</span>
+							</div>
+							<div class="col-md-12">
+							  <button type="submit" class="btn btn-cont">Continue</button>
 							</div>
 						</div>
-						<div class="form-group col-md-12">
-							<button type="submit" class="btn btn-primary">Continue</button>
-						</div>
-
+					</form>
 					</div>
 				</div>
-				</form>
 			</div>
 		</div>
-		</div>
-   </div>
-</div>
-</div>
+	</div>
+</section>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
 <script type="text/javascript">
-	    $(document).ready(function () {
-	    $('#userform').validate({ // initialize the plugin
+	    $(document).ready(function () { 
+	    $('#userform').validate({ // initialize the plugin 
 	        rules: {
 	            email: {
 	                required: true,
@@ -119,17 +158,15 @@
 	            }
 	            ,
 	            password: {
-	                required: true 
+	                required: true ,
+	                passwordvalidate: true
 	            }
 	            ,
 	            confirm_pass: {
 	                required: true,
 	                equalTo : "#password"
 	            }
-	            ,
-	            accept: {
-	                required: true,
-	            }
+	            
 	        },
 	        messages:
 	            {
@@ -137,11 +174,26 @@
 	            first_name: "<font color='red'>Please Enter  first name<font>",
 	            last_name: {required:"<font color='red'>Please Enter last name<font>"},
 	            password: {required:"<font color='red'>Please Enter password<font>"},
-	            confirm_pass: {required:"<font color='red'>Please Enter password<font>",equalTo:"<font color='red'>repeat password  same as  password<font>"},
-	            accept: {required:"<font color='red'>Please  accept term and conditions<font>"}
-	            }
-	    });
+	            confirm_pass: {required:"<font color='red'>Please Enter confirm  password<font>",equalTo:"<font color='red'>repeat password  same as  password<font>"},
+	            
+	            },
+	            submitHandler: function(form) {
+                     if($('#checkbox5').prop("checked")) {
+                     	$('.trmerror').hide();
+                     	return true;
+                     } else {
 
+                     	$('.trmerror').show();
+                     	return false;
+                     }
+                     // submit from callback
+
+                }
+	    });
+	      jQuery.validator.addMethod("passwordvalidate", function(value, element){
+	      	var checkPassword =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}$/.test(value);
+		    return checkPassword;
+		    }, "<font color='red'>Password must contain a min. of 6 characters, at last one lowercase and capital letter, and a number<font>"); 
 	});
 
 </script>

@@ -1,6 +1,12 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+     @if(Session::has('flash_message'))
+		        <div class="alert {{ Session::get('alert-class', 'alert-info') }}">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                 {{ Session::get('flash_message') }} 
+                </div>
+		       @endif 
 	<div class="row justify-content-center">
 		<div class="col-md-8 text-center pt-4 pb-4 plan-heading">
 			<h3> Update your profile</h3> 
@@ -90,26 +96,18 @@
 	            ,
 	            last_name: {
 	                required: true
+	            },
+	            company_name: {
+	            	required: true
 	            }
-	            /*,
-	            password: {
-	                required: true 
-	            }
-	            ,
-	            confirm_pass: {
-	                required: true,
-	                equalTo : "#password"
-	            }*/
-	           
 	        },
 	        messages:
 	            {
 	            email: "<font color='red'>Please Enter email<font>",
 	            first_name: "<font color='red'>Please Enter  first name<font>",
 	            last_name: {required:"<font color='red'>Please Enter last name<font>"},
-	            password: {required:"<font color='red'>Please Enter password<font>"}/*,
-	            confirm_pass: {required:"<font color='red'>Please Enter password<font>",equalTo:"<font color='red'>repeat password  same as  password<font>"}
-	            }*/
+	            company_name: {required:"<font color='red'>Please Enter company name<font>"}
+	        }
 	    });
 
 	});

@@ -126,9 +126,11 @@
 	                equalTo : "#password"
 	            }
 	            ,
-	            accept: {
-	                required: true,
+	            company_name: {
+	                required: true
+	                
 	            }
+	            
 	        },
 	        messages:
 	            {
@@ -137,8 +139,8 @@
 	            last_name: {required:"<font color='red'>Please Enter last name<font>"},
 	            password: {required:"<font color='red'>Please Enter password<font>"},
 	            confirm_pass: {required:"<font color='red'>Please Enter password<font>",equalTo:"<font color='red'>repeat password  same as  password<font>"},
-	            accept: {required:"<font color='red'>Please  accept term and conditions<font>"}
-	            }
+	             company_name: {required:"<font color='red'>Please Enter  company name<font>"}
+	        }
 	    });
 
 	});
