@@ -266,7 +266,7 @@ class PlanController extends Controller
           $userDetail->updateCard($stripeToken);
           Session::flash('flash_message', 'Card successfully update!');
 		  Session::flash('alert-class', 'alert-success');
-          return view('/dashboard');
+          return redirect('/dashboard');
         //$card = $customer->cards->retrieve({CARD_ID});
 	}
     

@@ -7,7 +7,7 @@
       <meta name="csrf-token" content="{{ csrf_token() }}">
       @if(isset($title))
       <title>{{$title}}-{{ config('app.name') }}</title>
-      @elese
+      @else
       <title>{{ config('app.name') }}</title>
       @endif
       <!-- Scripts -->
