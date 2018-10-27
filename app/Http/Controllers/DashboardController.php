@@ -33,17 +33,18 @@ class DashboardController extends Controller
      */
     public function index()
     {
+         $title = "Dashboard";
         if (Auth::check() && !\Auth::user()->hasRole('admin')) {  
-           return view('dashboard');
+            return view('dashboard', compact('title'));
+           
         } else {
            return redirect('/admin-dashboard');
         } 
         
     }
     public function  adminDashboard()
-    {
-         
-           return view('admindashboard');
-          
+    {  
+           $title = "Dashboard";
+           return view('admindashboard', compact('title'));          
     }
 }

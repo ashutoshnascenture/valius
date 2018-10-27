@@ -41,9 +41,10 @@ class PlanController extends Controller
         $is_subscribed = Auth::user()->subscribed('main');
 
         // If subscribed get the subscription
+        $title = 'Plan Listin';
         $subscription = Auth::user()->subscription('main');
 
-        return view('plans/index')->with(compact('plans', 'is_subscribed', 'subscription'));
+        return view('plans/index')->with(compact('plans', 'is_subscribed', 'subscription','title'));
     }
 	
 	public function subscribe(Request $request)
@@ -242,10 +243,11 @@ class PlanController extends Controller
 	 }
 	public function updatePayment(Request $request)
 	{
+		  $title = 'Plan Update';
           $id = Auth::user()->id;
           $user = User::find($id);
           $allCountry = Country::get();
-		  return view('plans/updatepayment')->with(compact('user','allCountry'));
+		  return view('plans/updatepayment')->with(compact('user','allCountry','title'));
 	}
 	public function updateCard(Request $request)
 	{

@@ -33,24 +33,24 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   $title = 'Plan Listinf';
         $plans = DB::table('plans')->where('is_delete','=',1)->get();
-        return view('home')->with(compact('plans')); 
+        return view('home')->with(compact('plans','title')); 
     }
 
     public function planDetail($planID='')
-    {
+    {    $title = 'Plan Detail';
          $planID = base64_decode($planID);
          $plan = DB::table('plans')->find($planID);
          if ($plan) {
-          return view('plan-detail')->with(compact('plan'));   
+          return view('plan-detail')->with(compact('plan','title'));   
          }
          return redirect()->back();
     }
  
     public function  planPayment(Request $request)
     {
-
+         $title = 'Plan Payment';
          $allCountry = Country::get();
          $rules = User::$rules;
          $messages = User::$message;
@@ -73,7 +73,7 @@ class HomeController extends Controller
                 Session::push('userDetail', $userDetail);
              }
              
-             return view('plan-payment')->with(compact('plan','allCountry','userDetail'));  
+             return view('plan-payment')->with(compact('plan','allCountry','userDetail','title'));  
           } else {
              return redirect()->back();
           }

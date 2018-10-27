@@ -106,10 +106,10 @@ class UserController extends Controller
     }
 	
 	public function accountDetails(){
-		 
+		 $title = 'Update Account';
 		$user = User::find(Auth::user()->id);
 		
-    	return view('users/account-details')->with(compact('user'));
+    	return view('users/account-details')->with(compact('user','title'));
     }
 	
 	public function update(Request $request, $id)
