@@ -150,7 +150,7 @@ class HomeController extends Controller
             $message->to($mailArray['email']);
             $message->subject('Confirmation Email');
         });
-		return redirect('/plans')->with('status', 'You are now subscribed to ' . $pickedPlanName . ' plan.');
+		return redirect('/dashboard')->with('status', 'You are now subscribed to ' . $pickedPlanName . ' plan.');
 		} else {
              
 			return redirect('/plan-select/'.base64_encode($request->get('planlocalid')))->withErrors(['status' => 'somthing went wrong please try again']);

@@ -254,7 +254,7 @@ class PlanController extends Controller
 	}
 	public function updateCard(Request $request)
 	{
-		  //$stripeToken = $request->get('stripeToken');
+		  $stripeToken = $request->get('stripeToken');
           $userDetail = Auth::user();
          /*$stripKey = config('services.stripe.secret');
          \Stripe\Stripe::setApiKey($stripKey);
@@ -266,8 +266,10 @@ class PlanController extends Controller
           $stripJsonCard  = str_replace('Stripe\Card JSON:', '', $card);
           $srtipArrayCard = json_decode($stripJsonCard,true);
           echo "<pre>"; print_r($srtipArrayCard); die;*/
-         // $userDetail->updateCard($stripeToken);
-          //return view('/dashboard');
+          $userDetail->updateCard($stripeToken);
+          Session::flash('flash_message', 'Card successfully update!');
+		  Session::flash('alert-class', 'alert-success');
+          return view('/dashboard');
         //$card = $customer->cards->retrieve({CARD_ID});
 	}
     

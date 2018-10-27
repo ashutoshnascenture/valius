@@ -148,7 +148,7 @@
 						
 						
 						    <label for="card-element">
-						      Credit or debit card
+						      Card Detail
 						    </label>
 						    <div id="card-element" class="card-cvc-detail">
 						      <!-- A Stripe Element will be inserted here. -->
