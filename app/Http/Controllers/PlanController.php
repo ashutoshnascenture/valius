@@ -115,12 +115,7 @@ class PlanController extends Controller
 	
 	public function getPlans()
 	{    
-		$stripKey = config('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($stripKey);
-		$stripeData =  \Stripe\Plan::all(['limit'=>3]);
-        $stripJson  = str_replace('Stripe\Collection JSON:', '', $stripeData);
-        $srtipArray = json_decode($stripJson,true); 
-        echo "<pre>"; print_r($srtipArray); die; 
+		
 		$paginationNo = $_ENV['PAGINATE_NOUMBER'];
 		$plans = DB::table('plans')
                 ->where('status', 1)
@@ -206,7 +201,7 @@ class PlanController extends Controller
 		    $palnDetail = DB::table('plans')->select('plan_id')
 						             ->where('id', $id)
 						             ->first(); 
-             /*$stripKey = config('services.stripe.secret');
+            /* $stripKey = config('services.stripe.secret');
             \Stripe\Stripe::setApiKey($stripKey);
 			$StripePlan = \Stripe\Plan::retrieve($palnDetail->plan_id);
 			$StripePlan->amount = $request->input('price');
