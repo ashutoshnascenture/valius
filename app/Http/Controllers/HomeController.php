@@ -82,7 +82,6 @@ class HomeController extends Controller
     public function subscribePlan(Request $request) 
     {
          $data = $request->session()->all();
-         $Billdata = $request->all();
         $this->validate( $request, [ 'stripeToken' => 'required', 'plan' => 'required'] );
         $pickedPlan = $request->get('plan');
 		$pickedPlanName = $request->get('plan_name');
@@ -96,6 +95,7 @@ class HomeController extends Controller
             'country_id'   => $request->get('country_id'),
             'state_id'     => $request->get('state_id'),
             'zipcode'      => $request->get('zipcode'),
+            'city'         => $request->get('city'),
             'company_name' => $request->get('company_name'),
             'address'      => $request->get('address'),
             'user_type'    => $request->get('user_type'),

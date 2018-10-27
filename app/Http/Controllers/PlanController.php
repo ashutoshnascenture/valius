@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests;
 use App\Plan;
+use App\User;
+use App\Country;
 use Stripe\Stripe;
 use DataTables;
 use Validator;
@@ -243,6 +245,30 @@ class PlanController extends Controller
 	
 		 
 	 }
-	
+	public function updatePayment(Request $request)
+	{
+          $id = Auth::user()->id;
+          $user = User::find($id);
+          $allCountry = Country::get();
+		  return view('plans/updatepayment')->with(compact('user','allCountry'));
+	}
+	public function updateCard(Request $request)
+	{
+		  //$stripeToken = $request->get('stripeToken');
+          $userDetail = Auth::user();
+         /*$stripKey = config('services.stripe.secret');
+         \Stripe\Stripe::setApiKey($stripKey);
+          $stripeData = \Stripe\Customer::retrieve($userDetail->stripe_id);
+		  $stripJson  = str_replace('Stripe\Customer JSON:', '', $stripeData);
+          $srtipArray = json_decode($stripJson,true); 
+          echo "<pre>"; print_r($srtipArray); 
+          $card = $stripeData->sources->retrieve($srtipArray['default_source']);
+          $stripJsonCard  = str_replace('Stripe\Card JSON:', '', $card);
+          $srtipArrayCard = json_decode($stripJsonCard,true);
+          echo "<pre>"; print_r($srtipArrayCard); die;*/
+         // $userDetail->updateCard($stripeToken);
+          //return view('/dashboard');
+        //$card = $customer->cards->retrieve({CARD_ID});
+	}
     
 }

@@ -76,14 +76,18 @@ i{margin-right:5px;}
 .total-box h4{font-size: 25px; margin-bottom: 0px;  }
 .amount-box{text-align: center; padding: 30px 15px;}
 .amount-box h5{margin-bottom: 0px;}
-.counrty-box i{
-position: absolute;
-top: 30px;
+.counrty-box i{ position: absolute; top: 30px; font-size: 32px; color: #ccc; right: 25px; z-index: 1;}
+.card-update{ padding: 9px 15px; }
+.form-select i{position: absolute;
+top: 34px;
 font-size: 32px;
 color: #ccc;
-right: 25px; z-index: 1;
-}
-
+right: 5px;
+z-index: 1; }
+.form-select select{-webkit-appearance: none;
+   -moz-appearance:none;
+   appearance:none; }
+   .form-select {position: relative;  }
 
 
 

@@ -12,15 +12,13 @@
 */
 
 Route::get('/', function () { 
-	if (Auth::check()){
+	
       if (Auth::check() && !\Auth::user()->hasRole('admin')) {
        return redirect('/dashboard');
 	} else {
 	  return redirect('/admin-dashboard');
 	} 
-	} else {
-      return view('welcome');
-	}
+	
 });
 Auth::routes();
 Route::get('/plan-list', 'HomeController@index')->name('plan-list');
@@ -42,6 +40,8 @@ Route::resource('users','UserController');
 Route::resource('ticket','TicketController');
 Route::get('/plans', 'PlanController@index')->name('plans');
 Route::put('plans/planUpdate/{id}/', 'PlanController@planUpdate');
+Route::get('plans/update-payment/', 'PlanController@updatePayment');
+Route::post('plans/update-card/', 'PlanController@updateCard');
 Route::get('plans/get-plans', 'PlanController@getPlans');
 Route::put('addons/addonUpdate/{id}/', 'AddonsController@addonUpdate');
 Route::resource('addons','AddonsController');

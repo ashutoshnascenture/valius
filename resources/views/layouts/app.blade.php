@@ -97,6 +97,11 @@
                            <li> <a href="{{url('plans')}}" class="dropdown-item">
                               <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Billing</a>
                            </li>
+                          
+                           <div class="dropdown-divider"></div>
+                            <li> <a href="{{url('plans/update-payment')}}" class="dropdown-item">
+                              <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Update your payment method</a>
+                           </li>
                            <div class="dropdown-divider"></div>
                            <li> <a href="{{url('users/account-details/')}}" class="dropdown-item">
                               <i class="fa fa-user" aria-hidden="true"></i>Account Details</a>
