@@ -96,7 +96,7 @@
 						<div class="row">
 							<div class="form-group col-md-6">
 								<label> Email </label>
-								<input type="text"  class="form-control"  name="email"  value="{{old('email')}}" />
+								<input type="email"  class="form-control"  name="email"  value="{{old('email')}}" />
 							</div>
 						</div>
 						<div class="row">
@@ -119,7 +119,7 @@
 							</div>
 							<input type="hidden" name="palnID" value="{{ $plan->id}}">
 							<div class="form-group col-md-12">
-								<h5> Password must contain a min. of 6 characters, at last one lowercase and capital letter, and a number.</h5>
+								<h5> Password must contain a min. of 6 characters, at least one lowercase and capital letter, and a number.</h5>
 							</div>
 							<div class="form-group">
 								<div class="checkbox">
@@ -127,7 +127,7 @@
 								    <label for="checkbox5">I agree to the terms and Conditions and Privacy Policy</label>
 								    
 								</div>
-								<span class="trmerror" style="display: none; color:red;">please accept terms and conditions</span>
+								<span class="trmerror" style="display: none; color:red; margin-left: 47px;">please accept terms and conditions</span>
 							</div>
 							<div class="col-md-12">
 							  <button type="submit" class="btn btn-cont">Continue</button>
@@ -193,7 +193,7 @@
 	      jQuery.validator.addMethod("passwordvalidate", function(value, element){
 	      	var checkPassword =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}$/.test(value);
 		    return checkPassword;
-		    }, "<font color='red'>Password must contain a min. of 6 characters, at last one lowercase and capital letter, and a number<font>"); 
+		    }, "<font color='red'>Password must contain a min. of 6 characters, at least one lowercase and capital letter, and a number<font>"); 
 	});
 
 </script>

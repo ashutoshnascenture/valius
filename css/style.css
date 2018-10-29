@@ -232,6 +232,7 @@ z-index: 1; }
 .btn-cancel{ color: #724ce8; text-transform: uppercase; font-weight: bold;}
 .btn-update:hover{ background-color: #502cbf; }
 .btn-cancel:hover{ text-decoration: none; color: #502cbf; }
+.card-errors:{color:red;}
 
 
 
