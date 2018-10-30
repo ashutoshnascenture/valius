@@ -148,7 +148,7 @@ class PlanController extends Controller
 			return redirect()->back()->withInput($input)->withErrors($validator->errors()); 
 		}
 			$stripeData = \Stripe\Plan::create(array(
-					  "amount"    => $request->input('price'),
+					  "amount"    => $request->input('price')*100,
 					  "interval"  => "month",
 					  "nickname" =>$request->input('name'),
 					  "product" => array(

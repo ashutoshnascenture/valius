@@ -37,7 +37,7 @@
 				<div class="row">
 					<div class="col-md-5 plan">
 						<h2> {{ $plan->nickname }}</h2>
-						<span> ${{ $plan->amount  }} / @if ($plan->interval==1) month  @endif</span>
+						<span> ${{ $plan->amount/100  }} / @if ($plan->interval==1) month  @endif</span>
 						<div class="change-btn-box mt-4">
 							<a href="https://getvaro.com/" class="btn plan-btn"> Change Plan </a>
 						</div>
