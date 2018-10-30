@@ -33,13 +33,13 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   $title = 'Plan Listinf';
+    {   $title = 'Plan Listing ';
         $plans = DB::table('plans')->where('is_delete','=',1)->get();
         return view('home')->with(compact('plans','title')); 
     }
 
     public function planDetail($planID='')
-    {    $title = 'Plan Detail';
+    {    $title = 'Plan Detail ';
          $planID = base64_decode($planID);
          $plan = DB::table('plans')->find($planID);
          if ($plan) {
