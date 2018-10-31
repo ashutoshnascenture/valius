@@ -83,6 +83,11 @@
                               <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
                               Addon Management</a>
                            </li>
+                            <div class="dropdown-divider"></div>
+                           <li><a href="{{url('sites')}}" class="dropdown-item">
+                              <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+                              Site Management</a>
+                           </li>
                            <div class="dropdown-divider"></div>
                            <li><a class="dropdown-item" href="{{ url('users/change-password') }}"><i class="fa fa-btn fa-key"></i>Change Password</a></li>
                            @else  

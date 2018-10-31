@@ -28,7 +28,7 @@ class AddonsController extends Controller
     public function index()
     { 
     	$paginationNo = $_ENV['PAGINATE_NOUMBER'];
-        $addons = DB::table('addons')->paginate($paginationNo);
+        $addons = DB::table('plans')->where('plan_type','=',4)->paginate($paginationNo);
         return view('addons/index')->with(compact('addons'));
     }
 	public function subscribe(Request $request)
@@ -39,7 +39,7 @@ class AddonsController extends Controller
 	
 	public function edit($id)
     {
-		$addons = DB::table('addons')
+		$addons = DB::table('plans')
                 ->where('id', $id)
                 ->orderBy('id','DESC')
                 ->first();
@@ -63,18 +63,48 @@ class AddonsController extends Controller
          if ($validator->fails()) {
             return redirect()->back()->withInput($input)->withErrors($validator->errors());   
          }
-         $saveAddon = Addon::create([
-		 	'name' => $request->get('name'),
-            'description' => $request->get('description'),
-            'price'  => $request->get('price')
-        ]);
+        $stripKey = config('services.stripe.secret');
+        \Stripe\Stripe::setApiKey($stripKey);
+        $stripeData = \Stripe\Plan::create(array(
+                  "amount"    => $request->input('price')*100,
+                      "interval"  => "month",
+                      "nickname" =>$request->input('name'),
+                      "product" => array(
+                        "name" => $request->input('name')
+                      ),
+                      "currency" => "usd"
+                    ));
+                  $stripJson  = str_replace('Stripe\Plan JSON: ', '', $stripeData);
+                  $srtipArray = json_decode($stripJson,true); 
+                  if ($srtipArray['interval']=='month') {
+                      $interval = 1;
+                  } 
+                  if ($srtipArray['active']) {
+                      $status = 1;
+                  } else {
+                      $status = 0;
+                  }
+               $time = Carbon::now();
+               $data = [
+                'name'        => $request->input('name'),
+                'description' => $request->input('description'),
+                'status'      => $status,
+                'plan_id'     => $srtipArray['id'],
+                'interval'    => $interval,
+                'nickname'    => $srtipArray['nickname'],
+                'amount'      => $srtipArray['amount'],
+                'price'       => $request->input('price'),
+                'created_at'  => $time,
+                'updated_at'  => $time,
+                'plan_type'   =>4,
+            ];
+           $saveAddon = DB::table('plans')->insert($data);
          if ( $saveAddon ) {
            Session::flash('flash_message', 'Addons  add  successfully');
 		   Session::flash('alert-class', 'alert-success');
            return redirect('addons');
          } else {
-
-         	Session::flash('flash_message', 'Some problem accured please try again later. ');
+           Session::flash('flash_message', 'Some problem accured please try again later. ');
 		   Session::flash('alert-class', 'alert-danger');
            return redirect('addons');
          }
@@ -114,7 +144,7 @@ class AddonsController extends Controller
     {  
       if($id)
 		{
-		DB::table('addons')->where('id', $id)->update(['is_delete' => $request->get('is_delete')]);  
+		DB::table('plans')->where('id', $id)->update(['is_delete' => $request->get('is_delete')]);  
 		Session::flash('flash_message', 'Addons  status successfully update!');
 		Session::flash('alert-class', 'alert-success');
         return redirect('addons'); 		

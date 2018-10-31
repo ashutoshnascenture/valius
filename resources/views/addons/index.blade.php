@@ -47,7 +47,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" name="_method" value="DELETE">
 						
-						<a  class="btn btn-primary" href="{{URL('addons')}}/{{$value->id}}/edit" role="button" title="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+						<!-- <a  class="btn btn-primary" href="{{URL('addons')}}/{{$value->id}}/edit" role="button" title="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
                         @if ($value->is_delete == 1)
 						<input type="hidden" name="is_delete" value="0">
 						<a class="btn my-btn btn-warning"   data-delete="{{$value->name}}" data-active="{{$value->is_delete}}" data-href="{{$value->id}}" data-toggle="modal" data-target="#confirm-delete" href="#" title="Deactive"><i class="fa fa-toggle-on" aria-hidden="true"></i></a>

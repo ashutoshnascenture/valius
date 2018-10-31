@@ -26,19 +26,24 @@ class SitesController extends Controller
 
     public function index(Request $request)
     {  
+        $data = $request->all();
+        
         $userId = Auth::user()->id;
         $title = "Site Listing";
-        $totalSite = Site::where('user_id','=',$userId)->count();
+        $totalSite = Site::count();
         if (isset($request->site_search)) {
         $searchKeyword = $request->site_search;
-        $all_sites = Site::where('user_id','=',$userId)->where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
-        $totalSite = Site::where('user_id','=',$userId)->where('name', 'like','%' .$searchKeyword.'%')->count();
+        $all_sites = Site::where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
+        $totalSite = Site::where('name', 'like','%' .$searchKeyword.'%')->count();
         } else {
-        $all_sites = Site::where('user_id','=',$userId)->paginate(2);
+        $all_sites = Site::paginate(2);
         }
         if ($request->ajax()) {
+           
             return view('sites.load', ['all_sites' => $all_sites,'totalSite'=>$totalSite])->render();  
-        }
+        } 
+        
+         
     	return view('sites/index')->with(compact('all_sites','totalSite','title'));
     	
     }

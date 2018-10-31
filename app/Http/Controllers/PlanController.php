@@ -119,7 +119,7 @@ class PlanController extends Controller
 		
 		$paginationNo = $_ENV['PAGINATE_NOUMBER'];
 		$plans = DB::table('plans')
-                ->where('status', 1)
+                ->where('status', 1)->where('plan_type','!=',4)
                 ->orderBy('id','DESC')
                 ->paginate($paginationNo);
 	     
