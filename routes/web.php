@@ -28,7 +28,7 @@ Route::post('/subscribe-plan', 'HomeController@subscribePlan')->name('subscribe-
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/admin-sitelisting', 'UserController@adminSitelisting');
 Route::get('/get-states/{country_id}', 'HomeController@getStates');
-Route::get('/admin-dashboard', 'DashboardController@adminDashboard')->middleware('admin');;
+Route::get('/admin-dashboard', 'DashboardController@adminDashboard')->middleware('admin');
 Route::get('/admin-sitelist', 'UserController@adminSitelist');
 Route::get('users/change-password/', 'UserController@changePassword');
 Route::post('users/reset-password/', 'UserController@resetPassword');
@@ -46,7 +46,7 @@ Route::get('plans/get-plans', 'PlanController@getPlans');
 Route::put('addons/addonUpdate/{id}/', 'AddonsController@addonUpdate');
 Route::resource('addons','AddonsController');
 Route::resource('plans','PlanController');
-Route::resource('sites','SitesController');
+Route::resource('sites','SitesController')->middleware('admin');
 Route::group(['prefix' => 'subscribe'], function(){
 	Route::post('/', 'PlanController@subscribe')->name('subscribe');
 });
