@@ -1,5 +1,7 @@
 @if(count($all_sites) >0)
-All Sites({{$totalSite}})
+<div class="total-search">
+	    	All Sites<span>({{$totalSite}})</span>
+</div>
 
 @foreach( $all_sites as $all_site)
  <div class="container-box">
@@ -27,9 +29,9 @@ All Sites({{$totalSite}})
 		</div>
 	</div>
 @endforeach
-{{ $all_sites->links() }}
+<div class="col-md-12 pagination-box clearfix mt-4"> {{ $all_sites->links() }}</div>
 @else
-<p style="color:red;">No Site Found </p>
+<p style="color:red;" class="not-found">No Site Found </p>
 @endif
 
 		 

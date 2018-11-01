@@ -100,4 +100,12 @@ class SitesController extends Controller
            return redirect()->back();
          }
 	}
+   
+    public function siteDetail(Request $request ,$id)
+    {
+      $title = 'Site Detail';
+      return view('sites/sitedetail',compact('title'));
+
+    }
+
 }
