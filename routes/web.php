@@ -49,6 +49,8 @@ Route::resource('plans','PlanController');
 Route::get('/site-detail/{id}', 'SitesController@siteDetail');
 Route::get('/add-services/{id}', 'SitesController@addServices');
 Route::post('/save-services/', 'SitesController@saveServices');
+Route::get('/add-site/', 'SitesController@addSite');
+Route::post('/save-site/', 'SitesController@saveSite');
 Route::resource('sites','SitesController')->middleware('admin');
 Route::group(['prefix' => 'subscribe'], function(){
 	Route::post('/', 'PlanController@subscribe')->name('subscribe');

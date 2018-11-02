@@ -92,7 +92,7 @@
                            <li><a class="dropdown-item" href="{{ url('users/change-password') }}"><i class="fa fa-btn fa-key"></i>Change Password</a></li>
                            @else  
                            <li>
-                              <a href="{{url('sites')}}" class="dropdown-item">
+                              <a href="{{url('/add-site')}}" class="dropdown-item">
                               <i class="fa fa-globe" aria-hidden="true"></i> Sites</a>
                            </li>
                            <div class="dropdown-divider"></div>

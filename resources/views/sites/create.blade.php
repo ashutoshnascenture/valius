@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
 	<div class="col-md-12">
-<form method="POST" action="{{ url('sites') }}">
+<form method="POST" action="{{ url('/save-site') }}">
        {{ csrf_field() }}
 		<div class="card">
 		<div class="card-header">Add site</div>
