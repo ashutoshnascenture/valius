@@ -34,7 +34,7 @@ class HomeController extends Controller
      */
     public function index()
     {   $title = 'Plan Listing ';
-        $plans = DB::table('plans')->where('is_delete','=',1)->get();
+        $plans = DB::table('plans')->where('is_delete','=',1)->where('plan_type','!=',4)->get();
         return view('home')->with(compact('plans','title')); 
     }
 
