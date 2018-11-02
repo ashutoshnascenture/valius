@@ -105,7 +105,7 @@ class SitesController extends Controller
    
     public function siteDetail(Request $request ,$id)
     {
-
+ 
       $title = 'Site Detail';
       $site_id  = base64_decode($id);
       $siteDetail  = Site::with('subscription.parent.children')->find($site_id);
