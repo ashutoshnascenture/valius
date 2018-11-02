@@ -46,18 +46,18 @@ class SitesController extends Controller
         } 
         //echo "<pre>"; print_r($all_sites->toArray()); die; 
         
-    	return view('sites/index')->with(compact('all_sites','totalSite','title'));
-    	
+        return view('sites/index')->with(compact('all_sites','totalSite','title'));
+        
     }
 
     public function create()
     { 
-	 return view('sites/create');
-		
+     return view('sites/create');
+        
     } 
     public function store(Request $request)
-	{
-		 $rules = Site::$rules;
+    {
+         $rules = Site::$rules;
          $messages = Site::$message;
          $input = $request->all();
         // echo "<pre>"; print_r($request->get('name')); die;
@@ -77,7 +77,7 @@ class SitesController extends Controller
             $name = time().uniqid(rand()).'.jpg'; 
             file_put_contents($dir. $name , $jpeg);
               $siteSave = Site::create([
-    		 	      'name' => $request->get('name'),
+                      'name' => $request->get('name'),
                 'url' => $request->get('url'),
                 'ftp_host'  => $request->get('ftp_host'),
                 'ftp_username'    => $request->get('ftp_username'),
@@ -90,23 +90,26 @@ class SitesController extends Controller
                 'cpanel_host'     => $request->get('cpanel_host'),
                 'cpanel_username' => $request->get('cpanel_username'),
                 'created_at'  => $time,
-    			'updated_at'  => $time,
-    			'user_id' => $user->id,
-    			'plan_id' =>1
+                'updated_at'  => $time,
+                'user_id' => $user->id,
+                'plan_id' =>1
             ]);
          if ($siteSave) {
              Session::flash('flash_message', 'Site detail submit successfully');
-		         Session::flash('alert-class', 'alert-success');
-		   return redirect('sites');
+                 Session::flash('alert-class', 'alert-success');
+           return redirect('sites');
          } else {
            return redirect()->back();
          }
-	}
+    }
    
     public function siteDetail(Request $request ,$id)
     {
+
       $title = 'Site Detail';
-      return view('sites/sitedetail',compact('title'));
+      $site_id  = base64_decode($id);
+      $siteDetail  = Site::with('subscription.parent.children')->find($site_id);
+      return view('sites/sitedetail',compact('title','siteDetail'));
 
     }
     
@@ -174,6 +177,7 @@ class SitesController extends Controller
    
     public function saveSite(Request $request)
     {
+         ini_set("allow_url_fopen", 1);
           $rules = Site::$rules;
          $messages = Site::$message;
          $input = $request->all();
@@ -189,11 +193,17 @@ class SitesController extends Controller
             $width  = 440;
             $fetchUrl = "https://api.thumbnail.ws/api/".$apikey ."/thumbnail/get?url=".urlencode($url)."&width=".$width;
           //  echo $fetchUrl; die;
-            $jpeg = file_get_contents($fetchUrl);
-            $dir =  public_path('/upload/sites').'/';
-            $name = time().uniqid(rand()).'.jpg'; 
-            file_put_contents($dir. $name , $jpeg);
-              $siteSave = Site::create([
+                $ch = curl_init ( $fetchUrl);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+                $raw=curl_exec($ch);
+                curl_close ($ch);
+            //$jpeg = file_get_contents($fetchUrl);
+                $dir =  public_path('/upload/sites').'/';
+                $name = time().uniqid(rand()).'.jpg'; 
+                file_put_contents($dir. $name ,$raw);
+                $siteSave = Site::create([
                       'name' => $request->get('name'),
                 'url' => $request->get('url'),
                 'ftp_host'  => $request->get('ftp_host'),

@@ -4,11 +4,15 @@
 	<div class="container">
 		<div class="row site-pro">
 			<div class="col-md-2 img-box">
-				<img src="{{ asset('images/default.jpg') }}" alt="" title="" />
+			    @if (isset($siteDetail->site_image)) 
+					<img src="{{url('/').'/public/upload/sites/'.$siteDetail->site_image}}" alt="" title="" />
+				   @else 
+                   <img src="{{ asset('images/default.jpg') }}" alt="" title="" />
+				   @endif
 			</div>
 			<div class="col-md-10 site-pro">
-				<h4>Addiction Salon </h4>
-				<a href="#"> www.google.com </a>
+				<h4>{{$siteDetail->name}}</h4>
+				<a href="#"> {{$siteDetail->url}} </a>
 			</div>
 		</div>
 		<div class="row nav-box">
@@ -55,7 +59,27 @@
 <section class="site-section mt-5">
 	<div class="container">
 		<div class="row">
+          @if(!empty($siteDetail->subscription->parent['children']))
+		  @foreach($siteDetail->subscription->parent['children'] as $service)
 			<div class="col-md-6">
+				<div class="box-container">
+					<div class="box-header mb-2">
+						<div class="head-caption">
+							<h2>{{ $service->plan_name}}</h2>
+						</div>
+					</div>
+					<div class="box-body">
+						<div class="col-md-6">
+							Price:-${{ $service->plan_amount/100}}
+						</div>
+					</div>
+				</div>
+			</div>
+			@endforeach
+			@else
+            <span> No services added</span>
+			@endif
+			<!-- <div class="col-md-6">
 				<div class="box-container">
 					<div class="box-header mb-2">
 						<div class="head-caption">
@@ -69,21 +93,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
-				<div class="box-container">
-					<div class="box-header mb-2">
-						<div class="head-caption">
-							<h2>Collaborators</h2>
-						</div>
-					</div>
-					<div class="box-body">
-						<div class="col-md-6">
-							dfdfdf
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		</div> -->
 	</div>
 </section>
 

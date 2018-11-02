@@ -29,5 +29,6 @@ class Subscription extends Model
     {
         return $this->hasMany('App\Subscription', 'site_id');
     }
+    
 
 }
