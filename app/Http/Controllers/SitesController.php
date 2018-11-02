@@ -12,6 +12,7 @@ use Session;
 use Validator;
 use Laravel\Cashier\Billable;
 use Stripe\Subscription;
+use App\Subscription as Subscriptions;
 use DB;
 use Carbon\Carbon;
 
@@ -31,19 +32,20 @@ class SitesController extends Controller
         $userId = Auth::user()->id;
         $title = "Site Listing";
         $totalSite = Site::count();
+       // echo $totalSite;  die;
         if (isset($request->site_search)) {
         $searchKeyword = $request->site_search;
-        $all_sites = Site::where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
-        $totalSite = Site::where('name', 'like','%' .$searchKeyword.'%')->count();
+        $all_sites = Site::with('subscription.parent.children')->where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
+        $totalSite = Site::with('subscription.parent.children')->where('name', 'like','%' .$searchKeyword.'%')->count();
         } else {
-        $all_sites = Site::paginate(2);
+        $all_sites = Site::with('subscription.parent.children')->paginate(2);
         }
         if ($request->ajax()) {
-           
+            //echo "<pre>"; print_r($all_sites->toArray()); die; 
             return view('sites.load', ['all_sites' => $all_sites,'totalSite'=>$totalSite])->render();  
         } 
+        //echo "<pre>"; print_r($all_sites->toArray()); die; 
         
-         
     	return view('sites/index')->with(compact('all_sites','totalSite','title'));
     	
     }
@@ -75,7 +77,7 @@ class SitesController extends Controller
             $name = time().uniqid(rand()).'.jpg'; 
             file_put_contents($dir. $name , $jpeg);
               $siteSave = Site::create([
-    		 	'name' => $request->get('name'),
+    		 	      'name' => $request->get('name'),
                 'url' => $request->get('url'),
                 'ftp_host'  => $request->get('ftp_host'),
                 'ftp_username'    => $request->get('ftp_username'),
@@ -93,11 +95,77 @@ class SitesController extends Controller
     			'plan_id' =>1
             ]);
          if ($siteSave) {
-           Session::flash('flash_message', 'Site detail submit successfully');
-		   Session::flash('alert-class', 'alert-success');
+             Session::flash('flash_message', 'Site detail submit successfully');
+		         Session::flash('alert-class', 'alert-success');
 		   return redirect('sites');
          } else {
            return redirect()->back();
          }
 	}
+   
+    public function siteDetail(Request $request ,$id)
+    {
+      $title = 'Site Detail';
+      return view('sites/sitedetail',compact('title'));
+
+    }
+    
+    public function addServices(Request $request ,$id)
+    {
+       $title = 'Add Services';
+       $subscription_id = base64_decode($id); //
+       $get_all_subscribed_services = Subscriptions::where('site_id','=',$subscription_id)->pluck('stripe_plan');
+       $service_data = DB::table('plans')->whereNotIn('plan_id',$get_all_subscribed_services)->where('plan_type','=',4)->get();
+       return view('sites/addservices',compact('title','service_data','id'));
+    }
+    public function saveServices(Request $request)
+    {
+         $subscription_id = base64_decode($request->get('subscription_id')); //
+
+         if ($subscription_id) {
+
+             $user_id = Subscriptions::where('id','=',$subscription_id)->pluck('user_id');
+             $userDetail = User::find($user_id[0])->pluck('stripe_id');
+             //echo $user_id[0]; die;
+             $stripKey = config('services.stripe.secret');
+             \Stripe\Stripe::setApiKey($stripKey);
+             foreach($request->get('services') as $service){
+              $subscription = \Stripe\Subscription::create([
+                    'customer' =>$userDetail[0],
+                    'items' => [['plan' => $service]],
+                ]);
+                  $plan_detail = DB::table('plans')
+                               ->where('plan_id', $service)
+                               ->orderBy('id','DESC')
+                               ->first();
+                 $time = Carbon::now();
+                 $stripJson  = str_replace('Stripe\Subscription JSON: ', '', $subscription);
+                 $srtipArray = json_decode($stripJson,true);
+                // / echo "<pre>" ;print_r($srtipArray['items']['data'][0]['plan']['amount']); die;
+                 $service = Subscriptions::create([
+                    'user_id'      => $user_id[0],
+                    'name'         => $srtipArray['items']['data'][0]['plan']['nickname'],
+                    'plan_name'    => $plan_detail->name,
+                    'plan_amount'  => $srtipArray['items']['data'][0]['plan']['amount'],
+                    'stripe_id'    => $srtipArray['id'],
+                    'stripe_plan'  =>$service,
+                    'quantity'     =>1,
+                    'site_id'      =>$subscription_id,
+                    'site_status'  =>0,
+                    'created_at'   => $time,
+                    'updated_at'   => $time
+                  ]);
+              
+             }
+             Session::flash('flash_message', 'Services  submit successfully');
+             Session::flash('alert-class', 'alert-success');
+             return redirect('sites');
+         } else {
+          
+          return redirect()->back()->withErrors(['Something went wrong please try again!']);
+         }
+         
+
+    }
+
 }

@@ -40,12 +40,15 @@ Route::resource('users','UserController');
 Route::resource('ticket','TicketController');
 Route::get('/plans', 'PlanController@index')->name('plans');
 Route::put('plans/planUpdate/{id}/', 'PlanController@planUpdate');
-Route::get('plans/update-payment/', 'PlanController@updatePayment');
+Route::get('plans/update-payment/', 'PlanController@updatePayment'); 
 Route::post('plans/update-card/', 'PlanController@updateCard');
 Route::get('plans/get-plans', 'PlanController@getPlans');
 Route::put('addons/addonUpdate/{id}/', 'AddonsController@addonUpdate');
 Route::resource('addons','AddonsController');
 Route::resource('plans','PlanController');
+Route::get('/site-detail/{id}', 'SitesController@siteDetail');
+Route::get('/add-services/{id}', 'SitesController@addServices');
+Route::post('/save-services/', 'SitesController@saveServices');
 Route::resource('sites','SitesController')->middleware('admin');
 Route::group(['prefix' => 'subscribe'], function(){
 	Route::post('/', 'PlanController@subscribe')->name('subscribe');

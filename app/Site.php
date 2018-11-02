@@ -24,4 +24,16 @@ class Site extends Model
         'name.required'                    => 'Site  nameis required',
         'url.required'                     => 'URL is required'        
     );
+  
+   public function subscription()
+   {
+    return $this->belongsTo('App\Subscription','subscription_id','stripe_id')->where('site_status', 1);  
+    // only  get subscription if site added use site_status.
+   } 
+   
+  /* public function subscription()
+   {
+    return $this->belongsTo('App\Subscription','subscription_id','stripe_id');  
+   } */
+  
 }
