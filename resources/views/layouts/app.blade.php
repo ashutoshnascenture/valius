@@ -91,32 +91,37 @@
                            <div class="dropdown-divider"></div>
                            <li><a class="dropdown-item" href="{{ url('users/change-password') }}"><i class="fa fa-btn fa-key"></i>Change Password</a></li>
                            @else  
-                           <li>
-                              <a href="{{url('/add-site')}}" class="dropdown-item">
-                              <i class="fa fa-globe" aria-hidden="true"></i> Sites</a>
-                           </li>
-                           <div class="dropdown-divider"></div>
-                           <!--                             
-                              -->                           <!--  <a href="#" class="list-group-item list-group-item-action disabled">DNS</a> -->
-                           <li><a href="#" class="dropdown-item"><i class="fa fa-exchange" aria-hidden="true"></i>Migrations</a></li>
-                           <div class="dropdown-divider"></div>
-                           <!-- <a href="#" class="list-group-item list-group-item-action disabled">Analytics</a> -->
-                           <!--                            <a href="#" class="list-group-item list-group-item-action disabled">Billing</a>
-                              -->                           
-                           <li> <a href="{{url('plans')}}" class="dropdown-item">
-                              <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Billing</a>
-                           </li>
-                          
-                           <div class="dropdown-divider"></div>
-                            <li> <a href="{{url('plans/update-payment')}}" class="dropdown-item">
-                              <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Update your payment method</a>
-                           </li>
-                           <div class="dropdown-divider"></div>
-                           <li> <a href="{{url('users/account-details/')}}" class="dropdown-item">
-                              <i class="fa fa-user" aria-hidden="true"></i>Account Details</a>
-                           </li>
-                           <div class="dropdown-divider"></div>
-                           <li> <a href="#" class="dropdown-item"> <i class="fa fa-comments-o" aria-hidden="true"></i> Conversations</a></li>
+                             @if(Session::has('totalSite'))
+                             
+                               @if(Session::get('totalSite') != 0)
+                                 <li>
+                                    <a href="{{url('/add-site')}}" class="dropdown-item">
+                                    <i class="fa fa-globe" aria-hidden="true"></i> Sites</a>
+                                 </li>
+                                 <div class="dropdown-divider"></div>
+                              <!--                             
+                                 -->                           <!--  <a href="#" class="list-group-item list-group-item-action disabled">DNS</a> -->
+                                 <li><a href="#" class="dropdown-item"><i class="fa fa-exchange" aria-hidden="true"></i>Migrations</a></li>
+                                 <div class="dropdown-divider"></div>
+                              <!-- <a href="#" class="list-group-item list-group-item-action disabled">Analytics</a> -->
+                              <!--                            <a href="#" class="list-group-item list-group-item-action disabled">Billing</a>
+                                 -->                           
+                                 <li> <a href="{{url('plans')}}" class="dropdown-item">
+                                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Billing</a>
+                                 </li>
+                             
+                                 <div class="dropdown-divider"></div>
+                                  <li> <a href="{{url('plans/update-payment')}}" class="dropdown-item">
+                                    <i class="fa fa-credit-card-alt" aria-hidden="true"></i> Update your payment method</a>
+                                 </li>
+                                 <div class="dropdown-divider"></div>
+                                 <li> <a href="{{url('users/account-details/')}}" class="dropdown-item">
+                                    <i class="fa fa-user" aria-hidden="true"></i>Account Details</a>
+                                 </li>
+                                 <div class="dropdown-divider"></div>
+                                 <li> <a href="#" class="dropdown-item"> <i class="fa fa-comments-o" aria-hidden="true"></i> Conversations</a></li>
+                             @endif
+                            @endif
                            @endif
                            <div class="dropdown-divider"></div>
                            <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

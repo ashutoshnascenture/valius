@@ -72,6 +72,7 @@ class SitesController extends Controller
             $width  = 440;
             $fetchUrl = "https://api.thumbnail.ws/api/".$apikey ."/thumbnail/get?url=".urlencode($url)."&width=".$width;
           //  echo $fetchUrl; die;
+            
             $jpeg = file_get_contents($fetchUrl);
             $dir =  public_path('/upload/sites').'/';
             $name = time().uniqid(rand()).'.jpg'; 
@@ -110,6 +111,15 @@ class SitesController extends Controller
       $site_id  = base64_decode($id);
       $siteDetail  = Site::with('subscription.parent.children')->find($site_id);
       return view('sites/sitedetail',compact('title','siteDetail'));
+
+    }
+    public function singlesiteDetail(Request $request ,$id)
+    {
+        
+      $title = 'Site Detail';
+      $site_id  = base64_decode($id);
+      $siteDetail  = Site::with('subscription.parent.children')->find($site_id);
+      return view('sites/singlesitedetail',compact('title','siteDetail'));
 
     }
     
@@ -177,7 +187,7 @@ class SitesController extends Controller
    
     public function saveSite(Request $request)
     {
-         ini_set("allow_url_fopen", 1);
+        
           $rules = Site::$rules;
          $messages = Site::$message;
          $input = $request->all();
@@ -200,30 +210,38 @@ class SitesController extends Controller
                 $raw=curl_exec($ch);
                 curl_close ($ch);
             //$jpeg = file_get_contents($fetchUrl);
+               // if (Auth::check() && !\Auth::user()->hasRole('admin')) {
+                $subscriptipn_id = Subscriptions::where('user_id','=',$user->id)->first();
                 $dir =  public_path('/upload/sites').'/';
                 $name = time().uniqid(rand()).'.jpg'; 
                 file_put_contents($dir. $name ,$raw);
                 $siteSave = Site::create([
-                      'name' => $request->get('name'),
-                'url' => $request->get('url'),
-                'ftp_host'  => $request->get('ftp_host'),
-                'ftp_username'    => $request->get('ftp_username'),
-                'site_image'      => $name,
-                'ftp_password'    => $request->get('ftp_password'),
-                'ftp_password'    => $request->get('ftp_password'),
-                'sftp_host'       => $request->get('sftp_host'),
-                'sftp_username'   => $request->get('sftp_username'),
-                'sftp_password'   => $request->get('sftp_password'),
-                'cpanel_host'     => $request->get('cpanel_host'),
-                'cpanel_username' => $request->get('cpanel_username'),
-                'created_at'  => $time,
-                'updated_at'  => $time,
-                'user_id' => $user->id,
+                'name'              => $request->get('name'),
+                'url'               => $request->get('url'),
+                'ftp_host'          => $request->get('ftp_host'),
+                'ftp_username'      => $request->get('ftp_username'),
+                'site_image'        => $name,
+                'ftp_password'      => $request->get('ftp_password'),
+                'ftp_password'      => $request->get('ftp_password'),
+                'sftp_host'         => $request->get('sftp_host'),
+                'sftp_username'     => $request->get('sftp_username'),
+                'sftp_password'     => $request->get('sftp_password'),
+                'cpanel_host'       => $request->get('cpanel_host'),
+                'cpanel_username'   => $request->get('cpanel_username'),
+                'created_at'        => $time,
+                'updated_at'        => $time,
+                'user_id'           => $user->id,
+                'subscription_id'   =>$subscriptipn_id->stripe_id,
                 'plan_id' =>1
             ]);
          if ($siteSave) {
+             if (Session::has('totalSite')) {
+              Subscriptions::where('stripe_id', $subscriptipn_id->stripe_id)->update(array('site_status' => 1));
+              $totalSite = Site::where('user_id','=',$user->id)->count();
+              Session::put('totalSite', $totalSite);
+             } 
              Session::flash('flash_message', 'Site detail submit successfully');
-                 Session::flash('alert-class', 'alert-success');
+             Session::flash('alert-class', 'alert-success');
            return redirect('/dashboard');
          } else {
            return redirect()->back();
