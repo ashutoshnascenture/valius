@@ -24,18 +24,6 @@
 							<a class="nav-link" href="#">Overview <span class="sr-only">(current)</span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Stats</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Add-ons</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Backups</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Advanced</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link" href="#">Billing</a>
 						</li>
 					</ul>
@@ -57,6 +45,54 @@
 		</div>
 	</div>
 </section> 
+<section class="section mt-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+			<div class="card custome-card">
+				<div class="card-header">
+					Client Billing History
+				</div>
+				<div class="card-body">
+					<p class="date-active"> Active since Octpber 2018 </p>
+					<div class="row paid-box align-items-center">
+						<div class="col-md-2 paid-btn-box">
+							<a href="#" class="btn btn-success btn-paid"> Paid </a>
+						</div>
+						<div class="col-md-2 invoice-box">
+							<a href="#">View Invoice</a>
+						</div>
+						<div class="col-md-2 date-box">
+							10/16/18
+						</div>
+						<div class="col-md-6 text-right price-box">
+							<b>$100</b>
+						</div>
+					</div>
+					<div class="row paid-box mt-1 align-items-center">
+						<div class="col-md-2 paid-btn-box">
+							<a href="#" class="btn btn-success btn-paid"> Paid </a>
+						</div>
+						<div class="col-md-2 invoice-box">
+							<a href="#">View Invoice</a>
+						</div>
+						<div class="col-md-2 date-box">
+							10/16/18
+						</div>
+						<div class="col-md-6 text-right price-box">
+							<b>$100</b>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</section>
+
+
+
+
 <section class="site-section mt-5">
 	<div class="container">
 		<div class="row">
