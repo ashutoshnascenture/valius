@@ -48,12 +48,18 @@ Route::resource('addons','AddonsController');
 Route::resource('plans','PlanController');
 Route::get('/site-detail/{id}', 'SitesController@siteDetail');
 Route::get('/single-site-detail/{id}', 'SitesController@singlesiteDetail');
-
+/*Route::get('/invoice-detail/', 'SitesController@invoiceDetail');
+Route::get('/invoice-webhook/', 'SitesController@invoiceWebhook');*/
 Route::get('/add-services/{id}', 'SitesController@addServices');
 Route::post('/save-services/', 'SitesController@saveServices');
 Route::get('/add-site/', 'SitesController@addSite');
 Route::post('/save-site/', 'SitesController@saveSite');
+Route::stripeWebhooks('http://varo.nascenture.com/invoice-webhook/?varo-listener=stripe/{configKey}');
 Route::resource('sites','SitesController')->middleware('admin');
 Route::group(['prefix' => 'subscribe'], function(){
 	Route::post('/', 'PlanController@subscribe')->name('subscribe');
 });
+Route::post(
+    'stripe/webhook',
+    '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook'
+);

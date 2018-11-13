@@ -248,4 +248,30 @@ class SitesController extends Controller
          }
 
     }
+
+   /* public function invoiceDetail(Request $request)
+    {
+             $stripKey = config('services.stripe.secret');
+
+             \Stripe\Stripe::setApiKey($stripKey);
+             $body = @file_get_contents('http://varo.nascenture.com/invoice-webhook/?varo-listener=stripe');
+             echo $body;
+             $event_json = json_decode($body);
+             http_response_code(200);
+            print_r($event_json); die;
+ 
+    }
+
+    public function invoiceWebhook(Request $request)
+    {
+           $stripKey = config('services.stripe.secret');
+
+             \Stripe\Stripe::setApiKey($stripKey);
+             $body = @file_get_contents("php://input");
+             echo $body;
+             $event_json = json_decode($body);
+             http_response_code(200);
+            print_r($event_json); die;
+
+    }*/
 }
