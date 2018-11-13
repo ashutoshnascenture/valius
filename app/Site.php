@@ -11,7 +11,7 @@ class Site extends Model
 
 	 protected $table = 'sites';
      protected $fillable = [
-        'user_id','plan_id','ftp_host','ftp_password','ftp_username','sftp_host',
+        'user_id','plan_id','ftp_host','ftp_password','ftp_username','sftp_host','subscription_id','site_status',
         'sftp_password','sftp_username','url','cpanel_username','cpanel_password','name','url','cpanel_host','site_image'
      ];
 

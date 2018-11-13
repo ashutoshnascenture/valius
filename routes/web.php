@@ -48,6 +48,7 @@ Route::resource('addons','AddonsController');
 Route::resource('plans','PlanController');
 Route::get('/site-detail/{id}', 'SitesController@siteDetail');
 Route::get('/single-site-detail/{id}', 'SitesController@singlesiteDetail');
+
 Route::get('/add-services/{id}', 'SitesController@addServices');
 Route::post('/save-services/', 'SitesController@saveServices');
 Route::get('/add-site/', 'SitesController@addSite');
