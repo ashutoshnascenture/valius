@@ -54,7 +54,6 @@ Route::get('/add-services/{id}', 'SitesController@addServices');
 Route::post('/save-services/', 'SitesController@saveServices');
 Route::get('/add-site/', 'SitesController@addSite');
 Route::post('/save-site/', 'SitesController@saveSite');
-Route::stripeWebhooks('http://varo.nascenture.com/invoice-webhook/?varo-listener=stripe/{configKey}');
 Route::resource('sites','SitesController')->middleware('admin');
 Route::group(['prefix' => 'subscribe'], function(){
 	Route::post('/', 'PlanController@subscribe')->name('subscribe');
