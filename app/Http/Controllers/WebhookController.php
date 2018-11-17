@@ -15,7 +15,7 @@ class WebhookController extends CashierController
     public function handleInvoicePaymentSucceeded($payload)
     {
         // Handle The Event
-        
-        echo "<pre>"; echo  $payload; die;
+
+      //  echo "<pre>"; echo  $payload; die;
     }
 }
