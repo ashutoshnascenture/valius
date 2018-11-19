@@ -1,6 +1,5 @@
 @extends('layouts.app',['title'=> $title])
 @section('content')
-
 <section class="top-section">
 	<div class="container">
 		<div class="row site-pro">
@@ -54,83 +53,31 @@
 					Client Billing History
 				</div>
 				<div class="card-body">
-					<p class="date-active"> Active since Octpber 2018 </p>
+					<p class="date-active"> Active since {{ Auth::user()->created_at->format('F Y') }}  </p>
+				     @if(!empty($siteDetail->parent->invoicelist))
+					@foreach($siteDetail->parent->invoicelist as $invoicelist)
 					<div class="row paid-box align-items-center">
 						<div class="col-md-2 paid-btn-box">
-							<a href="#" class="btn btn-success btn-paid"> Paid </a>
+							<a href="#" class="btn btn-success btn-paid"> {{$invoicelist['status'] }} </a>
 						</div>
 						<div class="col-md-2 invoice-box">
-							<a href="#">View Invoice</a>
+							<a href="{{URL('/view-invoice-pdf')}}/{{{base64_encode($invoicelist['id'])}}}" target="_blank">View Invoice</a>
 						</div>
 						<div class="col-md-2 date-box">
-							10/16/18
+							{{$invoicelist['created_at']->format('m/d/y') }}
 						</div>
 						<div class="col-md-6 text-right price-box">
-							<b>$100</b>
+							<b>${{$invoicelist['amount']['plan_amount']/100 }}</b>
 						</div>
 					</div>
-					<div class="row paid-box mt-1 align-items-center">
-						<div class="col-md-2 paid-btn-box">
-							<a href="#" class="btn btn-success btn-paid"> Paid </a>
-						</div>
-						<div class="col-md-2 invoice-box">
-							<a href="#">View Invoice</a>
-						</div>
-						<div class="col-md-2 date-box">
-							10/16/18
-						</div>
-						<div class="col-md-6 text-right price-box">
-							<b>$100</b>
-						</div>
-					</div>
+					@endforeach
+					@endif
 				</div>
 			</div>
 		</div>
 		</div>
 	</div>
 </section>
-
-
-
-
-<section class="site-section mt-5">
-	<div class="container">
-		<div class="row">
-          @if(!empty($siteDetail->subscription->parent['children']))
-		  @foreach($siteDetail->subscription->parent['children'] as $service)
-			<div class="col-md-6">
-				<div class="box-container">
-					<div class="box-header mb-2">
-						<div class="head-caption">
-							<h2>{{ $service->plan_name}}</h2>
-						</div>
-					</div>
-					<div class="box-body">
-						<div class="col-md-6">
-							Price:-${{ $service->plan_amount/100}}
-						</div>
-					</div>
-				</div>
-			</div>
-			@endforeach
-			@else
-            <span> No services added</span>
-			@endif
-			<!-- <div class="col-md-6">
-				<div class="box-container">
-					<div class="box-header mb-2">
-						<div class="head-caption">
-							<h2>Collaborators</h2>
-						</div>
-					</div>
-					<div class="box-body">
-						<div class="col-md-6">
-							dfdfdf
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</div>
 </section>
 

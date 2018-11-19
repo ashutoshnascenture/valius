@@ -3,12 +3,20 @@
 namespace App;
 
 
-use Illuminate\Support\Facades\Cache;
-use Stripe\Stripe;
+/*use Illuminate\Support\Facades\Cache;
+use Stripe\Stripe;*/
+use Illuminate\Database\Eloquent\Model;
 
-class Plan
+class Plan extends Model
 {
-    public static function getStripePlans()
+   
+    protected $table = 'plans';
+    protected $fillable = [
+        'plan_id','plan_type','name','description','price','status','interval','created_at','updated_at','nickname','amount','is_delete'
+     ];
+
+
+  /*  public static function getStripePlans()
     {
         // Set the API Key
         Stripe::setApiKey(User::getStripeKey());
@@ -21,5 +29,5 @@ class Plan
         } catch ( \Exception $e ) {
             return false;
         }
-    }
+    }*/
 }

@@ -20,15 +20,30 @@ class Subscription extends Model
                     'created_at',
                     'updated_at'   
                     ];
-    public function parent()
+   /* public function parent()
     {
         return $this->belongsTo('App\Subscription', 'id');
-    }
+    }*/
 
     public function children()
     {
         return $this->hasMany('App\Subscription', 'site_id');
     }
     
+    public function invoicelistservices()
+    {
 
+      return $this->hasMany('App\Invoices','subscription_id','stripe_id');
+    } 
+    public function invoicelist()
+    {
+
+      return $this->hasMany('App\Invoices','subscription_id','stripe_id');
+    } 
+     public function plan()
+   {
+    return $this->belongsTo('App\Plan','stripe_plan','plan_id');  
+    
+   } 
+   
 }

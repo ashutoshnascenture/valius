@@ -60,8 +60,8 @@
 <section class="site-section mt-5">
 	<div class="container">
 		<div class="row">
-          @if(!empty($siteDetail->subscription->parent['children']))
-		  @foreach($siteDetail->subscription->parent['children'] as $service)
+          @if(!empty($siteDetail->parent['children']))
+		  @foreach($siteDetail->parent['children'] as $service)
 			<div class="col-md-6">
 				<div class="box-container">
 					<div class="box-header mb-2">

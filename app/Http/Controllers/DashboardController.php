@@ -39,7 +39,7 @@ class DashboardController extends Controller
         if (Auth::check() && !\Auth::user()->hasRole('admin')) {  
             $user_id = Auth::user()->id;
             $totalSite = Site::where('user_id','=',$user_id)->count();
-            $all_sites = Site::with('subscription')->where('user_id','=',$user_id)->get();
+            $all_sites = Site::with('parent')->where('user_id','=',$user_id)->get();
             //echo  $totalSite; die;
             Session::put('totalSite', $totalSite);
                     

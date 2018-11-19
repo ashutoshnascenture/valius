@@ -40,10 +40,10 @@
 					{{$all_site->url}} </a>
 				</div>
 				<div class="col-md-2 price-box">
-				    @php $totalAmount=$all_site->subscription['plan_amount']; @endphp
-				    @if(!empty($all_site->subscription->parent['children']))
-				    @php $total_services = count($all_site->subscription->parent['children']); @endphp
-				    @foreach($all_site->subscription->parent['children'] as $serviceAmount)
+				    @php $totalAmount=$all_site->parent['plan_amount']; @endphp
+				    @if(!empty($all_site->parent['children']))
+				    @php $total_services = count($all_site->parent['children']); @endphp
+				    @foreach($all_site->parent['children'] as $serviceAmount)
                     @php $totalAmount = $totalAmount+$serviceAmount->plan_amount; @endphp
 				    @endforeach
                     @else 
@@ -60,7 +60,7 @@
 					  </a>
 					  <div class="dropdown-menu">
 
-					     <a class="dropdown-item" href="{{URL('/add-services')}}/{{base64_encode($all_site->subscription['id'])}}">Add Services</a>
+					     <a class="dropdown-item" href="{{URL('/add-services')}}/{{base64_encode($all_site->parent['id'])}}">Add Services</a>
 					  </div>
 					</div> 
 					
