@@ -1,10 +1,12 @@
 @extends('layouts.app',['title'=> $title])
 @section('content')
+<style type="text/css">
+</style>
 <section class="top-section">
 	<div class="container">
 		<div class="row site-pro">
 			<div class="col-md-2 img-box">
-			    @if (isset($siteDetail->site_image) && file_exists(url('/').'/public/upload/sites/'.$siteDetail->site_image)) 
+			    @if (isset($siteDetail->site_image) && file_exists('/public/upload/sites/'.$siteDetail->site_image)) 
 					<img src="{{url('/').'/public/upload/sites/'.$siteDetail->site_image}}" alt="" title="" />
 				   @else 
                    <img src="{{ asset('images/default.jpg') }}" alt="" title="" />
@@ -17,8 +19,7 @@
 		</div>
 		<div class="row nav-box">
 			<div class="col-md-9 left-nav">
-				<nav class="navbar navbar-expand-lg">
-					<ul class="navbar-nav nav-pills">
+				<ul class="nav nav-pills">
 						<li class="nav-item active">
 							<a  data-toggle="pill" class="nav-link"  href="#menu1">Overview <span class="sr-only">(current)</span></a>
 						</li>
@@ -26,9 +27,9 @@
 							<a data-toggle="pill"  class="nav-link"  href="#menu2">Billing</a>
 						</li>
 					</ul>
-				</nav>
+			
 			</div>
-			<div class="col-md-3 right-nav">
+			 <div class="col-md-3 right-nav">
 				<!-- <div class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-cog" aria-hidden="true"></i>
@@ -42,11 +43,10 @@
 				<a href="#" class="btn btn-admin"> wp admin </a>
 			</div>
 		</div>
-	</div>
-</section> 
-<section class="section mt-4">
-	<div class="container tab-pane" id="menu1">
-		<div class="row " >
+		<div class="tab-content">
+<div class="tab-pane  in active" id="menu1">
+	<div class="container ">
+		<div class="row">
 			<div class="col-md-8">
 			<div class="card custome-card">
 				<div class="card-header">
@@ -69,9 +69,8 @@
                         </div>
                         </div>
                         @endforeach
-                        @endif
-                       
-					<h4>${{ $totalAmount}}/mo</h4>
+                        @endif 
+					    Total :- <h4>${{ $totalAmount}}/mo</h4>
                        </div>
 					</div>
 				</div>
@@ -89,9 +88,9 @@
 			</div>
 		</div>
 	</div>
-</section>
-<section class="section mt-4">
-	<div class="container tab-pane" id="menu2">
+</div>
+<div class="tab-pane fade" id="menu2">
+	<div class="container " >
 		<div class="row " >
 			<div class="col-md-12">
 			<div class="card custome-card">
@@ -123,7 +122,10 @@
 		</div>
 		</div>
 	</div>
-</section>
+</div>
 	</div>
-</section>
+	</div>
+</section> 
+
+
 @endsection
