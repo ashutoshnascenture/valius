@@ -122,7 +122,7 @@ class SitesController extends Controller
       $title = 'Site Detail';
       $site_id  = base64_decode($id);
       $siteDetail  = Site::with('parent.children.invoicelistservices.amount')->find($site_id);
-     //echo "<pre>"; print_r($siteDetail->toArray()); die;
+     // echo "<pre>"; print_r($siteDetail->toArray()); die;
       return view('sites/singlesitedetail',compact('title','siteDetail'));
 
     }

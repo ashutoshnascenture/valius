@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row site-pro">
 			<div class="col-md-2 img-box">
-			    @if (isset($siteDetail->site_image)) 
+			    @if (isset($siteDetail->site_image) && file_exists(url('/').'/public/upload/sites/'.$siteDetail->site_image)) 
 					<img src="{{url('/').'/public/upload/sites/'.$siteDetail->site_image}}" alt="" title="" />
 				   @else 
                    <img src="{{ asset('images/default.jpg') }}" alt="" title="" />
@@ -44,22 +44,52 @@
 		</div>
 	</div>
 </section> 
-<!-- <section class="section mt-4">
-	<div class="container tab-pane fade" id="menu1">
+<section class="section mt-4">
+	<div class="container tab-pane" id="menu1">
 		<div class="row " >
-			<div class="col-md-12">
+			<div class="col-md-8">
 			<div class="card custome-card">
 				<div class="card-header">
-					Overview
+					Services
 				</div>
 				<div class="card-body">
-					Overview
+					<div class="col-md-12">
+					  <div class="card-body">
+                       @php $totalAmount=0; @endphp
+                       @if(!empty($siteDetail->parent->children))
+                        @foreach($siteDetail->parent->children as $service)
+                        @php $totalAmount = $totalAmount+ $service['plan_amount']/100; @endphp 
+                        <h2>{{$service['name']}}</h2>
+                        <div class="row">
+                        <div class="col-md-8">
+                        SEO
+                        </div>
+                        <div class="col-md-2">
+                        <h2>${{$service['plan_amount']/100}}</h2>
+                        </div>
+                        </div>
+                        @endforeach
+                        @endif
+                       
+					<h4>${{ $totalAmount}}/mo</h4>
+                       </div>
+					</div>
 				</div>
 			</div>
 		</div>
+		<div class="col-md-4">
+             <div class="card custome-card">
+				<div class="card-header">
+					Contact 
+				</div>
+				<div class="card-body">
+					
+				</div>
+			</div>
+			</div>
 		</div>
 	</div>
-</section> -->
+</section>
 <section class="section mt-4">
 	<div class="container tab-pane" id="menu2">
 		<div class="row " >
