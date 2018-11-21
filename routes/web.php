@@ -51,6 +51,8 @@ Route::get('/single-site-detail/{id}', 'SitesController@singlesiteDetail');
 Route::get('/view-invoice-pdf/{invoiceid}', 'SitesController@viewInvoicePdf');
 Route::get('/add-services/{id}', 'SitesController@addServices');
 Route::post('/save-services/', 'SitesController@saveServices');
+Route::get('/service-popup/{id}','SitesController@servicePopup');
+Route::get('/service-popup/{id}','AddonsController@servicePopup');
 Route::get('/add-site/', 'SitesController@addSite');
 Route::post('/save-site/', 'SitesController@saveSite');
 Route::resource('sites','SitesController')->middleware('admin');

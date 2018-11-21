@@ -35,6 +35,7 @@
 					
 				</div>
                   <div class="col-md-1 action-box">
+                   <a href="#" class="addservice" siteid="{{base64_encode($all_site->parent['id'])}}"  id="addservice" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" aria-hidden="true"></i></a>
 				   <div class="dropdown">
 					  <a class="dropdown-toggle" data-toggle="dropdown">
 					   <i class="fa fa-ellipsis-h" aria-hidden="true"></i>

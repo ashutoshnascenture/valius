@@ -138,9 +138,8 @@ class SitesController extends Controller
     public function saveServices(Request $request)
     {
          $subscription_id = base64_decode($request->get('subscription_id')); //
-
+         
          if ($subscription_id) {
-
              $user_id = Subscriptions::where('id','=',$subscription_id)->pluck('user_id');
              $userDetail = User::find($user_id[0])->pluck('stripe_id');
              //echo $user_id[0]; die;
@@ -264,5 +263,17 @@ class SitesController extends Controller
      PDF::setOptions(['defaultFont' => 'sans-serif']);
      return $pdf->stream('Invoice');  
    }
+  
+   public function servicePopup(Request $request,$siteID)
+   {
+      // $siteId = base64_decode($siteID);
+       $subscription_id = base64_decode($siteID); //
+       $get_all_subscribed_services = Subscriptions::where('site_id','=',$subscription_id)->pluck('stripe_plan');
+       $service_data = DB::table('plans')->whereNotIn('plan_id',$get_all_subscribed_services)->where('plan_type','=',4)->get();
+       $returnHTML = view('sites.service-popup')->with('allServices', $service_data)->render();
+       echo $returnHTML; die;
+
+   }
+ 
 
 }
