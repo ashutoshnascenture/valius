@@ -13,6 +13,8 @@ use Validator;
 use Session;
 use DB;
 use Carbon\Carbon;
+use App\Subscription as Subscriptions;
+
 
 
 
@@ -56,13 +58,19 @@ class AddonsController extends Controller
 	
 	public function store(Request $request)
 	{  
-		 $rules = Addon::$rules;
+		     $rules = Addon::$rules;
          $messages = Addon::$message;
          $input = $request->all();
          $validator = Validator::make($input, $rules, $messages);
          if ($validator->fails()) {
-            return redirect()->back()->withInput($input)->withErrors($validator->errors());   
+
+             if($request->ajax()){
+              return response()->json(['error'=>$validator->errors()->all()]);
+             } else {
+              return redirect()->back()->withInput($input)->withErrors($validator->errors());   
+             }
          }
+
         $stripKey = config('services.stripe.secret');
         \Stripe\Stripe::setApiKey($stripKey);
         $stripeData = \Stripe\Plan::create(array(
@@ -99,14 +107,25 @@ class AddonsController extends Controller
                 'plan_type'   =>4,
             ];
            $saveAddon = DB::table('plans')->insert($data);
-         if ( $saveAddon ) {
-           Session::flash('flash_message', 'Addons  add  successfully');
-		   Session::flash('alert-class', 'alert-success');
-           return redirect('addons');
+         if ($saveAddon ) {
+           if($request->ajax()){
+                 $siteID = $request->input('subscription_id');
+                 $serviceHtml = $this->servicePopup($siteID);
+                 return response()->json(['success'=>'success','html'=>$serviceHtml]);
+           }else {
+            Session::flash('flash_message', 'Addons  add  successfully');
+		        Session::flash('alert-class', 'alert-success');
+            return redirect('addons');
+         }
          } else {
+          if($request->ajax()){
+              return response()->json(['error'=>'error']);
+          }else {
            Session::flash('flash_message', 'Some problem accured please try again later. ');
-		   Session::flash('alert-class', 'alert-danger');
+           Session::flash('alert-class', 'alert-danger');
            return redirect('addons');
+          }
+
          }
          
 	}
@@ -146,10 +165,17 @@ class AddonsController extends Controller
 		{
 		DB::table('plans')->where('id', $id)->update(['is_delete' => $request->get('is_delete')]);  
 		Session::flash('flash_message', 'Addons  status successfully update!');
-		Session::flash('alert-class', 'alert-success');
-        return redirect('addons'); 		
-		}
-	
-		 
+		Session::flash('alert-class', 'alert-success');	
+		} 
+    return redirect('addons');  
 	 }
+   public function servicePopup($siteID)
+   {
+       $subscription_id = base64_decode($siteID); //
+       $get_all_subscribed_services = Subscriptions::where('site_id','=',$subscription_id)->pluck('stripe_plan');
+       $service_data = DB::table('plans')->whereNotIn('plan_id',$get_all_subscribed_services)->where('plan_type','=',4)->get();
+       $returnHTML = view('sites.service-popup')->with('allServices', $service_data)->render();
+       return $returnHTML;
+
+   }
 }

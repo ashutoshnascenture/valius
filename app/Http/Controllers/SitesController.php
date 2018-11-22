@@ -15,8 +15,10 @@ use Stripe\Subscription;
 use App\Subscription as Subscriptions;
 use DB;
 use Carbon\Carbon;
-
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use PDF;
+use App\Invoices;
 class SitesController extends Controller
 {
     //
@@ -35,10 +37,10 @@ class SitesController extends Controller
        // echo $totalSite;  die;
         if (isset($request->site_search)) {
         $searchKeyword = $request->site_search;
-        $all_sites = Site::with('subscription.parent.children')->where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
-        $totalSite = Site::with('subscription.parent.children')->where('name', 'like','%' .$searchKeyword.'%')->count();
+        $all_sites = Site::with('parent.children')->where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
+        $totalSite = Site::with('parent.children')->where('name', 'like','%' .$searchKeyword.'%')->count();
         } else {
-        $all_sites = Site::with('subscription.parent.children')->paginate(2);
+        $all_sites = Site::with('parent.children')->paginate(2);
         }
         if ($request->ajax()) {
             //echo "<pre>"; print_r($all_sites->toArray()); die; 
@@ -109,7 +111,8 @@ class SitesController extends Controller
  
       $title = 'Site Detail';
       $site_id  = base64_decode($id);
-      $siteDetail  = Site::with('subscription.parent.children')->find($site_id);
+      $siteDetail  = Site::with('parent.children')->find($site_id);
+
       return view('sites/sitedetail',compact('title','siteDetail'));
 
     }
@@ -118,7 +121,8 @@ class SitesController extends Controller
         
       $title = 'Site Detail';
       $site_id  = base64_decode($id);
-      $siteDetail  = Site::with('subscription.parent.children')->find($site_id);
+      $siteDetail  = Site::with('parent.children.invoicelistservices.amount')->find($site_id);
+     // echo "<pre>"; print_r($siteDetail->toArray()); die;
       return view('sites/singlesitedetail',compact('title','siteDetail'));
 
     }
@@ -134,9 +138,8 @@ class SitesController extends Controller
     public function saveServices(Request $request)
     {
          $subscription_id = base64_decode($request->get('subscription_id')); //
-
+         
          if ($subscription_id) {
-
              $user_id = Subscriptions::where('id','=',$subscription_id)->pluck('user_id');
              $userDetail = User::find($user_id[0])->pluck('stripe_id');
              //echo $user_id[0]; die;
@@ -249,29 +252,28 @@ class SitesController extends Controller
 
     }
 
-   /* public function invoiceDetail(Request $request)
-    {
-             $stripKey = config('services.stripe.secret');
+   
+   public function viewInvoicePdf(Request $request,$invoiceID)
+   { 
 
-             \Stripe\Stripe::setApiKey($stripKey);
-             $body = @file_get_contents('http://varo.nascenture.com/invoice-webhook/?varo-listener=stripe');
-             echo $body;
-             $event_json = json_decode($body);
-             http_response_code(200);
-            print_r($event_json); die;
+     $invoiceId= base64_decode($invoiceID); 
+     $invoiceDetail = Invoices::with('amount.plan')->find($invoiceId);
+     $data['data'] =$invoiceDetail->toArray();  
+     $pdf = PDF::loadView('sites.invoice-pdf', $data);
+     PDF::setOptions(['defaultFont' => 'sans-serif']);
+     return $pdf->stream('Invoice');  
+   }
+  
+   public function servicePopup(Request $request,$siteID)
+   {
+      // $siteId = base64_decode($siteID);
+       $subscription_id = base64_decode($siteID); //
+       $get_all_subscribed_services = Subscriptions::where('site_id','=',$subscription_id)->pluck('stripe_plan');
+       $service_data = DB::table('plans')->whereNotIn('plan_id',$get_all_subscribed_services)->where('plan_type','=',4)->get();
+       $returnHTML = view('sites.service-popup')->with('allServices', $service_data)->render();
+       echo $returnHTML; die;
+
+   }
  
-    }
 
-    public function invoiceWebhook(Request $request)
-    {
-           $stripKey = config('services.stripe.secret');
-
-             \Stripe\Stripe::setApiKey($stripKey);
-             $body = @file_get_contents("php://input");
-             echo $body;
-             $event_json = json_decode($body);
-             http_response_code(200);
-            print_r($event_json); die;
-
-    }*/
 }

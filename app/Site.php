@@ -25,9 +25,9 @@ class Site extends Model
         'url.required'                     => 'URL is required'        
     );
   
-   public function subscription()
+   public function parent()
    {
-    return $this->belongsTo('App\Subscription','subscription_id','stripe_id')->where('site_status', 1);  
+    return $this->belongsTo('App\Subscription','subscription_id','stripe_id')->where('site_status', 1)->with('invoicelist.amount');  
     // only  get subscription if site added use site_status.
    } 
    
