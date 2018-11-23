@@ -67,7 +67,7 @@
 				<div class="card-body">
 					<div class="row site-info-box">
 						<div class="col-md-12 site-detail-box">
-							<h2>dsfdfds</h2>
+							<h2>SEO</h2>
 							<div class="row">
 								<div class="col-md-11">
 									<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
@@ -80,7 +80,7 @@
 					</div>
 					<div class="row site-info-box">
 						<div class="col-md-12 site-detail-box">
-							<h2>dsfdfds</h2>
+							<h2>SEO</h2>
 							<div class="row">
 								<div class="col-md-11">
 									<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
@@ -93,7 +93,7 @@
 					</div>
 					<div class="row site-info-box">
 						<div class="col-md-12 site-detail-box">
-							<h2>dsfdfds</h2>
+							<h2>SEO</h2>
 							<div class="row">
 								<div class="col-md-11">
 									<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
