@@ -149,7 +149,7 @@ class AddonsController extends Controller
 		
 		if ( $saveAddon ) {
            Session::flash('flash_message', 'Addons  update  successfully');
-		   Session::flash('alert-class', 'alert-success');
+		    Session::flash('alert-class', 'alert-success');
            return redirect('addons');
          } else {
 

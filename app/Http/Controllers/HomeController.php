@@ -74,16 +74,48 @@ class HomeController extends Controller
              } else {                  
                 Session::push('userDetail', $userDetail);
              }
-             return view('plan-payment')->with(compact('plan','allCountry','userDetail','title'));  
+           return view('plan-payment')->with(compact('plan','allCountry','userDetail','title'));
           } else {
              return redirect()->back();
           }
     }
+    
+    public function planBilling(Request $request)
+    {
+         $rules = User::paymentrules();
+         $messages = User::paymentMessage();
+         $input = $request->all();
+         $validator = Validator::make($input, $rules, $messages);
+         if ($validator->fails()) {
+            if($request->ajax()){
+              return response()->json(['error'=>$validator->errors()->all()]);
+             } 
+          }
+   
+    }
+
 
     public function subscribePlan(Request $request) 
     {
          $data = $request->session()->all();
-         $this->validate( $request, [ 'stripeToken' => 'required', 'plan' => 'required'] );
+        /* $rules = User::paymentrules();
+         $messages = User::paymentMessage();
+         $input = $request->all();
+         $validator = Validator::make($input, $rules, $messages);
+         if ($validator->fails()) {
+            return redirect()->back()->withInput($input)->withErrors($validator->errors());   
+          }*/
+        $rules = array();
+        $rules['company_name'] = 'required_if:user_type,1';
+        $rules['country_id'] = 'required';
+        $rules['state_id'] = 'required';
+        $rules['city']     = 'required';
+        $rules['zipcode'] = 'required'; 
+        $rules['address'] = 'required'; 
+        $rules['stripeToken'] = 'required'; 
+        $rules['plan'] = 'required'; 
+
+         $this->validate( $request, $rules );
          $pickedPlan = $request->get('plan');
 		 $pickedPlanName = $request->get('plan_name');
          $pickedPlanAmount = $request->get('plan_amount');

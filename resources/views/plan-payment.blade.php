@@ -1,6 +1,10 @@
 @extends('layouts.app-plan')
 @section('content')
-
+<style type="text/css">
+#-error{
+	color: red;
+}
+</style>
 <section class="plan-deatil-section">
 	<div class="container">
 		<div class="row justify-content-center">
@@ -60,11 +64,11 @@
 		</div>
 	</div>
 </section>
-
 <section class="account-info-section">
   <form action="{{ url('/subscribe-plan') }}" method="POST" id="payment-form">
-						{{ csrf_field() }}
+	{{ csrf_field() }}
 	<div class="container">
+	 <div class="alert alert-danger print-error-msg" style="display:none"> <ul></ul></div>
 		<div class="row">
 			<div class="col-md-12 info-box">
 				<h2> Billing Information </h2>
@@ -75,11 +79,11 @@
 							<div class="form-group col-md-12">
 								<div class="row">
 									<div class="radio radio-primary col-md-2">
-										<input type="radio" name="user_type" id="radio5" value="1">
+										<input type="radio" name="user_type" id="radio5" value="1" class="check-comp">
 										<label for="radio5"> Company </label>
 									</div>
 									<div class="radio radio-primary col-md-2">
-										<input type="radio" name="user_type" id="radio6" value="2" checked>
+										<input type="radio" name="user_type" id="radio6" value="2" checked class="check-comp">
 										<label for="radio6">Individual</label>
 									</div>
 								</div>
@@ -104,9 +108,7 @@
                                  <option>Select State</option>
 								</select>
 								<i class="fa fa-angle-down" aria-hidden="true"></i>
-								
 							</div>
-						
 							<div class="form-group col-md-6">
 								<label> CITY </label>
 								<input type="text" name="city" class="form-control" />
@@ -119,7 +121,7 @@
 								<label> Address </label>
 								<input type="text" name="address" class="form-control" />
 							</div>
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-6 comp-na" style="display: none;">
 								<label> COMPANY </label>
 								<input type="text" name="company_name" class="form-control" />
 							</div>
@@ -133,7 +135,7 @@
 					<div class="col-md-6 pr-5">
 						<div class="form-group">
 							<label>CARD HOLDER NAME</label>
-							<input data-stripe="name" size='20' type='text'  class="form-control cardname" required />
+							<input data-stripe="name"  size='20' type='text'  class="form-control cardname" required />
 						</div>
 						    <label for="card-element">
 						      Card Detail
@@ -169,8 +171,10 @@
 </section>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-   <!-- <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script> -->
- 
+  <script src="http://malsup.github.com/jquery.form.js"></script> 
+ <script type="text/javascript">
+	var siteURl = '<?php  echo url('/'); ?>';
+</script>
 <script type="text/javascript">
 	    $(document).ready(function () {
             $('.countrySelect').change(function(){
@@ -219,30 +223,25 @@ card.addEventListener('change', function(event) {
 	    displayError.textContent = '';
 	  }
 	 });
-/*var form = document.getElementById('payment-form');
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
-  stripe.createToken(card).then(function(result) {
-    if (result.error) {
-      var errorElement = document.getElementById('card-errors');
-      errorElement.textContent = result.error.message;
-    } else {
-      stripeTokenHandler(result.token);
-    }
-  });
-});*/
-    
      $(document).ready(function () {
+     	 $('.check-comp').click(function(){
+            var checked = $(this).prop('checked');
+            var chackedVal = $(this).val();
+            if(checked && chackedVal==1) {
+            	$('.comp-na').show();
+            } else {
+            	$('.comp-na').hide();
+            }
+     	 });
+     	function  checkCompany(){
+     		return $('#payment-form').find("input[name=user_type]:checked").val();
+     	}
     $('#payment-form').validate({ // initialize the plugin 
 	        rules: {
 	            country_id: {
 	                required: true
 	            },
 	            state_id: {
-	                required: true
-	            }
-	            ,
-	            last_name: {
 	                required: true
 	            }
 	            ,
@@ -253,7 +252,7 @@ form.addEventListener('submit', function(event) {
 	            ,
 	            zipcode: {
 	                required: true,
-	                number:true
+	                alphanumeric:true
 	            }
 	            ,
 	            address: {
@@ -261,16 +260,17 @@ form.addEventListener('submit', function(event) {
 	            }
 	            ,
 	            company_name: {
-	                required: true,
-	            }
-	           
+                    required: function(element) {
+                        return (checkCompany() == 1);
+                    }
+	             }
 	        },
 	        messages:
 	            {
 	            country_id: "<font color='red'>Please select country<font>",
 	            state_id: "<font color='red'>Please select state<font>",
 	            city: {required:"<font color='red'>Please Enter city name<font>"},
-	            zipcode: {required:"<font color='red'>Please Enter zipcode<font>",number:"<font color='red'>Please Enter valid number<font>"},
+	            zipcode: {required:"<font color='red'>Please Enter zipcode<font>"},
 	            address: {required:"<font color='red'>Please Enter address<font>"},
 	            company_name: {required:"<font color='red'>Please enter company name<font>"}
 	            },
@@ -285,45 +285,51 @@ form.addEventListener('submit', function(event) {
 					    }
 					  });
                 	return false;
-                     // submit from callback
+                    // submit from callback
 
                 }
 	    });
+       jQuery.validator.addMethod("alphanumeric", function(value, element) {
+		    return this.optional(element) || /^[\w.]+$/i.test(value);
+		}, "<font color='red'>please enter valid zipcode</font>");
 	});
-	/*$(function() {
-		var $form = $('#payment-form');
-		$form.submit(function(event) {
-			// Disable the submit button to prevent repeated clicks:
-			$form.find('.submit').prop('disabled', true);
-			  var timearray= $('.date-year').val().split('/'); 
-              console.log(timearray[0]);
-			// Request a token from Stripe:
-			Stripe.card.createToken($form, stripeResponseHandler);
-
-			// Prevent the form from being submitted:
-			return false;
-		});
-	});*/
 	function stripeTokenHandler(token) {
-  // Insert the token ID into the form so it gets submitted to the server
 	  var form = document.getElementById('payment-form');
 	  var hiddenInput = document.createElement('input');
 	  hiddenInput.setAttribute('type', 'hidden');
 	  hiddenInput.setAttribute('name', 'stripeToken');
 	  hiddenInput.setAttribute('value', token.id);
 	  form.appendChild(hiddenInput);
-      form.submit();
+      var queryString = $('#payment-form').formSerialize(); 
+                        $.ajax({
+                            url : siteURl+ "/plan-billing", 
+                            type: "POST",             
+                            data: queryString,
+                            cache: false,             
+                            processData: false,      
+                            success: function(data) {  
+                            if($.isEmptyObject(data.error)){
+                                   form.submit();
+                                }else{
+                                	$('.checkout').removeAttr('disabled');
+                                    printErrorMsg(data.error);
+
+                                }
+                            }
+                        });
+      
      }
-	/*function stripeResponseHandler(status, response) {
-		var $form = $('#payment-form');
-		if (response.error) { 
-			$form.find('.payment-errors').text(response.error.message);
-			$form.find('.submit').prop('disabled', false); // Re-enable submission
-		} else { 
-			var token = response.id;
-			$form.append($('<input type="hidden" name="stripeToken">').val(token));
-			$form.get(0).submit();
-		}
-	}*/
+     function printErrorMsg (msg) {
+
+            $(".print-error-msg").find("ul").html('');
+
+            $(".print-error-msg").css('display','block');
+
+            $.each( msg, function( key, value ) {
+
+                $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+
+            });
+        }
 </script>
 @endsection

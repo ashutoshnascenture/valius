@@ -56,21 +56,6 @@
 				<div class="col-md-1 action-box">
 
 				 <a href="#" class="addservice btn-block" siteid="{{base64_encode($all_site->parent['id'])}}"  id="addservice" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" aria-hidden="true"></i></a>
-				  
-				   <!-- <div class="dropdown">
-=======
-				 <a href="#" class="addservice" siteid="{{base64_encode($all_site->parent['id'])}}"  id="addservice" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" aria-hidden="true"></i></a>
-				  
-				   <div class="dropdown">
->>>>>>> 2d6733eafee9cc9bdae5a0d332fca5c05acaf705
-					  <a class="dropdown-toggle" data-toggle="dropdown">
-					   <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-					  </a>
-					  <div class="dropdown-menu">
-
-					     <a class="dropdown-item" href="{{URL('/add-services')}}/{{base64_encode($all_site->parent['id'])}}">Add Services</a>
-					  </div>
-					</div> --> 
 					
 				</div>
 			</div>
@@ -225,7 +210,7 @@
 	var siteURl = '<?php  echo url('/'); ?>';
 </script>
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-     <script src="http://malsup.github.com/jquery.form.js"></script> 
+ <script src="http://malsup.github.com/jquery.form.js"></script> 
 <script src="{{ asset('js/site.js') }}" defer></script>
 
 @endsection

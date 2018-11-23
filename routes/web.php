@@ -26,6 +26,7 @@ Route::get('/plan-select/{planID}', 'HomeController@planDetail')->name('plan-sel
 Route::post('/plan-payment', 'HomeController@planPayment')->name('plan-payment');
 Route::post('/subscribe-plan', 'HomeController@subscribePlan')->name('subscribe-plan');
 Route::get('/dashboard', 'DashboardController@index');
+Route::post('/plan-billing/', 'HomeController@planBilling');
 Route::get('/admin-sitelisting', 'UserController@adminSitelisting');
 Route::get('/get-states/{country_id}', 'HomeController@getStates');
 Route::get('/admin-dashboard', 'DashboardController@adminDashboard')->middleware('admin');
@@ -55,11 +56,11 @@ Route::get('/service-popup/{id}','SitesController@servicePopup');
 Route::get('/service-popup/{id}','AddonsController@servicePopup');
 Route::get('/add-site/', 'SitesController@addSite');
 Route::post('/save-site/', 'SitesController@saveSite');
+Route::post('/image-upload/', 'SitesController@imageUpload');
 Route::resource('sites','SitesController')->middleware('admin');
 Route::group(['prefix' => 'subscribe'], function(){
 	Route::post('/', 'PlanController@subscribe')->name('subscribe');
 });
-
 Route::post(
     'stripe/webhook',
     'WebhookController@handleWebhook'

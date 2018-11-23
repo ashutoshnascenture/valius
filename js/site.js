@@ -50,17 +50,6 @@ $(document).on('click','.addservice',function(){
 
 });
 $(document).ready(function(){
- /*   $("#addservice").validate({
-  submitHandler: function(form) {
-    form.submit();
-  },
-  ignore: [],
-  rules: {
-    'services[]': {
-      required: true
-    }
-  }
-});*/
  $('#addserviceform').validate({ // initialize the plugin 
             rules: {
                 "services[]": {
@@ -105,8 +94,7 @@ $(document).ready(function () {
                             data: queryString,
                             cache: false,             
                             processData: false,      
-                            success: function(data) {
-                                 
+                            success: function(data) {  
                             if($.isEmptyObject(data.error)){
                                     $('.service').html(data.html)
                                     $('#myModal2').modal('hide');

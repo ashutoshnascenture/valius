@@ -6,11 +6,14 @@
 	<div class="container">
 		<div class="row site-pro">
 			<div class="col-md-2 img-box">
-			    @if (isset($siteDetail->site_image) && file_exists('/public/upload/sites/'.$siteDetail->site_image)) 
-					<img src="{{url('/').'/public/upload/sites/'.$siteDetail->site_image}}" alt="" title="" />
+			   <a href="javascript:void(0)" class="files-select-mock">
+			    @if (isset($siteDetail->site_image) && file_exists(public_path('/upload/sites').'/'.$siteDetail->site_image)) 
+					<img src="{{url('/').'/public/upload/sites/'.$siteDetail->site_image}}" alt="" title=""  id="siteimage"/>
 				   @else 
-                   <img src="{{ asset('images/default.jpg') }}" alt="" title="" />
+                   <img src="{{ asset('images/default.jpg') }}" alt="" title="" id="siteimage"/>
 				   @endif
+				   <input type="file" class="file-select" name="image" id="imgep" siteid="{{$siteDetail->id}}">
+				 </a>
 			</div>
 			<div class="col-md-10 site-pro">
 				<h4>{{$siteDetail->name}}</h4>
@@ -40,7 +43,7 @@
 						<a class="dropdown-item" href="#">Link 3</a>
 					</div>
 				</div> -->
-				<a href="#" class="btn btn-admin"> wp admin </a>
+				<a href="{{$siteDetail->url}}/wp-admin"  target="_blank" class="btn btn-admin"> wp admin </a>
 			</div>
 		</div>
 		<div class="tab-content">
@@ -126,6 +129,52 @@
 	</div>
 	</div>
 </section> 
+<script type="text/javascript">
+	function readURL(input) {
+		var fileTypes = ['jpg', 'jpeg', 'png'];
+      if (input.files && input.files[0]) {
+    	var extension = input.files[0].name.split('.').pop().toLowerCase(),  //file extension from input file
+            isSuccess = fileTypes.indexOf(extension) > -1;
+		if (isSuccess) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+				console.log("image url");
+	            $('#siteimage').attr('src', e.target.result);
+	            var dataimg = new FormData();
+			    dataimg.append('img',input.files[0]);
+			    dataimg.append("_token", "{{ csrf_token() }}");
+			    dataimg.append("id",$('#imgep').attr('siteid'));
+		        $.ajax({
+		            type:'POST',
+		            url: "http://localhost/varo/image-upload",
+		            data:dataimg,
+		            cache:false,
+		            contentType: false,
+		            processData: false,
+		            success:function(data){
+		                console.log("success");
+		                console.log(data);
+		            },
+		            error: function(data){
+		                console.log("error");
+		                console.log(data);
+		            }
+		        });
+	        }
+            reader.readAsDataURL(input.files[0]);
+		    }else{
+				alert("please enter a valid image");	
+			}
+		}else{
+         alert("please enter a valid image");
+		}
+        
+}
+	 $('body').on('change', '#imgep', function() {
+	    readURL(this);
+	});
 
+
+</script>
 
 @endsection

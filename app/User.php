@@ -59,7 +59,31 @@ class User extends Authenticatable
              'company_name'            => 'required'
         );
     }
-     public function roles()
+    public static function paymentrules()
+    {
+        $rules['company_name'] = 'required_if:user_type,1';
+        $rules['country_id'] = 'required';
+        $rules['state_id'] = 'required';
+        $rules['city']     = 'required';
+        $rules['zipcode'] = 'required'; 
+        $rules['address'] = 'required'; 
+
+        return $rules;
+    }
+   public static function paymentMessage()
+   {
+       return   array(
+        'country_id.required'               => 'please select country',
+        'company_name.required_if'             => 'Comapny Name is required',
+        'state_id.required'                 => 'Please select state',
+        'city.required'                     => 'Please enter city name',
+        'zipcode.required'                  => 'please enter zipcode', 
+        'address.same'                      => 'please enter address', 
+            );
+
+   }
+  
+   public function roles()
    {
      return $this->belongsToMany(Role::class);
    }
@@ -75,14 +99,13 @@ class User extends Authenticatable
         }
     }
     else{
-
         if ($this->hasRole($roles)) {
 
             return true;
         }
     }
     return false;
- }
+   }
    public function hasRole($role)
    {
      if ($this->roles()->where('name', $role)->first()) {
@@ -91,4 +114,5 @@ class User extends Authenticatable
 
         return false;
   }
+
 }

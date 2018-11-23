@@ -24,6 +24,7 @@ class SitesController extends Controller
     //
     public function __construct()
     {
+       
         $this->middleware('auth');
     }
 
@@ -274,6 +275,30 @@ class SitesController extends Controller
        echo $returnHTML; die;
 
    }
- 
+  public function imageUpload(Request $request)
+  {
 
+    if ($request->file('img')){
+              $dir =  public_path('/upload/sites').'/';
+              $image_name = $this->uploadFile($request->file('img'), $dir); 
+              if(isset($image_name))
+              {
+                 $siteImage = Site::find($request->get('id'));
+                 $site['id'] = $request->get('id');
+                 $site['site_image'] = $image_name; 
+                 $siteImage->update($site);
+                 return response()->json(['success'=>'success']);
+              }  else {
+               return response()->json(['error'=>'error']);
+              }
+         } else {
+          return response()->json(['error'=>'error']);
+         }
+  }
+  public function uploadFile($image, $destination) 
+    {    
+        $name = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 3) . time() . '.' . ($image->getClientOriginalExtension());
+        $image->move($destination, $name);
+        return $name;
+    }
 }

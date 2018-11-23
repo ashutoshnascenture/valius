@@ -100,16 +100,32 @@
 	            company_name: {
 	            	required: true
 	            }
+	            ,
+	            password: {
+	                passwordvalidate: true
+	            }
+	            ,
+	            confirm_pass: {   
+	                equalTo : "#password"
+	            }
 	        },
 	        messages:
 	            {
 	            email: "<font color='red'>Please Enter email<font>",
 	            first_name: "<font color='red'>Please Enter  first name<font>",
 	            last_name: {required:"<font color='red'>Please Enter last name<font>"},
-	            company_name: {required:"<font color='red'>Please Enter company name<font>"}
+	            company_name: {required:"<font color='red'>Please Enter company name<font>"},
+	            confirm_pass: {equalTo:"<font color='red'>repeat password  same as  password<font>"},
 	        }
 	    });
-
+          jQuery.validator.addMethod("passwordvalidate", function(value, element){
+          	 if(value != ''){
+	      	 var checkPassword =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}$/.test(value);
+		     return checkPassword;
+          	 } else {
+             return true;
+          	 }
+		    }, "<font color='red'>Password must contain a min. of 6 characters, at least one lowercase and capital letter, and a number<font>"); 
 	});
 
 </script>
