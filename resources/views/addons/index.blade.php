@@ -93,7 +93,6 @@
 </div>
 
 <script>
-
 	$(document).ready(function() {
 	$('#confirm-delete').on('show.bs.modal', function (e) { 
             var form = $(e.relatedTarget).data('href');

@@ -53,13 +53,6 @@
                                     @endforeach
 								</ul>
 							</div>
-							<!-- <div class="col-md-6 detail-list">
-								<ul>
-									<li>Unlimited Content edits</li>
-									<li>4 development Points/mo</li>
-									<li>Weekly wordpress speed optimization</li>
-								</ul>
-							</div> -->
 						</div>
 					</div>
 				</div>
@@ -130,7 +123,6 @@
 								<label> COMPANY </label>
 								<input type="text" name="company_name" class="form-control" />
 							</div>
-							
 						</div>
 					</form>
 					</div>
@@ -143,10 +135,6 @@
 							<label>CARD HOLDER NAME</label>
 							<input data-stripe="name" size='20' type='text'  class="form-control cardname" required />
 						</div>
-
-					
-						
-						
 						    <label for="card-element">
 						      Card Detail
 						    </label>
@@ -157,12 +145,6 @@
 						    <!-- Used to display form errors. -->
 						    <div id="card-errors" role="alert"></div>
 						  </div>
-							<!-- <input autocomplete='off'  data-stripe="number" size='20' type='text'   class="card-no card-number" placeholder="Card Number " />
-							<input data-stripe="exp" size='2' type='text'   class="date-year"  placeholder="MM/YY"  />
-							<input type="text"  autocomplete='off' class="cvc-no card-cvc" placeholder="CVC"  data-stripe="cvc" size='4' type='text'  /> -->
-						
-
-				
 					    <input id="planlocalid" type="hidden" name="planlocalid" value="{{$plan->id}}">
 						<input id="planId" type="hidden" name="plan" value="{{$plan->plan_id}}">
 						<input id="planName" type="hidden" name="plan_name" value="{{$plan->nickname}}">
@@ -177,7 +159,7 @@
 						</div>
 					</div>
 					<div class="col-md-12">
-						<button  type="submit" class=" submit btn btn-cont"> Check out </button>
+						<button  type="submit" class=" submit btn btn-cont checkout"> Check out </button>
 					</div>
 				</div>
 			</div>
@@ -191,11 +173,9 @@
  
 <script type="text/javascript">
 	    $(document).ready(function () {
-	    	//$(".date-year").inputmask({"mask": "99/99"});
             $('.countrySelect').change(function(){
             	var countryID = $(this).val();
             	getState(countryID);
-            	
             });
            function getState(countryID) 
            {
@@ -208,8 +188,6 @@
 	            }	
 	            });
            }
-	   
-
 	});
 </script>
 <script type="text/javascript">
@@ -297,6 +275,7 @@ form.addEventListener('submit', function(event) {
 	            company_name: {required:"<font color='red'>Please enter company name<font>"}
 	            },
                 submitHandler: function(form) {
+                    $('.checkout').attr('disabled',true);
                 	stripe.createToken(card).then(function(result) {
 					    if (result.error) {
 					      var errorElement = document.getElementById('card-errors');

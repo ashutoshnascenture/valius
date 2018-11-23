@@ -33,6 +33,7 @@ class User extends Authenticatable
         'password'                => 'required|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,50}$/', 
         'confirm_pass'            => 'required|same:password',
        
+       
     );
     public static $message = array(
         'first_name.required'                    => 'First Name is required',

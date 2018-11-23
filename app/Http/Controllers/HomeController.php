@@ -32,20 +32,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
-    {   $title = 'Plan Listing ';
+    {   
+        $title = 'Plan Listing ';
         $plans = DB::table('plans')->where('is_delete','=',1)->where('plan_type','!=',4)->get();
         return view('home')->with(compact('plans','title')); 
+
     }
 
     public function planDetail($planID='')
-    {    $title = 'Plan Detail ';
+    {    
+         $title = 'Plan Detail ';
          $planID = base64_decode($planID);
          $plan = DB::table('plans')->find($planID);
          if ($plan) {
           return view('plan-detail')->with(compact('plan','title'));   
          }
          return redirect()->back();
+         
     }
  
     public function  planPayment(Request $request)
@@ -62,17 +67,13 @@ class HomeController extends Controller
           $input = $request->all();
           $plan = DB::table('plans')->find($input['palnID']);
           if ($plan) { 
-
              $userDetail = collect($input);
              if (Session::has('userDetail')) {
-                
                 Session::forget('userDetail');
                 Session::push('userDetail', $userDetail);
-             } else {
-                  
+             } else {                  
                 Session::push('userDetail', $userDetail);
              }
-             
              return view('plan-payment')->with(compact('plan','allCountry','userDetail','title'));  
           } else {
              return redirect()->back();
@@ -82,10 +83,10 @@ class HomeController extends Controller
     public function subscribePlan(Request $request) 
     {
          $data = $request->session()->all();
-        $this->validate( $request, [ 'stripeToken' => 'required', 'plan' => 'required'] );
-        $pickedPlan = $request->get('plan');
-		$pickedPlanName = $request->get('plan_name');
-        $pickedPlanAmount = $request->get('plan_amount');
+         $this->validate( $request, [ 'stripeToken' => 'required', 'plan' => 'required'] );
+         $pickedPlan = $request->get('plan');
+		 $pickedPlanName = $request->get('plan_name');
+         $pickedPlanAmount = $request->get('plan_amount');
 		 User::create([
 		 	'name'         => $data['userDetail'][0]['first_name'],
             'first_name'   => $data['userDetail'][0]['first_name'],
@@ -126,7 +127,6 @@ class HomeController extends Controller
                         $subscribtion->save();
 						
 				} else {
-                   
 				 $subscribtion =	$user->newSubscription( 'main', $pickedPlan)->create($request->get('stripeToken'), [
 						'email' => $user->email,
 						'description' => $user->name
@@ -138,10 +138,8 @@ class HomeController extends Controller
 
 			}
 		} catch (\Exception $e) {
-            
 			 return redirect('/plan-select/'.base64_encode($request->get('planlocalid')))->withErrors(['status' => $e->getMessage()]);
-		}
-          
+		}   
          $mailArray = array();
          $mailArray['name'] = $user->first_name."".$user->last_name;
          $mailArray['email'] = $user->email;
@@ -152,7 +150,6 @@ class HomeController extends Controller
         });
 		return redirect('/dashboard')->with('status', 'You are now subscribed to ' . $pickedPlanName . ' plan.');
 		} else {
-             
 			return redirect('/plan-select/'.base64_encode($request->get('planlocalid')))->withErrors(['status' => 'somthing went wrong please try again']);
 		}
     }
@@ -162,8 +159,6 @@ class HomeController extends Controller
           $allStates = State::where('country_id','=',$country_id)->get();
           $returnHTML = view('state')->with('allStates', $allStates)->render();
           echo $returnHTML; die;
-
-
-
     }
+
 }

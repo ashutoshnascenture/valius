@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\User;
 use App\Site;
 use DB;
@@ -24,9 +23,6 @@ class DashboardController extends Controller
     {
         $this->middleware('auth');
     }
-    
-   
-
     /**
      * Show the application dashboard.
      *
@@ -34,25 +30,21 @@ class DashboardController extends Controller
      */
     public function index()
     {
-         $title = "Dashboard";
-
+        $title = "Dashboard";
         if (Auth::check() && !\Auth::user()->hasRole('admin')) {  
             $user_id = Auth::user()->id;
             $totalSite = Site::where('user_id','=',$user_id)->count();
             $all_sites = Site::with('parent')->where('user_id','=',$user_id)->get();
-            //echo  $totalSite; die;
-            Session::put('totalSite', $totalSite);
-                    
+            Session::put('totalSite', $totalSite);            
             return view('dashboard', compact('title','totalSite','all_sites'));
-           
         } else {
            return redirect('/admin-dashboard');
         } 
-        
     }
     public function  adminDashboard()
     {  
            $title = "Dashboard";
            return view('admindashboard', compact('title'));          
     }
+
 }

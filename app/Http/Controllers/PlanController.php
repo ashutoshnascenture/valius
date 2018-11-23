@@ -35,52 +35,39 @@ class PlanController extends Controller
      */
     public function index()
     {
-        
-        
+
         $plans = DB::table('plans')->where('is_delete','=',1)->get();
         $is_subscribed = Auth::user()->subscribed('main');
-
         // If subscribed get the subscription
-        $title = 'Plan Listin';
+        $title = 'Plan Listing';
         $subscription = Auth::user()->subscription('main');
-
         return view('plans/index')->with(compact('plans', 'is_subscribed', 'subscription','title'));
     }
 	
 	public function subscribe(Request $request)
 	{
-
 		// Validate request
 		$this->validate( $request, [ 'stripeToken' => 'required', 'plan' => 'required'] );
-
 		// User chosen plan
 		$pickedPlan = $request->get('plan');
 		$pickedPlanName = $request->get('plan_name');
-
 		// Current logged in user
 		$user = Auth::user();
-
 		try {
 			// check already subscribed and if already subscribed with picked plan
 			if( $user->subscribed('main') && ! $user->subscribedToPlan($pickedPlan, 'main') ) {
-
 				// swap if different plan attempt
 				$user->subscription('main')->swap($pickedPlan);
-
 			} else {
 				// Its new subscription
-
 				// if user has a coupon, create new subscription with coupon applied
 				if( $coupon = $request->get('coupon') ) {
-
 					$user->newSubscription( 'main', $pickedPlan)
 						->withCoupon($coupon)
 						->create($request->get('stripeToken'), [
 							'email' => $user->email
 						]);
-
 				} else {
-
 					// Create subscription
 					$user->newSubscription( 'main', $pickedPlan)->create($request->get('stripeToken'), [
 						'email' => $user->email,
@@ -93,7 +80,6 @@ class PlanController extends Controller
 			// Catch any error from Stripe API request and show
 			return redirect()->back()->withErrors(['status' => $e->getMessage()]);
 		}
-
 		return redirect()->route('plans')->with('status', 'You are now subscribed to ' . $pickedPlanName . ' plan.');
 	}
 	
@@ -103,7 +89,6 @@ class PlanController extends Controller
                 ->where('id', $id)
                 ->orderBy('id','DESC')
                 ->first();
-		
 		return view('plans/edit')->with(compact('plans'));
 	}
 	
@@ -116,7 +101,6 @@ class PlanController extends Controller
 	
 	public function getPlans()
 	{    
-		
 		$paginationNo = $_ENV['PAGINATE_NOUMBER'];
 		$plans = DB::table('plans')
                 ->where('status', 1)->where('plan_type','!=',4)
@@ -124,13 +108,11 @@ class PlanController extends Controller
                 ->paginate($paginationNo);
 	     
 		return view('plans/plans')->with(compact('plans'));
-
     }
 	
 	public function create()
     { 
 	 return view('plans/create');
-		
     } 
 	
 	public function store(Request $request)
