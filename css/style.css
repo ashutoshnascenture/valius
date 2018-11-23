@@ -210,7 +210,52 @@ i{margin-right:5px;}
 .paid-box .price-box{padding-right: 0px;}
 .date-active{font-size: 16px; color: #a6a4a4; margin-bottom: 5px; }
 .btn-paid{ text-transform: uppercase; }
+.services-modal .modal-header{ padding:20px 20px 0px 20px; border-bottom: none;}
+.services-modal .modal-body{ text-align: center; padding: 20px; }
+.services-modal .modal-body h4{ margin-bottom: 20px; margin-top: 0px; font-size: 22px; color: #3e3e3ecc; font-weight: bold;}
+.service-div {margin-right: 0; margin-left: 0;} 
+.service-div .ser-list{ border: 1px solid #ccc; padding: 15px; border-radius: 3px; border-radius:4px 0px 0px 4px;}
+.service-div .active{ border: 3px solid #50c6db; position: relative; overflow: hidden;}
+.service-div .ser-list:last-child{border-radius:0 4px 4px 0; }
+.service-div .ser-list h5{font-size: 17px; color: #686868; font-weight: 600;line-height: inherit; margin-bottom: 0px;} 
+.date-p{font-size: 15px; color: #686868; }
+.select-service-box{ padding:20px; background-color: #f7f6f6; position: relative;}
+.select-service-box .or{    position: relative;
+    margin: 25px 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ccc;}
+.select-service-box .or:after{content: ""; width: 45%; height: 1px; background-color: #e6e6e6; position: absolute; left: 0; top: 12px;} 
+.select-service-box .or:before{content: ""; width: 45%; height: 1px; top: 12px; background-color: #e6e6e6; position: absolute; right: 0;} 
+.btn-add-ser{    background-color: red;
+    border-radius: 50px;
+    background-color: #50c6db;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 8px 30px;
+}
 
+.services-modal .modal-footer{ text-align: center;  padding:20px;  }
+.services-modal .btn-cre-ser{  background-color: red;
+    border-radius: 50px;
+    background-color: #50bb7a;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px; padding: 12px 40px; margin: 0 auto; }
+    .service-div .active:after{      content: "";
+    position: absolute;
+    height: 30px;
+    width: 50px;
+    background-color: #50c6db;
+    top: -12px;
+    right: -19px;
+    transform: rotate(45deg);
+    background-image: url( ../images/ad.png);
+    background-repeat: no-repeat;
+    background-position: center;}
 /*-- Paln page css here --*/
 /*.plan-box{margin-bottom: 30px;}
 .plan-box .plan{background-color: #fff; border-radius: 4px;}

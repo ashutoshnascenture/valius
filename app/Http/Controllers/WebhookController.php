@@ -60,24 +60,7 @@ class WebhookController extends CashierController
       return new Response('Webhook Handled', 200);
      }
 
-     /*public function  handleInvoicePaymentFailed(array $payload)
-     {
-      $invoiceID = $payload['data']['object']['id'];
-       $customerID = $payload['data']['object']['customer'];
-       $subscriptionID = $payload['data']['object']['subscription'];
-       $status = $payload['data']['object']['paid'];
-       if ($status){
-        $saveStatus = "Paid";
-       } else {
-        $saveStatus = "Faild";
-       }
-      // echo "<pre>"; print_r($payload); die;
-        $invoiceSave = Invoices::create([
-                  'invoice_id'      =>$invoiceID,
-                  'subscription_id'  =>$subscriptionID,
-                  'cus_id'          =>$customerID,
-                  'status'          =>$saveStatus
-            ]);
-      return new Response('Webhook Handled', 200);
-     }*/ 
+
+     
+
 }
