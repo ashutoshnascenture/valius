@@ -12,27 +12,32 @@
 				   @else 
                    <img src="{{ asset('images/default.jpg') }}" alt="" title="" id="siteimage"/>
 				   @endif
-				   <input type="file" class="file-select" name="image" id="imgep" siteid="{{$siteDetail->id}}">
-				 </a>
+				</a>
+				   	<div class="up-drop">
+				   		<a href="javascript: void(0)">Upload Image
+				   		<input type="file" class="file-select" name="image" id="imgep" siteid="{{$siteDetail->id}}">
+				   		</a>
+					</div>
+				 
 			</div>
 			<div class="col-md-10 site-pro">
 				<h4>{{$siteDetail->name}}</h4>
 				<a href="#"> {{$siteDetail->url}} </a>
 			</div>
 		</div>
+
 		<div class="row nav-box">
 			<div class="col-md-9 left-nav">
 				<ul class="nav nav-pills">
-						<li class="nav-item active">
-							<a  data-toggle="pill" class="nav-link"  href="#menu1">Overview <span class="sr-only">(current)</span></a>
-						</li>
-						<li class="nav-item">
-							<a data-toggle="pill"  class="nav-link"  href="#menu2">Billing</a>
-						</li>
-					</ul>
-			
+					<li class="nav-item active">
+						<a  data-toggle="pill" class="nav-link"  href="#menu1">Overview <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="pill"  class="nav-link"  href="#menu2">Billing</a>
+					</li>
+				</ul>
 			</div>
-			 <div class="col-md-3 right-nav">
+			<div class="col-md-3 right-nav">
 				<!-- <div class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-cog" aria-hidden="true"></i>
@@ -46,6 +51,10 @@
 				<a href="{{$siteDetail->url}}/wp-admin"  target="_blank" class="btn btn-admin"> wp admin </a>
 			</div>
 		</div>
+		</div>
+			</div>
+</section>
+			 
 		<div class="tab-content">
 <div class="tab-pane  in active" id="menu1">
 	<div class="container ">
@@ -56,8 +65,48 @@
 					Services
 				</div>
 				<div class="card-body">
-					<div class="col-md-12">
-					  <div class="card-body">
+					<div class="row site-info-box">
+						<div class="col-md-12 site-detail-box">
+							<h2>dsfdfds</h2>
+							<div class="row">
+								<div class="col-md-11">
+									<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
+								</div>
+								<div class="col-md-1">
+									<p><b>$12</b></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row site-info-box">
+						<div class="col-md-12 site-detail-box">
+							<h2>dsfdfds</h2>
+							<div class="row">
+								<div class="col-md-11">
+									<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
+								</div>
+								<div class="col-md-1">
+									<p><b>$12</b></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row site-info-box">
+						<div class="col-md-12 site-detail-box">
+							<h2>dsfdfds</h2>
+							<div class="row">
+								<div class="col-md-11">
+									<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
+								</div>
+								<div class="col-md-1">
+									<p><b>$12</b></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="card-body">
+					  
                        @php $totalAmount=0; @endphp
                        @if(!empty($siteDetail->parent->children))
                         @foreach($siteDetail->parent->children as $service)
@@ -74,9 +123,9 @@
                         @endforeach
                         @endif 
 					    Total :- <h4>${{ $totalAmount}}/mo</h4>
-                       </div>
-					</div>
-				</div>
+                       
+					
+				</div> -->
 			</div>
 		</div>
 		<div class="col-md-4">
