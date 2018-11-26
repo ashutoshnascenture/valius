@@ -36,7 +36,7 @@
 				</div>
 				<div class="col-md-8 name-box">
 					<h3><a href="{{URL('/site-detail')}}/{{base64_encode($all_site->id)}} ">{{$all_site->name}} </a></h3>
-					<a href="{{$all_site->url}}">
+					<a href="{{URL('/site-detail')}}/{{base64_encode($all_site->id)}}">
 					{{$all_site->url}} </a>
 				</div>
 				<div class="col-md-2 price-box">

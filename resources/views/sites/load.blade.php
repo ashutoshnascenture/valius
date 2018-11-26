@@ -21,15 +21,16 @@
 					{{$all_site->url}} </a>
 				</div>
 				<div class="col-md-2 price-box">
-				    @php $totalAmount=$all_site->parent['plan_amount']; @endphp
+				   @php $totalAmount=$all_site->parent['plan_amount']; @endphp
 				    @if(!empty($all_site->parent['children']))
-				    @php $total_services = count($all_site->parent['children']); @endphp
+				    @php $total_services = 1; @endphp
+				    @php $total_services = $total_services+count($all_site->parent['children']); @endphp
 				    @foreach($all_site->parent['children'] as $serviceAmount)
                     @php $totalAmount = $totalAmount+$serviceAmount->plan_amount; @endphp
 				    @endforeach
                     @else 
                      @php $total_services = 1; @endphp
-                    @endif
+                     @endif
 					<h4>${{ $totalAmount/100}}/mo <span>{{$total_services}} Serveices</span></h4>
 					
 				</div>
