@@ -58,7 +58,15 @@
 				<div class="card-body">
 					<div class="col-md-12">
 					  <div class="card-body">
-                       @php $totalAmount=0; @endphp
+                       @php $totalAmount=$siteDetail->parent['plan_amount']/100; @endphp
+                        <div class="row">
+                        <div class="col-md-8">
+                         {{$siteDetail->parent['name']}}
+                        </div>
+                        <div class="col-md-2">
+                        <h2>${{$siteDetail->parent['plan_amount']/100}}</h2>
+                        </div>
+                        </div>
                        @if(!empty($siteDetail->parent->children))
                         @foreach($siteDetail->parent->children as $service)
                         @php $totalAmount = $totalAmount+ $service['plan_amount']/100; @endphp 

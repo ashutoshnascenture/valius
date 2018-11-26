@@ -47,7 +47,7 @@
                     @php $totalAmount = $totalAmount+$serviceAmount->plan_amount; @endphp
 				    @endforeach
                     @else 
-                     @php $total_services = 0; @endphp
+                     @php $total_services = 1; @endphp
                      @endif
 
 					<h4>${{ $totalAmount/100}}/mo <span>{{$total_services}} Serveices</span></h4>
