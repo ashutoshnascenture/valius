@@ -27,7 +27,7 @@
    </head>
    <body>
       <div id="app">
-         <nav class="navbar navbar-expand-md navbar-light bg-ligh navbar-laravel main-nav">
+         <nav class="navbar navbar-expand-md navbar-light fixed-top bg-ligh navbar-laravel main-nav">
             <div class="container">
                <a class="navbar-brand" href="{{ url('/') }}">
                <img src="{{ asset('images/ON_WHITE.svg') }}" alt="" title="" />
@@ -137,7 +137,7 @@
                </div>
             </div>
          </nav>
-         <main class="py-4">
+         <main class="mt-5 pt-5">
             <div class="container">
                <div class="row">
                </div>

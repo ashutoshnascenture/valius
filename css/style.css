@@ -177,7 +177,12 @@ i{margin-right:5px;}
 .pagination-response .not-found{  margin-top: 25px; border: 1px solid #efefef; border-radius: 5px; background-color: white; padding: 15px; margin-bottom: 5px; text-align: center;	}
 .site-list .name-box h3 a{ margin: 0; font-size: 22px; font-weight: bold; color: #484848;}
 /*-- Site Detail --*/
-.top-section{background-color: #fff; padding: 20px 0 0 0; margin-top: -23px; position: relative; box-shadow: 0px 4px 15px 0px #92929214;}
+.top-section{background-color: #fff;
+    padding: 20px 0 0 0;
+    margin-top: -32px;
+    position: relative;
+    box-shadow: 0px 4px 15px 0px #92929214;
+    z-index: 55;}
 .site-pro img{width: 100%; padding: 3px; border: 1px solid #f3f3f3; border-radius: 2px;}
 .site-pro h4{margin: 0px 0 5px 0; font-size: 30px; font-weight: bold;}
 .site-pro a{font-size: 18px; display: block; color: #724ce8; }

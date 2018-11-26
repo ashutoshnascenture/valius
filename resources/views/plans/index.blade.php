@@ -55,7 +55,7 @@
                 @endif
 
                 <?php //echo '<pre>'; print_r($plans); ?>
-                <div class="card custome-card">
+                <div class="card custome-card mb-4">
                 	<div class="card-header">Make Payment</div>
                 	<div class="card-body">
                 		
