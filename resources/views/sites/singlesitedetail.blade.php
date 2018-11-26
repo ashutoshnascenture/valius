@@ -134,7 +134,20 @@
 					Contact 
 				</div>
 				<div class="card-body">
-					
+					<div class="row">
+						<div class="col-md-12 mb-3 contact-de">
+							<h4>Email</h4>
+							<p>demo@gmail.com</p>
+						</div>
+						<div class="col-md-12 mb-3 contact-de">
+							<h4>Phone</h4>
+							<p>demo@gmail.com</p>
+						</div>
+						<div class="col-md-12 mb-3 contact-de">
+							<h4>Mailing Address</h4>
+							<span>demo@gmail.com</span>
+						</div>
+					</div>
 				</div>
 			</div>
 			</div>
