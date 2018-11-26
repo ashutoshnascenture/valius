@@ -4,7 +4,7 @@
     <div class="row">
         @foreach($plans as $plan)
           <div class="col-md-3">
-            <div class="card" style="margin-bottom: 10px;">
+            <div class="card custome-card" style="margin-bottom: 10px;">
                 <div class="card-body">
                    <div class="card-deck mb-3 text-center">
                     <?php //echo '<pre>'; print_r($plan); ?>
