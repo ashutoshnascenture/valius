@@ -275,12 +275,13 @@ card.addEventListener('change', function(event) {
 	            company_name: {required:"<font color='red'>Please enter company name<font>"}
 	            },
                 submitHandler: function(form) {
-                    $('.checkout').attr('disabled',true);
+                    
                 	stripe.createToken(card).then(function(result) {
 					    if (result.error) {
 					      var errorElement = document.getElementById('card-errors');
 					      errorElement.textContent = result.error.message;
 					    } else {
+					    	$('.checkout').attr('disabled',true);
 					      stripeTokenHandler(result.token);
 					    }
 					  });
