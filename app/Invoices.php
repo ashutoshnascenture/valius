@@ -17,8 +17,4 @@ class Invoices extends Model
     // only  get subscription if site added use site_status.
    } 
    
-   
-
-
-
 }

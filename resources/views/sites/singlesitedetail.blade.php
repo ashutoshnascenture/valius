@@ -15,13 +15,13 @@
 				</a>
 			   	<div class="up-drop">
 			   		<a href="javascript: void(0)">Upload Image
-			   		<input type="file" class="file-select" name="image" id="imgep" siteid="{{$siteDetail->id}}">
+			   		<input type="file" class="file-select" name="image" id="imgep"  url="{{ url('/')}}" siteid="{{$siteDetail->id}}">
 			   		</a>
 				</div>
 			</div>
 			<div class="col-md-10 site-pro">
 				<h4>{{$siteDetail->name}}</h4>
-				<a href="#"> {{$siteDetail->url}} </a>
+				<a href="{{$siteDetail->url}}" target="_blank"> {{$siteDetail->url}} </a>
 			</div>
 		</div>
 
@@ -29,7 +29,7 @@
 			<div class="col-md-9 left-nav">
 				<ul class="nav nav-pills">
 					<li class="nav-item active">
-						<a  data-toggle="pill" class="nav-link"  href="#menu1">Overview <span class="sr-only">(current)</span></a>
+						<a  data-toggle="pill" class="nav-link active show"  href="#menu1">Overview <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
 						<a data-toggle="pill"  class="nav-link"  href="#menu2">Billing</a>
@@ -53,7 +53,7 @@
 		</div>
 </section>
 			 
-		<div class="tab-content mb-4">
+<div class="tab-content mb-4">
 <div class="tab-pane  in active" id="menu1">
 	<div class="container ">
 		<div class="row">
@@ -61,79 +61,49 @@
 			<div class="card custome-card">
 				<div class="card-header"> Services </div>
 				<div class="card-body">
-					<div class="row site-info-box">
+				     @php $totalAmount=$siteDetail->parent['plan_amount']/100; @endphp
+				     <div class="row site-info-box">
 						<div class="col-md-12 site-detail-box">
-							<h2>SEO</h2>
+							<h2>{{$siteDetail->parent['name']}}</h2>
 							<div class="row">
 								<div class="col-md-10">
-									<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
+									<p>{{$siteDetail->parent->plan['description']}}</p>
 								</div>
 								<div class="col-md-2 price-text">
-									<p><b>$12</b></p>
+									<p><b>${{$siteDetail->parent['plan_amount']/100}}</b></p>
 								</div>
 							</div>
 						</div>
 					</div>
+                       @if(!empty($siteDetail->parent->children))
+                        @foreach($siteDetail->parent->children as $service)
+                        @php $totalAmount = $totalAmount+ $service['plan_amount']/100; @endphp 
 					<div class="row site-info-box">
 						<div class="col-md-12 site-detail-box">
-							<h2>SEO</h2>
+							<h2>{{$service['name']}}</h2>
 							<div class="row">
 								<div class="col-md-10">
-									<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
+									<p>{{$service->plan['description']}}</p>
 								</div>
 								<div class="col-md-2 price-text">
-									<p><b>$12</b></p>
+									<p><b>${{$service['plan_amount']/100}}</b></p>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row site-info-box">
-						<div class="col-md-12 site-detail-box">
-							<h2>SEO</h2>  
-							<div class="row">
-								<div class="col-md-10">
-									<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer</p>
-								</div>
-								<div class="col-md-2 price-text">
-									<p><b>$12</b></p>
-								</div>
-							</div>
-						</div>
-					</div>
+					 @endforeach
+                     @endif 
 					<div class="row site-total-box">
-						
-							
 								<div class="col-md-6">
 									<h4> Total </h4>
 								</div>
 								<div class="col-md-6 total-text">
-									$1254
+									${{$totalAmount}}/mo
 								</div>
 							
 						
 					</div>
 				</div>
-				<!-- <div class="card-body">
-					  
-                       @php $totalAmount=0; @endphp
-                       @if(!empty($siteDetail->parent->children))
-                        @foreach($siteDetail->parent->children as $service)
-                        @php $totalAmount = $totalAmount+ $service['plan_amount']/100; @endphp 
-                        <h2>{{$service['name']}}</h2>
-                        <div class="row">
-                        <div class="col-md-8">
-                        SEO
-                        </div>
-                        <div class="col-md-2">
-                        <h2>${{$service['plan_amount']/100}}</h2>
-                        </div>
-                        </div>
-                        @endforeach
-                        @endif 
-					    Total :- <h4>${{ $totalAmount}}/mo</h4>
-                       
-					
-				</div> -->
 			</div>
 		</div>
 		<div class="col-md-4">
@@ -145,15 +115,17 @@
 					<div class="row">
 						<div class="col-md-12 mb-3 contact-de">
 							<h4>Email</h4>
-							<p>demo@gmail.com</p>
+							<p>{{ Auth::user()->email}}</p>
 						</div>
-						<div class="col-md-12 mb-3 contact-de">
-							<h4>Phone</h4>
-							<p>demo@gmail.com</p>
-						</div>
+							<!-- <div class="col-md-12 mb-3 contact-de">
+								<h4>Phone</h4>
+								<p>demo@gmail.com</p>
+							</div> -->
 						<div class="col-md-12 mb-3 contact-de">
 							<h4>Mailing Address</h4>
-							<span>demo@gmail.com</span>
+							<span>{{ Auth::user()->address}},</span>
+							<span>{{ Auth::user()->state->name}},</span>
+							<span>{{ Auth::user()->country->name}}</span>
 						</div>
 					</div>
 				</div>
@@ -200,6 +172,7 @@
 
 <script type="text/javascript">
 	function readURL(input) {
+
 		var fileTypes = ['jpg', 'jpeg', 'png'];
       if (input.files && input.files[0]) {
     	var extension = input.files[0].name.split('.').pop().toLowerCase(),  //file extension from input file
@@ -207,15 +180,15 @@
 		if (isSuccess) {
           var reader = new FileReader();
           reader.onload = function (e) {
-				console.log("image url");
 	            $('#siteimage').attr('src', e.target.result);
 	            var dataimg = new FormData();
 			    dataimg.append('img',input.files[0]);
 			    dataimg.append("_token", "{{ csrf_token() }}");
+			    siteURl = $('#imgep').attr('url');
 			    dataimg.append("id",$('#imgep').attr('siteid'));
 		        $.ajax({
 		            type:'POST',
-		            url: "http://varo.nascenture.com/image-upload",
+		            url: siteURl+"/image-upload",
 		            data:dataimg,
 		            cache:false,
 		            contentType: false,
@@ -240,6 +213,7 @@
         
 }
 	 $('body').on('change', '#imgep', function() {
+
 	    readURL(this);
 	});
 

@@ -33,17 +33,21 @@
                 <img src="{{ asset('images/default.jpg') }}" alt="" title="" />
                 @endif
               </div>   
-              <div class="col-md-8 name-box">
+              <div class="col-md-6 name-box">
                 <h3>
                   <a href="{{URL('/single-site-detail')}}/{{base64_encode($all_site->id)}} ">{{$all_site->name}} </a>
                 </h3>
-                <a href="{{$all_site->url}}">
+                <a href="{{URL('/single-site-detail')}}/{{base64_encode($all_site->id)}}">
                   {{$all_site->url}} 
                 </a>
               </div>
-              <div class="col-md-2 text-right">
-                <a href="#" class="btn btn-admin"> Wp-admin 
+              <div class="col-md-4 text-right">
+
+                <a href="{{$all_site->url}}/wp-admin" class="btn btn-admin"> Wp-admin 
                 </a>
+                <a class="" href="{{URL('sites')}}/{{base64_encode($all_site->id)}}/edit">
+                      <i class="fa fa-cog" aria-hidden="true"></i>
+                </a>  
               </div>
             </div>
           </div>    

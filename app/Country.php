@@ -8,4 +8,7 @@ class Country extends Model
 {
     //
     protected $table = 'countries';
+
+
+   
 }

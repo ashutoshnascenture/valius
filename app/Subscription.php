@@ -27,7 +27,7 @@ class Subscription extends Model
 
     public function children()
     {
-        return $this->hasMany('App\Subscription', 'site_id');
+        return $this->hasMany('App\Subscription', 'site_id')->with('plan');
     }
     
     public function invoicelistservices()
@@ -45,5 +45,6 @@ class Subscription extends Model
     return $this->belongsTo('App\Plan','stripe_plan','plan_id');  
     
    } 
+   
    
 }

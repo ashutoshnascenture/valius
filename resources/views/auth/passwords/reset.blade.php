@@ -1,4 +1,5 @@
 @extends('layouts.login')
+@section('pageTitle', 'Reset Password')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

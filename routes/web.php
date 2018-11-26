@@ -57,7 +57,7 @@ Route::get('/service-popup/{id}','AddonsController@servicePopup');
 Route::get('/add-site/', 'SitesController@addSite');
 Route::post('/save-site/', 'SitesController@saveSite');
 Route::post('/image-upload/', 'SitesController@imageUpload');
-Route::resource('sites','SitesController')->middleware('admin');
+Route::resource('sites','SitesController');
 Route::group(['prefix' => 'subscribe'], function(){
 	Route::post('/', 'PlanController@subscribe')->name('subscribe');
 });

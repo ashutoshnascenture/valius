@@ -27,10 +27,14 @@ class Site extends Model
   
    public function parent()
    {
-    return $this->belongsTo('App\Subscription','subscription_id','stripe_id')->where('site_status', 1)->with('invoicelist.amount');  
+    return $this->belongsTo('App\Subscription','subscription_id','stripe_id')->where('site_status', 1)->with(['plan','invoicelist.amount']);  
     // only  get subscription if site added use site_status.
    } 
-   
+   public function user()
+   {
+
+     return $this->belongsTo('App\User','user_id','id');
+   }
   /* public function subscription()
    {
     return $this->belongsTo('App\Subscription','subscription_id','stripe_id');  

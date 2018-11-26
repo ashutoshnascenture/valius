@@ -93,11 +93,11 @@
                              @if(Session::has('totalSite'))
                              
                                @if(Session::get('totalSite') != 0)
-                                 <li>
+                                 <!-- <li>
                                     <a href="{{url('/add-site')}}" class="dropdown-item">
                                     <i class="fa fa-globe" aria-hidden="true"></i> Sites</a>
-                                 </li>
-                                 <div class="dropdown-divider"></div>
+                                 </li> -->
+                                <!--  <div class="dropdown-divider"></div> -->
                               <!--                             
                                  -->                           <!--  <a href="#" class="list-group-item list-group-item-action disabled">DNS</a> -->
                                  <li><a href="#" class="dropdown-item"><i class="fa fa-exchange" aria-hidden="true"></i>Migrations</a></li>
@@ -122,7 +122,7 @@
                              @endif
                             @endif
                            @endif
-                           <div class="dropdown-divider"></div>
+                          <!--  <div class="dropdown-divider"></div> -->
                            <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                               <i class="fa fa-btn fa-sign-out"></i>{{ __('Logout') }}
                               </a>

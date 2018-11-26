@@ -7,7 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+     @php $title = preg_replace("/[^a-zA-Z]/", " ", Request::segment(1)); @endphp
     <title>{{$title}} - {{ config('app.name') }}</title>
     <link rel="icon" type="image/png" sizes="16x16" href="{{URL::asset('images/favicon.ico')}}">
     <!-- Scripts -->

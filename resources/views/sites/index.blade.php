@@ -28,7 +28,7 @@
 		<div class="site-list">
 			<div class="row"> 
 				<div class="img-box col-md-1">
-				   @if (isset($all_site->site_image)) 
+				   @if (isset($all_site->site_image) && file_exists(public_path('/upload/sites').'/'.$all_site->site_image)) 
 					<img src="{{url('/').'/public/upload/sites/'.$all_site->site_image}}" alt="" title="" />
 				   @else 
                    <img src="{{ asset('images/default.jpg') }}" alt="" title="" />
@@ -42,7 +42,8 @@
 				<div class="col-md-2 price-box">
 				    @php $totalAmount=$all_site->parent['plan_amount']; @endphp
 				    @if(!empty($all_site->parent['children']))
-				    @php $total_services = count($all_site->parent['children']); @endphp
+				    @php $total_services = 1; @endphp
+				    @php $total_services = $total_services+count($all_site->parent['children']); @endphp
 				    @foreach($all_site->parent['children'] as $serviceAmount)
                     @php $totalAmount = $totalAmount+$serviceAmount->plan_amount; @endphp
 				    @endforeach
@@ -212,5 +213,4 @@
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
  <script src="http://malsup.github.com/jquery.form.js"></script> 
 <script src="{{ asset('js/site.js') }}" defer></script>
-
 @endsection

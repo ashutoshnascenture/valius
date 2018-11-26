@@ -26,6 +26,7 @@ class SitesController extends Controller
     {
        
         $this->middleware('auth');
+       $this->middleware('admin', ['only' => ['store','create','index']]);
     }
 
     public function index(Request $request)
@@ -38,10 +39,10 @@ class SitesController extends Controller
        // echo $totalSite;  die;
         if (isset($request->site_search)) {
         $searchKeyword = $request->site_search;
-        $all_sites = Site::with('parent.children')->where('name', 'like','%' .$searchKeyword.'%')->paginate(1);
+        $all_sites = Site::with('parent.children')->where('name', 'like','%' .$searchKeyword.'%')->paginate(10);
         $totalSite = Site::with('parent.children')->where('name', 'like','%' .$searchKeyword.'%')->count();
         } else {
-        $all_sites = Site::with('parent.children')->paginate(2);
+        $all_sites = Site::with('parent.children')->paginate(10);
         }
         if ($request->ajax()) {
             //echo "<pre>"; print_r($all_sites->toArray()); die; 
@@ -112,8 +113,8 @@ class SitesController extends Controller
  
       $title = 'Site Detail';
       $site_id  = base64_decode($id);
-      $siteDetail  = Site::with('parent.children')->find($site_id);
-
+      $siteDetail  = Site::with(['parent.children.invoicelistservices.amount','user.state.country'])->find($site_id);
+     // echo "<pre>"; print_r($siteDetail->toArray()); die; 
       return view('sites/sitedetail',compact('title','siteDetail'));
 
     }
@@ -123,7 +124,7 @@ class SitesController extends Controller
       $title = 'Site Detail';
       $site_id  = base64_decode($id);
       $siteDetail  = Site::with('parent.children.invoicelistservices.amount')->find($site_id);
-     // echo "<pre>"; print_r($siteDetail->toArray()); die;
+      //echo "<pre>"; print_r($siteDetail->toArray()); die;
       return view('sites/singlesitedetail',compact('title','siteDetail'));
 
     }
@@ -264,7 +265,7 @@ class SitesController extends Controller
      PDF::setOptions(['defaultFont' => 'sans-serif']);
      return $pdf->stream('Invoice');  
    }
-  
+   
    public function servicePopup(Request $request,$siteID)
    {
       // $siteId = base64_decode($siteID);
@@ -301,4 +302,37 @@ class SitesController extends Controller
         $image->move($destination, $name);
         return $name;
     }
+    public function edit($id)
+    {  
+    $siteid= base64_decode($id); 
+    $site = Site::find($siteid);
+    return view('sites/edit')->with(compact('site'));
+  }
+   public function update(Request $request, $id)
+      { 
+
+           $rules = Site::$rules;
+           $messages = Site::$message;
+           $input = $request->all();
+          // echo "<pre>"; print_r($request->get('name')); die;
+           $validator = Validator::make($input, $rules, $messages);
+           if ($validator->fails()) {
+              return redirect()->back()->withInput($input)->withErrors($validator->errors());   
+           }
+           if(!isset($input['ftp_password'])){
+              unset($input['ftp_password']);
+           }
+           if(!isset($input['sftp_password'])){
+             unset($input['sftp_password']);
+           }
+           if(!isset($input['cpanel_password'])){
+              unset($input['cpanel_password']);
+           }
+           $site = Site::find($id);
+           $site->update($input);
+           Session::flash('flash_message', 'Site Detail updated successfully');
+           Session::flash('alert-class', 'alert-success');
+           return redirect('/dashboard');
+      }
+
 }

@@ -8,4 +8,10 @@ class State extends Model
 {
     //
     protected $table = 'states';
+
+    public function country()
+   {
+    return $this->belongsTo('App\Country','country_id','id');  
+    
+   } 
 }
