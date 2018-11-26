@@ -1,10 +1,9 @@
 @extends('layouts.app') @section('content')
 <div class="container">
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-header">Hosting Plans</div>
+<div class="col-md-12 plan-page">
 
-        <div class="card-body">
+	<h2>Hosting Plans</h2>
+       
             @if (session('status'))
                 <div class="alert alert-info">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -17,33 +16,34 @@
                 @else
                 <p class="lead">Please choose any of given plan to activate your hosting.</p>
                 @endif
-                <div class="col-md-12 text-center">
+                
                 <div class="row">
                 
                     @foreach($plans as $plan)
   
                     <?php //echo '<pre>'; print_r($plan); ?>
-                        <div class="mb-4 col-md-4 pl-0">
-                        <div class="card shadow-sm plan">
+                        <div class="col-md-4 mb-4">
+                        <div class="card plan">
                             <div class="card-header">
-                                <h4 class="my-0 font-weight-normal">{{ $plan->nickname }}</h4>
+                               <h4>{{ $plan->nickname }}</h4>
+                               <h3 class="pricing-card-title">${{ $plan->amount / 100 }} /<span> @if ($plan->interval==1) month  @endif</span></h3>
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title pricing-card-title">${{ $plan->amount / 100 }} / @if ($plan->interval==1) month  @endif</h4>
-                                <ul class="list-unstyled mt-3 mb-4">
+                                
+                                <ul class="list-unstyled">
                                     <li>10 GB of storage</li>
                                     <li>Priority email support</li>
                                 </ul>
                                 @if( $is_subscribed && ( $subscription->stripe_plan == $plan->plan_id ) )
-                                <button class="btn btn-default btn-block">Current Plan</button>
+                                <button class="btn btn-curant">Current Plan</button>
 							@else
-                                <button plan_name="{{ $plan->nickname }}" plan_id="{{ $plan->id }}" plan_amount="{{ $plan->amount / 100 }}" class="btn btn-primary btn-choose btn-block">Choose</button> @endif
+                                <button plan_name="{{ $plan->nickname }}" plan_id="{{ $plan->id }}" plan_amount="{{ $plan->amount / 100 }}" class="btn btn-choose">Choose</button> @endif
 
                             </div>
                             </div>
                         </div>
                         @endforeach
-                        </div>
+                      
 
                 </div>
                 @else
@@ -55,7 +55,12 @@
                 @endif
 
                 <?php //echo '<pre>'; print_r($plans); ?>
-				<div class="col-md-8 offset-2">
+                <div class="card custome-card mb-4">
+                	<div class="card-header">Make Payment</div>
+                	<div class="card-body">
+                		
+                	<div class="row">
+				<div class="col-md-8">
 					<form action="{{ url('subscribe') }}" method="POST" id="payment-form">
 						{{ csrf_field() }}
 						<h5 class="text-center alert-danger">
@@ -90,9 +95,11 @@
 							</div>
 					</form>
 					</div>
-			
-            </div>
-        </div>
+			</div>
+			</div>
+                </div>
+          
+ 
     </div>
 </div>
 </div>

@@ -19,8 +19,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
       <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
       <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-      <!-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">-->
-      <!-- Styles -->
+      <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
       <link href="{{ asset('css/style.css') }}" rel="stylesheet">
       <script  src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -28,7 +27,7 @@
    </head>
    <body>
       <div id="app">
-         <nav class="navbar navbar-expand-md navbar-light bg-ligh navbar-laravel main-nav">
+         <nav class="navbar navbar-expand-md navbar-light fixed-top bg-ligh navbar-laravel main-nav">
             <div class="container">
                <a class="navbar-brand" href="{{ url('/') }}">
                <img src="{{ asset('images/ON_WHITE.svg') }}" alt="" title="" />
@@ -138,7 +137,7 @@
                </div>
             </div>
          </nav>
-         <main class="py-4">
+         <main class="mt-5 pt-5">
             <div class="container">
                <div class="row">
                </div>

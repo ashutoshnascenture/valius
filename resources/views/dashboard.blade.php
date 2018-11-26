@@ -41,7 +41,7 @@
                   {{$all_site->url}} 
                 </a>
               </div>
-              <div class="col-md-2">
+              <div class="col-md-2 text-right">
                 <a href="#" class="btn btn-admin"> Wp-admin 
                 </a>
               </div>
